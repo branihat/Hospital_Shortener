@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Note Processor</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">About</a>
+        <a href="#">Guide to Use</a>
+        <a href="#">HIPAA Warning</a>
+    </div>
+
+    <div class="container">
+        <h2>AI-Powered Note Processor</h2>
+        <textarea id="inputText" placeholder="Enter your notes here..."></textarea>
+        <div class="buttons">
+            <button class="action-button" data-action="summary">Create Signout</button>
+            <button class="action-button" data-action="hospital_summary">Create Hospital Summary</button>
+            <button class="action-button" data-action="cleanup">Clean Up Note</button>
+            <button class="action-button" data-action="discharge_summary">Create Discharge Summary</button>
+            <button class="action-button" data-action="diagnoses">Extract Diagnoses</button>
+            <button class="action-button" data-action="emergencies">Predict Emergencies</button>
+        </div>
+        <h3>Output:</h3>
+        <textarea id="outputText" readonly></textarea>
+    </div>
+
+    <script src="../static/script.js"></script>
+</body>
+</html>
