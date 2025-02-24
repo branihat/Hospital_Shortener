@@ -1,6 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import google.generativeai as genai
-import os
+import re
 from config import PROMPTS, load_api_key
 
 app = Flask(__name__)
@@ -9,8 +9,15 @@ GEMINI_API_KEY = load_api_key()
 # Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
 
-from flask import Flask, render_template
+# Function to anonymize confidential data
+def anonymize_text(text):
+    text = re.sub(r'\bDr\.?\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Dr. XYZ', text)  # Doctor names
+    text = re.sub(r'\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Patient XYZ', text)  # Patient names
+    return text
 
+# Function to clean the output text (removes asterisks and extra spaces)
+def clean_output(text):
+    return text.replace("*", "").strip()
 
 @app.route("/")
 def home():
@@ -30,10 +37,15 @@ def process_text():
 
     try:
         model = genai.GenerativeModel("gemini-pro")
-        response = model.generate_content(PROMPTS[action] + "\n" + text)
+        
+        # Anonymize input text before sending to Gemini
+        anonymized_text = anonymize_text(text)
 
-        if response.candidates:
-            output_text = response.candidates[0].content.parts[0].text
+        response = model.generate_content(PROMPTS[action] + "\n\n" + anonymized_text)
+
+        # Extract response safely
+        if hasattr(response, "text"):
+            output_text = clean_output(response.text)  # Remove '*' and clean text
         else:
             output_text = "No response generated."
 
