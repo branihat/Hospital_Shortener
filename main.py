@@ -36,7 +36,7 @@ def process_text():
         return jsonify({"error": "Invalid action"}), 400
 
     try:
-        model = genai.GenerativeModel("gemini")
+        model = genai.GenerativeModel("gemini-1.5-pro")
         
         # Anonymize input text before sending to Gemini
         anonymized_text = anonymize_text(text)
