@@ -11,8 +11,8 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 # Function to anonymize confidential data
 def anonymize_text(text):
-    text = re.sub(r'\bDr\.?\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Dr. XYZ', text)  # Doctor names
-    text = re.sub(r'\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Patient XYZ', text)  # Patient names
+    text = re.sub(r'\bDr\.?\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Dr. Chetan', text)  # Doctor names
+    text = re.sub(r'\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Patient Vishnu', text)  # Patient names
     return text
 
 # Function to clean the output text (removes asterisks and extra spaces)
