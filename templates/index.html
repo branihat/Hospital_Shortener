@@ -7,16 +7,15 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <div class="navbar">
-        <a href="#">About</a>
-        <a href="#">Guide to Use</a>
-        <a href="#">HIPAA Warning</a>
-    </div>
-
     <div class="container">
         <h2>AI-Powered Note Processor</h2>
-        <textarea id="inputText" placeholder="Enter your notes here..."></textarea>
-        <div class="buttons">
+
+        <div class="textarea-container">
+            <textarea id="inputText" placeholder="Enter your notes here..."></textarea>
+            <textarea id="outputText" placeholder="Processed output will appear here..." readonly></textarea>
+        </div>
+
+        <div class="button-container">
             <button class="action-button" data-action="summary">Create Signout</button>
             <button class="action-button" data-action="hospital_summary">Create Hospital Summary</button>
             <button class="action-button" data-action="cleanup">Clean Up Note</button>
@@ -24,8 +23,6 @@
             <button class="action-button" data-action="diagnoses">Extract Diagnoses</button>
             <button class="action-button" data-action="emergencies">Predict Emergencies</button>
         </div>
-        <h3>Output:</h3>
-        <textarea id="outputText" readonly></textarea>
     </div>
 
     <script src="../static/script.js"></script>
