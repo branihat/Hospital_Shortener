@@ -4,4 +4,9 @@ python-dotenv
 spacy
 gunicorn
 flask-cors
-
+flask-PyMongo
+bcrypt
+jwt
+PyJWT
+python-dotenv
+google-generativeai
