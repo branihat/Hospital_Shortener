@@ -1,12 +1,16 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
+# Load environment variables from .env file
 load_dotenv()
 
 def load_api_key():
     """Load Gemini API key from environment variables."""
     return os.getenv("GEMINI_API_KEY")
+
+def load_mongo_uri():
+    """Load MongoDB connection URI from environment variables."""
+    return os.getenv("MONGO_URI")
 
 # AI prompt settings with detailed instructions
 PROMPTS = {
