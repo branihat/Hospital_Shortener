@@ -11,6 +11,15 @@ from flask_pymongo import PyMongo
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "supersecretkey"  # Change this to a secure key
 
+# Load MongoDB URI first
+MONGO_URI = load_mongo_uri()
+app.config["MONGO_URI"] = MONGO_URI
+mongo = PyMongo(app)  # Initialize MongoDB connection
+
+# Load API keys
+GEMINI_API_KEY = load_api_key()
+genai.configure(api_key=GEMINI_API_KEY)
+
 @app.route("/")
 def home():
     return redirect("/login")
@@ -22,17 +31,6 @@ def show_login_page():
 @app.route("/dashboard")
 def dashboard():
     return render_template("index.html")
-
-# Load API keys & MongoDB URI
-GEMINI_API_KEY = load_api_key()
-MONGO_URI = load_mongo_uri()
-
-# Configure Gemini AI
-genai.configure(api_key=GEMINI_API_KEY)
-
-# Configure MongoDB
-app.config["MONGO_URI"] = MONGO_URI
-mongo = PyMongo(app)
 
 # Function to anonymize confidential data
 def anonymize_text(text):
