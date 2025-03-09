@@ -13,12 +13,15 @@ app.config["SECRET_KEY"] = "supersecretkey"  # Change this to a secure key
 
 @app.route("/")
 def home():
-    return render_template("login.html")
+    return redirect("/login")
 
-# FIX: Renamed function to avoid duplicate route conflict
 @app.route("/login")
 def show_login_page():
     return render_template("login.html")
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("index.html")
 
 # Load API keys & MongoDB URI
 GEMINI_API_KEY = load_api_key()
@@ -88,7 +91,7 @@ def register():
 
     return jsonify({"message": "User registered successfully"}), 201
 
-@app.route("/api/login", methods=["POST"])  # FIX: Changed URL to avoid conflict
+@app.route("/api/login", methods=["POST"])
 def login():
     """Handle user login and return JWT token."""
     email = request.json.get("email")
