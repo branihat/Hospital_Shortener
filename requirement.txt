@@ -1,0 +1,11 @@
+flask
+google-generativeai
+python-dotenv
+spacy
+gunicorn
+flask-cors
+flask-PyMongo
+bcrypt
+PyJWT  # Keep only this one, remove the other 'jwt' entry
+python-dotenv
+google-generativeai

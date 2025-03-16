@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Note Processor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        #logout {
+            background-color: #dc3545;
+            padding: 8px 15px;
+        }
+        
+        #logout:hover {
+            background-color: #bd2130;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>AI-Powered Note Processor</h2>
+            <button id="logout">Logout</button>
+        </div>
+
+        <div class="textarea-container">
+            <textarea id="inputText" placeholder="Enter your notes here..."></textarea>
+            <textarea id="outputText" placeholder="Processed output will appear here..." readonly></textarea>
+        </div>
+
+        <div class="button-container">
+            <button class="action-button" data-action="short_signout">Create Signout</button>
+            <button class="action-button" data-action="hospital_summary">Create Hospital Summary</button>
+            <button class="action-button" data-action="cleanup">Clean Up Note</button>
+            <button class="action-button" data-action="discharge_summary">Create Discharge Summary</button>
+            <button class="action-button" data-action="diagnoses">Extract Diagnoses</button>
+            <button class="action-button" data-action="emergencies">Predict Emergencies</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

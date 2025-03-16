@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <title>Animated Login Signup Form</title>
+</head>
+
+<body>
+    <div class="main-container" id="main">
+        <div class="form_container Sign_Up">
+            <form action="#">
+                <h2>Sign Up</h2>
+                <div class="form-field">
+                    <input type="email" id="emailid2" required>
+                    <i class="fa-solid fa-envelope"></i>
+                    <label for="emailid2" class="email_label">Email</label>
+                </div>
+                <div class="form-field">
+                    <input type="password" class="password" required>
+                    <i class="fa-solid fa-lock"></i>
+                    <label for="password1">Password</label>
+                </div>
+                <div class="form-field">
+                    <input type="password" class="password" required>
+                    <i class="fa-solid fa-lock"></i>
+                    <label for="password2">Confirm Password</label>
+                </div>
+                <button type="submit" class="Login_button">Sign Up</button>
+                <div class="signup-link">
+                    <p>Already have an account? <a href="#" class="Signinlink">Sign In</a></p>
+                </div>
+            </form>
+        </div>
+        <div class="form_container Login">
+            <form action="#">
+                <h2>Login</h2>
+                <div class="form-field">
+                    <input type="email" id="emailid1" required>
+                    <i class="fa-solid fa-envelope"></i>
+                    <label for="emailid1" class="email_label">Email</label>
+                </div>
+                <div class="form-field">
+                    <input type="password" id="password" required>
+                    <i class="fa-solid fa-lock"></i>
+                    <label for="password">Password</label>
+                </div>
+                <div class="form-options">
+                    <div class="show_password">
+                        <input type="checkbox" id="check">
+                        <label for="check">Show password</label>
+                    </div>
+                    <div class="form-forget">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                </div>
+                <button type="submit" class="Login_button">Login</button>
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="#" class="signuplink">Signup</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='gsap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='ScrollTrigger.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='auth.js') }}"></script>
+</body>
+
+</html>
