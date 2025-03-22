@@ -10,7 +10,7 @@
 body {
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(109.6deg, rgb(96, 158, 155) 11.2%, rgb(72, 81, 160) 91.1%);
+    background: linear-gradient(109.6deg, #ff7b7b 11.2%, #cb6dea 91.1%);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -98,7 +98,7 @@ body {
     top: -0.5rem;
     left: 0;
     font-size: 0.75rem;
-    color: rgb(72, 81, 160);
+    color: #000000;
 }
 
 .form-options {
@@ -120,7 +120,7 @@ body {
 
 .form-forget a {
     font-size: 0.875rem;
-    color: rgb(72, 81, 160);
+    color: #cb6dea;
     text-decoration: none;
 }
 
@@ -128,7 +128,7 @@ body {
     width: 100%;
     max-width: 320px;
     padding: 0.75rem;
-    background: linear-gradient(109.6deg, rgb(95, 186, 181) 11.2%, rgb(72, 81, 160) 91.1%);
+    background: linear-gradient(109.6deg, rgb(95, 186, 181) 11.2%, #cb6dea 91.1%);
     border: none;
     border-radius: 0.5rem;
     color: white;
@@ -138,7 +138,7 @@ body {
 }
 
 .Login_button:hover {
-    background: linear-gradient(109.6deg, rgb(68, 142, 137) 11.2%, rgb(62, 70, 148) 91.1%);
+    background: linear-gradient(109.6deg, rgb(68, 142, 137) 11.2%, #8c4aa2 91.1%);
 }
 
 .signup-link {
@@ -173,76 +173,7 @@ body {
     animation: rotatecard 0.7s ease-in-out forwards;
 }
 
-/* Background circles */
-.circle1,
-.circle2 {
-    position: fixed;
-    width: 8rem;
-    height: 8rem;
-    background-color: rgba(245, 245, 245, 0.53);
-    border-radius: 50%;
-}
-
-.circle1 {
-    left: -4rem;
-    top: 10%;
-}
-
-.circle2 {
-    right: -4rem;
-    bottom: 10%;
-}
-
-.circle1_child1,
-.circle1_child2,
-.circle2_child1,
-.circle2_child2 {
-    position: absolute;
-    width: 4rem;
-    height: 4rem;
-    background-color: rgba(245, 245, 245, 0.53);
-    border-radius: 50%;
-}
-
-.circle1_child1 {
-    left: 110%;
-    top: -10%;
-}
-
-.circle1_child2 {
-    left: 80%;
-    top: 90%;
-}
-
-.circle2_child1 {
-    right: 110%;
-    bottom: -10%;
-}
-
-.circle2_child2 {
-    right: 80%;
-    bottom: 90%;
-}
-
-.circle1_child3,
-.circle2_child3 {
-    position: fixed;
-    width: 2rem;
-    height: 2rem;
-    background-color: rgba(245, 245, 245, 0.53);
-    border-radius: 50%;
-}
-
-.circle1_child3 {
-    left: -1rem;
-    top: 40%;
-}
-
-.circle2_child3 {
-    right: -1rem;
-    bottom: 40%;
-}
-
+/* SIGNUP ANIMATION */
 @keyframes signin {
     0% {
         transform: translateX(0);
