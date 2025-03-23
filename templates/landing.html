@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChartWitch - Automate Medical Notes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="landing-container">
+        <nav>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="ChartWitch Logo">
+            </div>
+            <div class="nav-buttons">
+                <a href="/login" class="nav-button">Login</a>
+                <a href="/login#" class="nav-button signup-btn">Sign up</a>
+            </div>
+        </nav>
+
+        <main>
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>Transform Your <span class="highlight">Medical Documentation</span> with AI</h1>
+                    <p>ChartWitch automates your medical notes, saving hours of documentation time while improving accuracy and patient care.</p>
+                    <div class="cta-buttons">
+                        <a href="/login" class="primary-btn">Get Started</a>
+                        <a href="#features" class="secondary-btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='hero-image.svg') }}" alt="Medical notes automation">
+                </div>
+            </div>
+
+            <div id="features" class="features-section">
+                <h2>Powerful Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-file-medical"></i>
+                        <h3>Create Signout Notes</h3>
+                        <p>Generate clear, concise signout notes instantly from your raw documentation.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-hospital"></i>
+                        <h3>Hospital Summaries</h3>
+                        <p>Automatically create comprehensive hospital visit summaries.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-broom"></i>
+                        <h3>Note Cleanup</h3>
+                        <p>Transform messy notes into professional, organized documentation.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>Discharge Summaries</h3>
+                        <p>Generate detailed discharge summaries with care instructions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-heartbeat"></i>
+                        <h3>Extract Diagnoses</h3>
+                        <p>Automatically identify and highlight key diagnoses from patient notes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Emergency Predictions</h3>
+                        <p>Analyze notes to identify potential emergency situations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonials-section">
+                <h2>What Medical Professionals Say</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p>"ChartWitch has saved me at least 2 hours of documentation time each day. It's revolutionized my practice."</p>
+                        <div class="testimonial-author">Dr. Smith, Emergency Medicine</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"The discharge summaries are incredibly thorough and patients appreciate the clarity of the documentation."</p>
+                        <div class="testimonial-author">Dr. Johnson, Internal Medicine</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"The emergency prediction feature helped me identify a critical issue I might have missed otherwise."</p>
+                        <div class="testimonial-author">Dr. Martinez, Urgent Care</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h2>Ready to Transform Your Documentation Workflow?</h2>
+                <p>Join thousands of medical professionals who have reclaimed their time with ChartWitch.</p>
+                <div class="cta-buttons">
+                    <a href="/login" class="primary-btn">Sign Up Now</a>
+                    <!-- <a href="#" class="secondary-btn">Schedule a Demo</a> -->
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="ChartWitch Logo">
+                    <p>ChartWitch - Automate Medical Notes</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">HIPAA Compliance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Stay Updated</h4>
+                    <p>Subscribe to our newsletter for the latest updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Vishnu Thandel. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='landing.js') }}"></script>
+</body>
+</html>

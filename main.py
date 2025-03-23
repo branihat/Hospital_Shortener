@@ -22,7 +22,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 @app.route("/")
 def home():
-    return redirect("/login")
+    return render_template("landing.html")
 
 @app.route("/login")
 def show_login_page():
