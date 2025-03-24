@@ -1,6 +1,33 @@
 // Landing Page JavaScript
-
 document.addEventListener("DOMContentLoaded", function() {
+    // Existing code from previous implementation...
+
+    // Dark Mode Toggle
+    const darkModeToggle = document.querySelector('.dark-mode-toggle');
+    const moonIcon = darkModeToggle.querySelector('i');
+
+    // Check for saved dark mode preference
+    const savedDarkMode = localStorage.getItem('darkMode');
+    if (savedDarkMode === 'enabled') {
+        document.body.classList.add('dark-mode');
+        moonIcon.classList.replace('fa-moon', 'fa-sun');
+    }
+
+    darkModeToggle.addEventListener('click', function() {
+        // Toggle dark mode
+        document.body.classList.toggle('dark-mode');
+        
+        // Toggle icon
+        if (document.body.classList.contains('dark-mode')) {
+            moonIcon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            moonIcon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('darkMode', null);
+        }
+    });
+
+    // Rest of the existing code...
     // Check if user is already logged in
     const authToken = localStorage.getItem("authToken");
     if (authToken) {
@@ -25,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+// Landing Page JavaScript
 
     // Newsletter form handling
     const newsletterForm = document.querySelector('.newsletter-form');
