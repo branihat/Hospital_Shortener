@@ -3,48 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Note Processor</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>ChartWitch - Medical Note Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Dark Mode Colors */
+            --dark-primary-purple: #9C27B0;
+            --dark-secondary-purple: #7B1FA2;
+            --dark-background: #121212;
+            --dark-card-background: #1E1E1E;
+            --dark-text-color: #E0E0E0;
+            --dark-input-background: #2C2C2C;
+
+            /* Light Mode Colors */
+            --light-primary-purple: #9C27B0;
+            --light-secondary-purple: #7B1FA2;
+            --light-background: #F4F4F4;
+            --light-card-background: #FFFFFF;
+            --light-text-color: #333333;
+            --light-input-background: #F9F9F9;
+
+            /* Default to Dark Mode */
+            --primary-purple: var(--dark-primary-purple);
+            --secondary-purple: var(--dark-secondary-purple);
+            --background: var(--dark-background);
+            --card-background: var(--dark-card-background);
+            --text-color: var(--dark-text-color);
+            --input-background: var(--dark-input-background);
+        }
+
+        /* Light Mode */
+        .light-mode {
+            --primary-purple: var(--light-primary-purple);
+            --secondary-purple: var(--light-secondary-purple);
+            --background: var(--light-background);
+            --card-background: var(--light-card-background);
+            --text-color: var(--light-text-color);
+            --input-background: var(--light-input-background);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--card-background);
+        }
+
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-purple);
         }
-        
-        #logout {
-            background-color: #dc3545;
+
+        .header h2 {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary-purple);
+            font-size: 1.5rem;
+        }
+
+        .header h2::before {
+            content: '🧙‍♀️';
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #theme-toggle {
+            background: none;
+            border: 2px solid var(--primary-purple);
+            color: var(--primary-purple);
             padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
         }
-        
+
+        #theme-toggle::before {
+            content: '🌙';
+            margin-right: 5px;
+        }
+
+        .light-mode #theme-toggle::before {
+            content: '☀️';
+        }
+
+        #logout {
+            background-color: var(--secondary-purple);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+        }
+
         #logout:hover {
-            background-color: #bd2130;
+            background-color: var(--primary-purple);
+        }
+
+        .textarea-container {
+            display: flex;
+            gap: 20px;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        textarea {
+            width: 50%;
+            height: 100%;
+            padding: 15px;
+            font-size: 16px;
+            background-color: var(--input-background);
+            color: var(--text-color);
+            border: 2px solid var(--primary-purple);
+            border-radius: 8px;
+            resize: none;
+            overflow-y: auto;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .action-button {
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        .action-button:hover {
+            background-color: var(--secondary-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .textarea-container {
+                flex-direction: column;
+            }
+
+            textarea {
+                width: 100%;
+                height: 300px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h2>AI-Powered Note Processor</h2>
-            <button id="logout">Logout</button>
+            <h2>ChartWitch</h2>
+            <div class="header-actions">
+                <button id="theme-toggle"></button>
+                <button id="logout">Logout</button>
+            </div>
         </div>
 
         <div class="textarea-container">
-            <textarea id="inputText" placeholder="Enter your notes here..."></textarea>
-            <textarea id="outputText" placeholder="Processed output will appear here..." readonly></textarea>
+            <textarea id="inputText" placeholder="Enter your medical notes here..."></textarea>
+            <textarea id="outputText" placeholder="Processed notes will appear here..." readonly></textarea>
         </div>
 
         <div class="button-container">
             <button class="action-button" data-action="short_signout">Create Signout</button>
-            <button class="action-button" data-action="hospital_summary">Create Hospital Summary</button>
+            <button class="action-button" data-action="hospital_summary">Hospital Summary</button>
             <button class="action-button" data-action="cleanup">Clean Up Note</button>
-            <button class="action-button" data-action="discharge_summary">Create Discharge Summary</button>
+            <button class="action-button" data-action="discharge_summary">Discharge Summary</button>
             <button class="action-button" data-action="diagnoses">Extract Diagnoses</button>
             <button class="action-button" data-action="emergencies">Predict Emergencies</button>
         </div>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Check for saved theme preference or default to dark mode
+            const savedTheme = localStorage.getItem('chartwitch-theme') || 'dark';
+            body.classList.toggle('light-mode', savedTheme === 'light');
+
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('light-mode');
+                
+                // Save theme preference
+                const currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
+                localStorage.setItem('chartwitch-theme', currentTheme);
+            });
+
+            // Existing logout functionality
+            const logoutButton = document.getElementById("logout");
+            logoutButton.addEventListener("click", function() {
+                localStorage.removeItem("authToken");
+                window.location.href = "/login";
+            });
+        });
+    </script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
