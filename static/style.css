@@ -139,6 +139,7 @@ body {
     overflow: hidden;
     position: relative;
     height: calc(100vh - 250px);
+    margin: 119px; 
 }
 
 textarea {

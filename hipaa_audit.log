@@ -283,3 +283,22 @@
 2025-03-29 14:00:10,133 - INFO - 127.0.0.1 - - [29/Mar/2025 14:00:10] "POST /process HTTP/1.1" 200 -
 2025-03-29 14:00:13,061 - INFO - AI processing completed for action: cleanup
 2025-03-29 14:00:13,062 - INFO - 127.0.0.1 - - [29/Mar/2025 14:00:13] "POST /process HTTP/1.1" 200 -
+2025-03-29 16:01:17,720 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-03-29 16:01:17,720 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-29 16:02:35,791 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:35] "GET / HTTP/1.1" 200 -
+2025-03-29 16:02:35,797 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:35] "GET / HTTP/1.1" 200 -
+2025-03-29 16:02:36,275 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:36] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-29 16:02:36,343 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:36] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-29 16:02:36,361 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:36] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-29 16:02:36,455 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:36] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-29 16:02:36,572 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:36] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-29 16:02:36,609 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:36] "GET /dashboard HTTP/1.1" 200 -
+2025-03-29 16:02:36,712 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:36] "GET /static/style.css HTTP/1.1" 200 -
+2025-03-29 16:02:36,938 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-29 16:02:43,084 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:43] "GET / HTTP/1.1" 200 -
+2025-03-29 16:02:43,139 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:43] "[36mGET /static/landing.js HTTP/1.1[0m" 304 -
+2025-03-29 16:02:43,143 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:43] "[36mGET /static/landing.css HTTP/1.1[0m" 304 -
+2025-03-29 16:02:43,158 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:43] "[36mGET /static/hero-image.svg HTTP/1.1[0m" 304 -
+2025-03-29 16:02:43,167 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:43] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-03-29 16:02:43,171 - INFO - 127.0.0.1 - - [29/Mar/2025 16:02:43] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -

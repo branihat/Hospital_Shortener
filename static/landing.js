@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Rest of the existing code...
     // Check if user is already logged in
     const authToken = localStorage.getItem("authToken");
     if (authToken) {
@@ -52,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-// Landing Page JavaScript
+    // Landing Page JavaScript
 
     // Newsletter form handling
     const newsletterForm = document.querySelector('.newsletter-form');
