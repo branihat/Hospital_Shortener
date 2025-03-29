@@ -9,3 +9,7 @@ bcrypt
 PyJWT  # Keep only this one, remove the other 'jwt' entry
 python-dotenv
 google-generativeai
+flask-talisman
+cryptography
+flask-limiter
+pyopenssl  # For SSL context

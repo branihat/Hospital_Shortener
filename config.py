@@ -12,6 +12,37 @@ def load_mongo_uri():
     """Load MongoDB connection URI from environment variables."""
     return os.getenv("MONGO_URI")
 
+
+import os
+import secrets
+
+def generate_secret_key():
+    """
+    Generate a secure secret key and save it to a file.
+    If a key already exists, load the existing key.
+    """
+    SECRET_KEY_FILE = 'secret_key.txt'
+    
+    # Check if secret key file exists
+    if os.path.exists(SECRET_KEY_FILE):
+        with open(SECRET_KEY_FILE, 'r') as f:
+            return f.read().strip()
+    
+    # Generate a new secret key
+    secret_key = secrets.token_hex(32)  # 64 character hex string
+    
+    # Save the secret key to file
+    with open(SECRET_KEY_FILE, 'w') as f:
+        f.write(secret_key)
+    
+    return secret_key
+
+def get_secret_key():
+    """
+    Get the secret key, generating one if it doesn't exist.
+    """
+    return generate_secret_key()
+
 # AI prompt settings with detailed instructions
 PROMPTS = {
     "short_signout": """You are an experienced and efficient physician in the USA.
