@@ -327,3 +327,122 @@
 2025-03-30 11:04:47,052 - INFO - 127.0.0.1 - - [30/Mar/2025 11:04:47] "GET /static/style.css HTTP/1.1" 200 -
 2025-03-30 11:04:47,914 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
 2025-03-30 11:04:47,914 - INFO - 127.0.0.1 - - [30/Mar/2025 11:04:47] "POST /api/login HTTP/1.1" 200 -
+2025-03-30 12:30:49,474 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-03-30 12:30:49,552 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-30 12:31:15,598 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:15] "GET / HTTP/1.1" 200 -
+2025-03-30 12:31:16,262 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:16] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-30 12:31:16,451 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:16] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 12:31:16,462 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:16] "GET /dashboard HTTP/1.1" 200 -
+2025-03-30 12:31:16,505 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:16] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 12:31:16,530 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:16] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 12:31:16,681 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:16] "GET /static/style.css HTTP/1.1" 200 -
+2025-03-30 12:31:16,951 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:16] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:31:17,074 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:17] "GET /static/script.js HTTP/1.1" 200 -
+2025-03-30 12:31:17,124 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-30 12:31:19,690 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:19] "GET / HTTP/1.1" 200 -
+2025-03-30 12:31:19,773 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:19] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 12:31:19,805 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:19] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 12:31:19,839 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:19] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 12:31:19,869 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:19] "[36mGET /static/landing.js HTTP/1.1[0m" 304 -
+2025-03-30 12:31:19,912 - INFO - 127.0.0.1 - - [30/Mar/2025 12:31:19] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:32:13,767 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:13] "GET / HTTP/1.1" 200 -
+2025-03-30 12:32:13,822 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:13] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 12:32:13,826 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:13] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 12:32:13,828 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:13] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 12:32:14,016 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:14] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-30 12:32:14,019 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:14] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:32:14,674 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:14] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:32:15,469 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-30 12:32:19,600 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:19] "[36mGET /static/landing.css HTTP/1.1[0m" 304 -
+2025-03-30 12:32:34,979 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:34] "GET / HTTP/1.1" 200 -
+2025-03-30 12:32:35,039 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:35] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 12:32:35,085 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:35] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 12:32:35,090 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:35] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 12:32:35,385 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:35] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-30 12:32:35,389 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:35] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:32:35,932 - INFO - 127.0.0.1 - - [30/Mar/2025 12:32:35] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:33:21,593 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:21] "GET /login HTTP/1.1" 200 -
+2025-03-30 12:33:21,985 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:21] "GET /static/style1.css HTTP/1.1" 200 -
+2025-03-30 12:33:22,063 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:22] "GET /static/auth.js HTTP/1.1" 200 -
+2025-03-30 12:33:22,110 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:22] "GET /static/gsap.min.js HTTP/1.1" 200 -
+2025-03-30 12:33:22,204 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:22] "GET /static/ScrollTrigger.min.js HTTP/1.1" 200 -
+2025-03-30 12:33:40,789 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-03-30 12:33:40,790 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:40] "POST /api/login HTTP/1.1" 200 -
+2025-03-30 12:33:40,823 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:40] "GET /dashboard HTTP/1.1" 200 -
+2025-03-30 12:33:40,964 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:40] "GET /static/script.js HTTP/1.1" 200 -
+2025-03-30 12:33:40,964 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:40] "GET /static/style.css HTTP/1.1" 200 -
+2025-03-30 12:33:52,376 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:52] "GET / HTTP/1.1" 200 -
+2025-03-30 12:33:52,588 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:52] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 12:33:52,621 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:52] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 12:33:52,638 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:52] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 12:33:52,677 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:52] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-30 12:33:52,715 - INFO - 127.0.0.1 - - [30/Mar/2025 12:33:52] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:35:08,895 - INFO - 127.0.0.1 - - [30/Mar/2025 12:35:08] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:39:34,077 - INFO - 127.0.0.1 - - [30/Mar/2025 12:39:34] "GET / HTTP/1.1" 200 -
+2025-03-30 12:39:34,148 - INFO - 127.0.0.1 - - [30/Mar/2025 12:39:34] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 12:39:34,205 - INFO - 127.0.0.1 - - [30/Mar/2025 12:39:34] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 12:39:34,237 - INFO - 127.0.0.1 - - [30/Mar/2025 12:39:34] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 12:39:34,501 - INFO - 127.0.0.1 - - [30/Mar/2025 12:39:34] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-30 12:39:34,508 - INFO - 127.0.0.1 - - [30/Mar/2025 12:39:34] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:39:35,015 - INFO - 127.0.0.1 - - [30/Mar/2025 12:39:35] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:46:03,730 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-03-30 12:46:03,817 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-30 12:46:31,045 - INFO - 127.0.0.1 - - [30/Mar/2025 12:46:31] "GET / HTTP/1.1" 200 -
+2025-03-30 12:46:31,835 - INFO - 127.0.0.1 - - [30/Mar/2025 12:46:31] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 12:46:31,850 - INFO - 127.0.0.1 - - [30/Mar/2025 12:46:31] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 12:46:31,851 - INFO - 127.0.0.1 - - [30/Mar/2025 12:46:31] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 12:46:32,155 - INFO - 127.0.0.1 - - [30/Mar/2025 12:46:32] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-30 12:46:32,315 - INFO - 127.0.0.1 - - [30/Mar/2025 12:46:32] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:46:32,697 - INFO - 127.0.0.1 - - [30/Mar/2025 12:46:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-30 12:48:10,355 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:10] "GET / HTTP/1.1" 200 -
+2025-03-30 12:48:10,440 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:10] "[36mGET /static/hero-image.svg HTTP/1.1[0m" 304 -
+2025-03-30 12:48:10,445 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:10] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-03-30 12:48:10,457 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:10] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-03-30 12:48:10,465 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:10] "[36mGET /static/landing.js HTTP/1.1[0m" 304 -
+2025-03-30 12:48:10,565 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:10] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 12:48:13,951 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:13] "GET /login HTTP/1.1" 200 -
+2025-03-30 12:48:14,003 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:14] "GET /static/style1.css HTTP/1.1" 200 -
+2025-03-30 12:48:14,139 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:14] "GET /static/gsap.min.js HTTP/1.1" 200 -
+2025-03-30 12:48:14,194 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:14] "GET /static/auth.js HTTP/1.1" 200 -
+2025-03-30 12:48:14,199 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:14] "GET /static/ScrollTrigger.min.js HTTP/1.1" 200 -
+2025-03-30 12:48:23,535 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:23] "GET /login HTTP/1.1" 200 -
+2025-03-30 12:48:23,594 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:23] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-03-30 12:48:23,608 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:23] "[36mGET /static/gsap.min.js HTTP/1.1[0m" 304 -
+2025-03-30 12:48:23,628 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:23] "[36mGET /static/ScrollTrigger.min.js HTTP/1.1[0m" 304 -
+2025-03-30 12:48:23,643 - INFO - 127.0.0.1 - - [30/Mar/2025 12:48:23] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-03-30 13:02:14,400 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-03-30 13:02:14,400 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-30 13:02:26,469 - INFO - 127.0.0.1 - - [30/Mar/2025 13:02:26] "GET / HTTP/1.1" 200 -
+2025-03-30 13:02:27,008 - INFO - 127.0.0.1 - - [30/Mar/2025 13:02:27] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 13:02:27,121 - INFO - 127.0.0.1 - - [30/Mar/2025 13:02:27] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 13:02:27,144 - INFO - 127.0.0.1 - - [30/Mar/2025 13:02:27] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-30 13:02:27,155 - INFO - 127.0.0.1 - - [30/Mar/2025 13:02:27] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 13:02:27,164 - INFO - 127.0.0.1 - - [30/Mar/2025 13:02:27] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 13:06:07,383 - INFO - 127.0.0.1 - - [30/Mar/2025 13:06:07] "GET / HTTP/1.1" 200 -
+2025-03-30 13:06:07,432 - INFO - 127.0.0.1 - - [30/Mar/2025 13:06:07] "[36mGET /static/hero-image.svg HTTP/1.1[0m" 304 -
+2025-03-30 13:06:07,437 - INFO - 127.0.0.1 - - [30/Mar/2025 13:06:07] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-03-30 13:06:07,452 - INFO - 127.0.0.1 - - [30/Mar/2025 13:06:07] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-03-30 13:06:07,457 - INFO - 127.0.0.1 - - [30/Mar/2025 13:06:07] "[36mGET /static/landing.js HTTP/1.1[0m" 304 -
+2025-03-30 13:06:07,468 - INFO - 127.0.0.1 - - [30/Mar/2025 13:06:07] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 13:08:06,955 - INFO - 127.0.0.1 - - [30/Mar/2025 13:08:06] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 13:09:50,210 - INFO - 127.0.0.1 - - [30/Mar/2025 13:09:50] "GET / HTTP/1.1" 200 -
+2025-03-30 13:09:50,258 - INFO - 127.0.0.1 - - [30/Mar/2025 13:09:50] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 13:09:50,268 - INFO - 127.0.0.1 - - [30/Mar/2025 13:09:50] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 13:09:50,269 - INFO - 127.0.0.1 - - [30/Mar/2025 13:09:50] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 13:09:50,479 - INFO - 127.0.0.1 - - [30/Mar/2025 13:09:50] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-30 13:09:50,483 - INFO - 127.0.0.1 - - [30/Mar/2025 13:09:50] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 13:09:51,090 - INFO - 127.0.0.1 - - [30/Mar/2025 13:09:51] "GET /static/landing.css HTTP/1.1" 200 -
+2025-03-30 13:09:51,777 - INFO - 127.0.0.1 - - [30/Mar/2025 13:09:51] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-30 13:10:03,755 - INFO - 127.0.0.1 - - [30/Mar/2025 13:10:03] "[36mGET /static/landing.css HTTP/1.1[0m" 304 -
+2025-03-30 13:18:04,559 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-03-30 13:18:04,559 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-30 13:18:20,003 - INFO - 127.0.0.1 - - [30/Mar/2025 13:18:20] "GET / HTTP/1.1" 200 -
+2025-03-30 13:18:20,292 - INFO - 127.0.0.1 - - [30/Mar/2025 13:18:20] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-03-30 13:18:20,313 - INFO - 127.0.0.1 - - [30/Mar/2025 13:18:20] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-03-30 13:18:20,318 - INFO - 127.0.0.1 - - [30/Mar/2025 13:18:20] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-03-30 13:18:20,472 - INFO - 127.0.0.1 - - [30/Mar/2025 13:18:20] "GET /static/landing.js HTTP/1.1" 200 -
+2025-03-30 13:18:20,474 - INFO - 127.0.0.1 - - [30/Mar/2025 13:18:20] "GET /static/landing.css HTTP/1.1" 200 -
