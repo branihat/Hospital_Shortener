@@ -112,13 +112,13 @@ class HIPAAEncryption:
 # Function to anonymize confidential data
 def anonymize_text(text):
     """Replace doctor and patient names with generic placeholders."""
-    text = re.sub(r'\b\d{3}-\d{2}-\d{4}\b', '[SSN REDACTED]'),  # Social Security Number
-    text = re.sub(r'\b\d{10}\b', '[MRN REDACTED]'),  # Medical Record Number
-    text = re.sub(r'\b\d{4}-\d{4}-\d{4}-\d{4}\b', '[INSURANCE REDACTED]'),  # Insurance Number
-    text = re.sub(r'\b\d{1,2}/\d{1,2}/\d{4}\b', '[DATE REDACTED]'),  # Specific Dates
-    text = re.sub(r'\b\d+\s+[A-Z][a-z]+\s+(Street|St\.|Avenue|Ave\.|Road|Rd\.)\b', '[ADDRESS REDACTED]'),
-    text = re.sub(r'\bDr\.?\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Dr. XYZ'),  # Doctor names
-    text = re.sub(r'\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Patient XYZ')  # Patient names
+    text = re.sub(r'\b\d{3}-\d{2}-\d{4}\b', '[SSN REDACTED]', text)  # Social Security Number
+    text = re.sub(r'\b\d{10}\b', '[MRN REDACTED]', text)  # Medical Record Number
+    text = re.sub(r'\b\d{4}-\d{4}-\d{4}-\d{4}\b', '[INSURANCE REDACTED]', text)  # Insurance Number
+    text = re.sub(r'\b\d{1,2}/\d{1,2}/\d{4}\b', '[DATE REDACTED]', text)  # Specific Dates
+    text = re.sub(r'\b\d+\s+[A-Z][a-z]+\s+(Street|St\.|Avenue|Ave\.|Road|Rd\.)\b', '[ADDRESS REDACTED]', text)
+    text = re.sub(r'\bDr\.?\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Dr. XYZ', text)  # Doctor names
+    text = re.sub(r'\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\b', 'Patient XYZ', text)  # Patient names
     return text
 
 # Function to clean AI-generated output text
