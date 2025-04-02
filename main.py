@@ -173,16 +173,23 @@ def show_login_page():
 def dashboard():
     return render_template("index.html")
 
+# Update to the register route to handle additional user data
 @app.route("/register", methods=["POST"])
 @limiter.limit("3 per minute")
 def register():
-    """Handle user registration with enhanced security and email uniqueness."""
+    """Handle user registration with enhanced security and additional medical professional data."""
     email = request.json.get("email")
     password = request.json.get("password")
+    firstName = request.json.get("firstName")
+    lastName = request.json.get("lastName")
+    degree = request.json.get("degree")
+    profession = request.json.get("profession")
+    specialization = request.json.get("specialization")
 
-    if not email or not password:
-        logger.warning("Registration attempt with missing email or password")
-        return jsonify({"error": "Email and password are required"}), 400
+    # Validate required fields
+    if not email or not password or not firstName or not lastName or not degree or not profession:
+        logger.warning("Registration attempt with missing required fields")
+        return jsonify({"error": "All required fields must be completed"}), 400
 
     # Validate email format
     if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
@@ -205,21 +212,30 @@ def register():
         existing_user = mongo.db.users.find_one({"email_hash": email_hash})
         if existing_user:
             logger.warning(f"Registration attempt for existing email: {email}")
-            return jsonify({"error": "An account with this email already exists"}), 409  # Use 409 Conflict status
+            return jsonify({"error": "An account with this email already exists"}), 409
 
         # Enhanced password hashing
-        salt = bcrypt.gensalt(rounds=12)  # Increased salt rounds
+        salt = bcrypt.gensalt(rounds=12)
         hashed_pw = bcrypt.hashpw(password.encode("utf-8"), salt)
         
         # Generate unique user ID for audit trail
         user_id = str(uuid.uuid4())
 
-        # Save user to database
+        # Encrypt personal information
+        encrypted_firstName = HIPAAEncryption.encrypt_data(firstName, app.config["SECRET_KEY"])
+        encrypted_lastName = HIPAAEncryption.encrypt_data(lastName, app.config["SECRET_KEY"])
+
+        # Save user to database with professional information
         user_doc = {
             "user_id": user_id,
             "email": encrypted_email,
-            "email_hash": email_hash,  # Store the hash for lookups
+            "email_hash": email_hash,
             "password": hashed_pw,
+            "firstName": encrypted_firstName,
+            "lastName": encrypted_lastName,
+            "degree": degree,
+            "profession": profession,
+            "specialization": specialization,
             "created_at": datetime.datetime.utcnow(),
             "last_login": None
         }
@@ -231,7 +247,7 @@ def register():
     except Exception as e:
         logger.error(f"Registration error: {str(e)}")
         return jsonify({"error": "Registration failed"}), 500
-
+        
 @app.route("/api/login", methods=["POST"])
 @limiter.limit("5 per minute")
 def login():

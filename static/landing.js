@@ -27,12 +27,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Check if user is already logged in
-    const authToken = localStorage.getItem("authToken");
-    if (authToken) {
-        // If logged in, redirect to dashboard
-        window.location.href = "/dashboard";
-    }
+    // // Check if user is already logged in
+    // const authToken = localStorage.getItem("authToken");
+    // if (authToken) {
+    //     // If logged in, redirect to dashboard
+    //     window.location.href = "/dashboard";
+    // }
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
