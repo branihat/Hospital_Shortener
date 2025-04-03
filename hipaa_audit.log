@@ -598,3 +598,40 @@
 2025-04-03 01:45:34,043 - INFO - 127.0.0.1 - - [03/Apr/2025 01:45:34] "GET /static/auth.js HTTP/1.1" 200 -
 2025-04-03 01:45:34,067 - INFO - 127.0.0.1 - - [03/Apr/2025 01:45:34] "GET /static/style1.css HTTP/1.1" 200 -
 2025-04-03 01:45:34,181 - INFO - 127.0.0.1 - - [03/Apr/2025 01:45:34] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-03 18:06:44,162 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-03 18:06:44,162 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-03 18:06:55,719 - INFO - 127.0.0.1 - - [03/Apr/2025 18:06:55] "GET / HTTP/1.1" 200 -
+2025-04-03 18:06:55,745 - INFO - 127.0.0.1 - - [03/Apr/2025 18:06:55] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-03 18:06:55,749 - INFO - 127.0.0.1 - - [03/Apr/2025 18:06:55] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-03 18:06:55,752 - INFO - 127.0.0.1 - - [03/Apr/2025 18:06:55] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-03 18:06:55,755 - INFO - 127.0.0.1 - - [03/Apr/2025 18:06:55] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-03 18:06:55,770 - INFO - 127.0.0.1 - - [03/Apr/2025 18:06:55] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-03 18:06:56,411 - INFO - 127.0.0.1 - - [03/Apr/2025 18:06:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-03 18:07:01,948 - INFO - 127.0.0.1 - - [03/Apr/2025 18:07:01] "GET /login HTTP/1.1" 200 -
+2025-04-03 18:07:01,969 - INFO - 127.0.0.1 - - [03/Apr/2025 18:07:01] "GET /static/style1.css HTTP/1.1" 200 -
+2025-04-03 18:07:01,972 - INFO - 127.0.0.1 - - [03/Apr/2025 18:07:01] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-03 18:07:01,987 - INFO - 127.0.0.1 - - [03/Apr/2025 18:07:01] "GET /static/auth.js HTTP/1.1" 200 -
+2025-04-03 18:09:53,905 - INFO - 127.0.0.1 - - [03/Apr/2025 18:09:53] "GET /login HTTP/1.1" 200 -
+2025-04-03 18:09:53,922 - INFO - 127.0.0.1 - - [03/Apr/2025 18:09:53] "GET /static/style1.css HTTP/1.1" 200 -
+2025-04-03 18:09:53,925 - INFO - 127.0.0.1 - - [03/Apr/2025 18:09:53] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-04-03 18:09:53,926 - INFO - 127.0.0.1 - - [03/Apr/2025 18:09:53] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-03 18:10:14,627 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-04-03 18:10:14,627 - INFO - 127.0.0.1 - - [03/Apr/2025 18:10:14] "POST /api/login HTTP/1.1" 200 -
+2025-04-03 18:10:14,662 - INFO - 127.0.0.1 - - [03/Apr/2025 18:10:14] "GET /dashboard HTTP/1.1" 200 -
+2025-04-03 18:10:14,681 - INFO - 127.0.0.1 - - [03/Apr/2025 18:10:14] "GET /static/style.css HTTP/1.1" 200 -
+2025-04-03 18:10:14,702 - INFO - 127.0.0.1 - - [03/Apr/2025 18:10:14] "GET /static/script.js HTTP/1.1" 200 -
+2025-04-03 18:10:22,994 - INFO - 127.0.0.1 - - [03/Apr/2025 18:10:22] "GET /login HTTP/1.1" 200 -
+2025-04-03 18:10:23,009 - INFO - 127.0.0.1 - - [03/Apr/2025 18:10:23] "GET /static/style1.css HTTP/1.1" 200 -
+2025-04-03 18:10:23,012 - INFO - 127.0.0.1 - - [03/Apr/2025 18:10:23] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-04-03 18:10:23,013 - INFO - 127.0.0.1 - - [03/Apr/2025 18:10:23] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-03 18:10:55,878 - INFO - 127.0.0.1 - - [03/Apr/2025 18:10:55] "GET /static/style1.css HTTP/1.1" 200 -
+2025-04-03 18:18:55,833 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-03 18:18:55,833 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-03 18:19:02,245 - INFO - 127.0.0.1 - - [03/Apr/2025 18:19:02] "GET /login HTTP/1.1" 200 -
+2025-04-03 18:19:02,266 - INFO - 127.0.0.1 - - [03/Apr/2025 18:19:02] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-04-03 18:19:02,270 - INFO - 127.0.0.1 - - [03/Apr/2025 18:19:02] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-03 18:19:02,292 - INFO - 127.0.0.1 - - [03/Apr/2025 18:19:02] "GET /static/auth.js HTTP/1.1" 200 -
+2025-04-03 18:19:17,870 - INFO - New user registered: 5e7c09cd-0dbc-41ea-b30e-4e27b2d193a3
+2025-04-03 18:19:17,871 - INFO - 127.0.0.1 - - [03/Apr/2025 18:19:17] "[35m[1mPOST /register HTTP/1.1[0m" 201 -

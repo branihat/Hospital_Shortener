@@ -125,54 +125,40 @@ document.addEventListener('DOMContentLoaded', function() {
     if (signupForm) {
         signupForm.addEventListener("submit", function(e) {
             e.preventDefault();
-            
-            const email = document.getElementById("emailid2").value;
+    
             const password = document.querySelector('input[name="password"]');
             const confirmPassword = document.querySelector('input[name="confirmPassword"]');
-            
-            // Check if passwords match
+    
             if (password.value !== confirmPassword.value) {
                 alert("Passwords do not match!");
                 return;
             }
-            
-            // Collect all form data
+    
+            const formData = new FormData(signupForm);
+    
             const userData = {
-                email: email,
-                password: password.value,
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
-                degree: formData.get('degree'),
-                profession: formData.get('profession'),
-                specialization: formData.get('specialization') || null
+                email: formData.get("email"),
+                password: formData.get("password"),
+                firstName: formData.get("firstName"),
+                lastName: formData.get("lastName"),
+                degree: formData.get("degree"),
+                profession: formData.get("profession"),
+                specialization: formData.get("specialization") || null
             };
-            
-            // Call the register API
+    
             fetch("/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    email: email,
-                    password: passwords[0].value
-                })
+                body: JSON.stringify(userData)
             })
             .then(response => response.json())
             .then(data => {
                 if (data.message) {
-                    // Clear error message
-                    errorContainer.textContent = '';
-                    
-                    // Show success message
                     alert("Registration successful! Please login.");
-                    
-                    // Switch to login form
-                    if (showLogin) {
-                        showLogin.click();
-                    }
+                    document.getElementById("show-login").click();
                 } else {
-                    // Display error message
                     alert("Registration failed: " + (data.error || "Unknown error"));
                 }
             })
@@ -182,4 +168,5 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
 });
