@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Version History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        .prompt-text {
+            white-space: pre-wrap;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .version-card {
+            margin-bottom: 20px;
+        }
+        .active-badge {
+            background-color: #28a745;
+            color: white;
+            margin-left: 5px;
+        }
+        .header-area {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        .diff-highlight {
+            background-color: #fffbcc;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Prompt Version History</h1>
+                    <p>{{ prompt_key|replace("_", " ")|title }}</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="/admin/prompts" class="btn btn-outline-secondary">Back to Prompts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {% for version in versions %}
+        <div class="card version-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>
+                    Version {{ version.version }}
+                    {% if version.active %}
+                    <span class="badge active-badge">ACTIVE</span>
+                    {% endif %}
+                    {% if version.get('restored_from') %}
+                    <span class="badge bg-info">Restored from v{{ version.restored_from }}</span>
+                    {% endif %}
+                </h5>
+                {% if not version.active %}
+                <button class="btn btn-sm btn-outline-primary restore-btn" data-id="{{ version._id }}">Restore This Version</button>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Created at:</strong> {{ version.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Created by:</strong> {{ version.created_by }}</p>
+                    </div>
+                </div>
+                <div class="prompt-text">{{ version.text }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add event listeners for restore buttons
+        document.querySelectorAll('.restore-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                
+                // Get token from localStorage
+                const token = localStorage.getItem('token');
+                if (confirm('Are you sure you want to restore this version? The current active version will be archived.')) {
+                    fetch(`/admin/prompt/restore/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(`Error: ${data.error}`);
+                        } else {
+                            alert('Version restored successfully!');
+                            location.reload();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Failed to restore version. Please try again.');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
