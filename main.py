@@ -354,7 +354,10 @@ def process_text():
     # Validate request
     if not action or not text:
         return jsonify({"error": "Missing required fields"}), 400
-    if action not in PROMPTS:
+    
+    # Get the prompt from MongoDB instead of from PROMPTS dictionary
+    prompt_text = get_prompt(action)
+    if not prompt_text:
         return jsonify({"error": "Invalid action"}), 400
 
     try:
@@ -363,8 +366,8 @@ def process_text():
         # Anonymize input text before sending to AI
         anonymized_text = anonymize_text(text)
 
-        # Generate response from AI
-        response = model.generate_content(PROMPTS[action] + "\n\n" + anonymized_text)
+        # Generate response from AI - use the prompt from MongoDB
+        response = model.generate_content(prompt_text + "\n\n" + anonymized_text)
         output_text = getattr(response, "text", "No response generated.")  # Safer extraction
 
         # Log AI processing for audit trail
@@ -374,8 +377,7 @@ def process_text():
     
     except Exception as e:
         logger.error(f"AI processing error: {str(e)}")
-        return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500
-# Modified admin routes to use admin_required instead of token_required
+        return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500 # Modified admin routes to use admin_required instead of token_required
 @app.route("/admin/prompts", methods=["GET"])
 @admin_required
 def admin_prompts():
