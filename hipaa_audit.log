@@ -20,3 +20,94 @@
 2025-04-06 12:24:58,938 - INFO - 127.0.0.1 - - [06/Apr/2025 12:24:58] "GET /static/script.js HTTP/1.1" 200 -
 2025-04-06 12:24:59,197 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
 2025-04-06 12:24:59,198 - INFO - 127.0.0.1 - - [06/Apr/2025 12:24:59] "POST /api/login HTTP/1.1" 200 -
+2025-04-06 12:52:36,540 - INFO - Default prompts initialized in MongoDB
+2025-04-06 12:52:36,598 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-06 12:52:36,598 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-06 12:56:36,090 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:36] "GET / HTTP/1.1" 200 -
+2025-04-06 12:56:36,113 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:36] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-06 12:56:36,115 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:36] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-06 12:56:36,116 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:36] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-06 12:56:36,118 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:36] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-06 12:56:36,119 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:36] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-06 12:56:36,700 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-06 12:56:39,151 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:39] "GET /login HTTP/1.1" 200 -
+2025-04-06 12:56:39,165 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:39] "GET /static/style1.css HTTP/1.1" 200 -
+2025-04-06 12:56:39,167 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:39] "GET /static/auth.js HTTP/1.1" 200 -
+2025-04-06 12:56:39,168 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:39] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-06 12:56:46,446 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-04-06 12:56:46,446 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:46] "POST /api/login HTTP/1.1" 200 -
+2025-04-06 12:56:46,506 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:46] "GET /dashboard HTTP/1.1" 200 -
+2025-04-06 12:56:46,525 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:46] "GET /static/style.css HTTP/1.1" 200 -
+2025-04-06 12:56:46,527 - ERROR - Exception on /static/English_salad.js [GET]
+Traceback (most recent call last):
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\main.py", line 579, in serve_js
+    return send_file('English_salad.js', mimetype='application/javascript')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\helpers.py", line 511, in send_file
+    return werkzeug.utils.send_file(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\utils.py", line 428, in send_file
+    stat = os.stat(path)
+           ^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\Milind\\Desktop\\Hospital_Shortener-main\\Hospital_Shortener\\English_salad.js'
+2025-04-06 12:56:46,530 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:46] "GET /static/script.js HTTP/1.1" 200 -
+2025-04-06 12:56:46,545 - INFO - 127.0.0.1 - - [06/Apr/2025 12:56:46] "[35m[1mGET /static/English_salad.js HTTP/1.1[0m" 500 -
+2025-04-06 12:59:32,318 - INFO - Authorized access by user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-04-06 12:59:35,221 - INFO - 127.0.0.1 - - [06/Apr/2025 12:59:35] "POST /process HTTP/1.1" 200 -
+2025-04-06 12:59:43,424 - INFO - Authorized access by user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-04-06 12:59:53,328 - INFO - 127.0.0.1 - - [06/Apr/2025 12:59:53] "POST /process HTTP/1.1" 200 -
+2025-04-06 13:22:03,671 - INFO - Default prompts initialized in MongoDB
+2025-04-06 13:22:03,721 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-06 13:22:03,721 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-06 13:22:11,416 - INFO - 127.0.0.1 - - [06/Apr/2025 13:22:11] "GET /dashboard HTTP/1.1" 200 -
+2025-04-06 13:22:11,435 - INFO - 127.0.0.1 - - [06/Apr/2025 13:22:11] "GET /static/style.css HTTP/1.1" 200 -
+2025-04-06 13:22:11,436 - ERROR - Exception on /static/English_salad.js [GET]
+Traceback (most recent call last):
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\main.py", line 574, in serve_js
+    return send_file('English_salad.js', mimetype='application/javascript')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\helpers.py", line 511, in send_file
+    return werkzeug.utils.send_file(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\utils.py", line 428, in send_file
+    stat = os.stat(path)
+           ^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\Milind\\Desktop\\Hospital_Shortener-main\\Hospital_Shortener\\English_salad.js'
+2025-04-06 13:22:11,438 - INFO - 127.0.0.1 - - [06/Apr/2025 13:22:11] "GET /static/script.js HTTP/1.1" 200 -
+2025-04-06 13:22:11,439 - INFO - 127.0.0.1 - - [06/Apr/2025 13:22:11] "[35m[1mGET /static/English_salad.js HTTP/1.1[0m" 500 -
+2025-04-06 13:22:25,042 - INFO - Authorized access by user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-04-06 13:22:30,184 - INFO - Authorized access by user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-04-06 13:22:31,682 - INFO - 127.0.0.1 - - [06/Apr/2025 13:22:31] "POST /process HTTP/1.1" 200 -
+2025-04-06 13:22:35,864 - INFO - 127.0.0.1 - - [06/Apr/2025 13:22:35] "POST /process HTTP/1.1" 200 -

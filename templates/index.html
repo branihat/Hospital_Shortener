@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="/static/English_salad.js"></script>
 </head>
 <body>
     <div class="container">
@@ -49,6 +50,47 @@
         </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+    async function processText() {
+        const inputText = document.getElementById('input-text').value;
+        const action = document.getElementById('action-select').value;
+        const token = localStorage.getItem('token');
 
+        try {
+            const response = await fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    action: action,
+                    text: inputText
+                })
+            });
+
+            const data = await response.json();
+            if (data.error) {
+                throw new Error(data.error);
+            }
+
+            // Place the AI result in the input field for shortify
+            document.getElementById('GetMedNotes').value = data.result;
+            
+            // Call existing shortify function if needed
+            if (data.shouldShorten) {
+                shortify();
+            }
+
+            // Get the shortened result
+            const finalResult = document.getElementById('GetMedNotes').value;
+            document.getElementById('result').textContent = finalResult;
+
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('error').textContent = error.message;
+        }
+    }
+    </script>
 </body>
 </html>

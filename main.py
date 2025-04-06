@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, redirect, session, url_for
+from flask import Flask, request, jsonify, render_template, redirect, session, url_for, send_file
 import google.generativeai as genai
 import re
 import bcrypt
@@ -351,33 +351,31 @@ def process_text():
     action = data.get("action")
     text = data.get("text")
 
-    # Validate request
     if not action or not text:
         return jsonify({"error": "Missing required fields"}), 400
     
-    # Get the prompt from MongoDB instead of from PROMPTS dictionary
-    prompt_text = get_prompt(action)
-    if not prompt_text:
-        return jsonify({"error": "Invalid action"}), 400
-
     try:
         model = genai.GenerativeModel("gemini-1.5-pro")
-
-        # Anonymize input text before sending to AI
         anonymized_text = anonymize_text(text)
+        
+        prompt_text = get_prompt(action)
+        if not prompt_text:
+            return jsonify({"error": "Invalid action"}), 400
 
-        # Generate response from AI - use the prompt from MongoDB
         response = model.generate_content(prompt_text + "\n\n" + anonymized_text)
-        output_text = getattr(response, "text", "No response generated.")  # Safer extraction
-
-        # Log AI processing for audit trail
-        logger.info(f"AI processing completed for action: {action}")
-
-        return jsonify({"result": clean_output(output_text)})
+        output_text = getattr(response, "text", "No response generated.")
+        
+        # Return result with flag to trigger frontend shortening
+        return jsonify({
+            "result": clean_output(output_text),
+            "shouldShorten": True
+        })
     
     except Exception as e:
         logger.error(f"AI processing error: {str(e)}")
-        return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500 # Modified admin routes to use admin_required instead of token_required
+        return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500
+
+# Modified admin routes to use admin_required instead of token_required
 @app.route("/admin/prompts", methods=["GET"])
 @admin_required
 def admin_prompts():
@@ -569,6 +567,11 @@ def create_new_prompt():
     
     logger.info(f"New prompt '{prompt_key}' created by admin")
     return jsonify({"message": "New prompt created successfully"}), 201
+
+# Add route to serve the JavaScript file
+@app.route('/static/English_salad.js')
+def serve_js():
+    return send_file('English_salad.js', mimetype='application/javascript')
 
 # Error Handling
 @app.errorhandler(404)
