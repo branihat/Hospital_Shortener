@@ -336,3 +336,44 @@
 2025-04-09 17:08:41,847 - INFO - 127.0.0.1 - - [09/Apr/2025 17:08:41] "POST /process HTTP/1.1" 200 -
 2025-04-09 17:08:43,136 - INFO - Authorized access by user: 92d1ca7c-3347-437d-a583-2c67a3457183
 2025-04-09 17:08:45,039 - INFO - 127.0.0.1 - - [09/Apr/2025 17:08:45] "POST /process HTTP/1.1" 200 -
+2025-04-09 17:34:02,604 - INFO - Default prompts initialized in MongoDB
+2025-04-09 17:34:02,651 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-09 17:34:02,651 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-09 17:34:08,007 - INFO - 127.0.0.1 - - [09/Apr/2025 17:34:08] "GET / HTTP/1.1" 200 -
+2025-04-09 17:34:08,046 - INFO - 127.0.0.1 - - [09/Apr/2025 17:34:08] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-09 17:34:08,047 - INFO - 127.0.0.1 - - [09/Apr/2025 17:34:08] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-09 17:34:08,054 - INFO - 127.0.0.1 - - [09/Apr/2025 17:34:08] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-09 17:34:08,055 - INFO - 127.0.0.1 - - [09/Apr/2025 17:34:08] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-09 17:34:08,057 - INFO - 127.0.0.1 - - [09/Apr/2025 17:34:08] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 17:35:48,534 - INFO - Default prompts initialized in MongoDB
+2025-04-09 17:35:48,644 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-09 17:35:48,644 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-09 17:36:00,303 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:00] "GET / HTTP/1.1" 200 -
+2025-04-09 17:36:00,329 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:00] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-09 17:36:00,334 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:00] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-09 17:36:00,335 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:00] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-09 17:36:00,336 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:00] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-09 17:36:00,337 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:00] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 17:36:46,306 - INFO - Default prompts initialized in MongoDB
+2025-04-09 17:36:46,344 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-09 17:36:46,344 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-09 17:36:57,437 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:57] "GET / HTTP/1.1" 200 -
+2025-04-09 17:36:57,461 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:57] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-09 17:36:57,465 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:57] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-09 17:36:57,466 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:57] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-09 17:36:57,468 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:57] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-09 17:36:57,469 - INFO - 127.0.0.1 - - [09/Apr/2025 17:36:57] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 17:38:58,803 - INFO - Default prompts initialized in MongoDB
+2025-04-09 17:38:58,869 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-09 17:38:58,869 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-09 17:39:06,308 - INFO - 127.0.0.1 - - [09/Apr/2025 17:39:06] "GET / HTTP/1.1" 200 -
+2025-04-09 17:39:06,334 - INFO - 127.0.0.1 - - [09/Apr/2025 17:39:06] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-09 17:39:06,337 - INFO - 127.0.0.1 - - [09/Apr/2025 17:39:06] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-09 17:39:06,339 - INFO - 127.0.0.1 - - [09/Apr/2025 17:39:06] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-09 17:39:06,341 - INFO - 127.0.0.1 - - [09/Apr/2025 17:39:06] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-09 17:39:06,342 - INFO - 127.0.0.1 - - [09/Apr/2025 17:39:06] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 17:41:41,822 - INFO - 127.0.0.1 - - [09/Apr/2025 17:41:41] "GET /static/landing.css HTTP/1.1" 200 -
