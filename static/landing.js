@@ -99,3 +99,35 @@ document.addEventListener("DOMContentLoaded", function() {
     // Run once on load
     animateOnScroll();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.dark-mode-toggle');
+    const body = document.body;
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('chartwitch-theme') || 'dark';
+    body.classList.toggle('light-mode', savedTheme === 'light');
+
+    // Update moon icon based on current theme
+    updateMoonIcon();
+
+    themeToggle.addEventListener('click', function() {
+        body.classList.toggle('light-mode');
+        
+        // Save theme preference
+        const currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
+        localStorage.setItem('chartwitch-theme', currentTheme);
+        
+        // Update moon icon
+        updateMoonIcon();
+    });
+
+    function updateMoonIcon() {
+        const moonIcon = themeToggle.querySelector('i');
+        if (body.classList.contains('light-mode')) {
+            moonIcon.className = 'fas fa-sun';
+        } else {
+            moonIcon.className = 'fas fa-moon';
+        }
+    }
+});

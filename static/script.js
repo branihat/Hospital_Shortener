@@ -74,6 +74,36 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 document.addEventListener("DOMContentLoaded", function () {
+        // Create loading overlay
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.classList.add('loading-overlay');
+        loadingOverlay.innerHTML = `
+            <div class="loading-container">
+                <div class="emoji-witch">
+                    🧙‍♀️
+                    <span class="magic-wand">✨</span>
+                </div>
+                <p>Working some magic...</p>
+            </div>
+        `;
+        document.body.appendChild(loadingOverlay);
+    
+        // Function to show loading overlay
+        function showLoading() {
+            loadingOverlay.style.display = 'flex';
+            document.querySelectorAll(".action-button").forEach(btn => {
+                btn.disabled = true;
+            });
+        }
+    
+        // Function to hide loading overlay
+        function hideLoading() {
+            loadingOverlay.style.display = 'none';
+            document.querySelectorAll(".action-button").forEach(btn => {
+                const action = btn.getAttribute("data-action");
+                btn.disabled = false;
+            });
+        }
     // Check if user is logged in
     const authToken = localStorage.getItem("authToken");
     if (!authToken && !window.location.pathname.includes("login")) {
@@ -82,12 +112,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
     // Process text function with authentication
-    function processText(action) {
+    function processText(button, action) {
         let text = document.getElementById("inputText").value;
         if (!text.trim()) {
             alert("Please enter some text.");
             return;
         }
+        showLoading();
         fetch("/process", {
             method: "POST",
             headers: { 
@@ -98,29 +129,61 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => {
             if (response.status === 401) {
-                // Token expired or invalid
                 localStorage.removeItem("authToken");
                 window.location.href = "/login";
                 throw new Error("Authentication required");
+            }
+            if (response.status === 500) {
+                return response.json().then(data => {
+                    // Check if error message contains quota exceeded
+                    if (data.error && data.error.includes("429")) {
+                        // Extract retry delay seconds from error message
+                        const retryDelayMatch = data.error.match(/seconds: (\d+)/);
+                        const retryDelay = retryDelayMatch ? retryDelayMatch[1] : "few";
+                        throw new Error(`service-busy:${retryDelay}`);
+                    }
+                    throw new Error(data.error);
+                });
             }
             return response.json();
         })
         .then(data => {
             if (data.result) {
-                document.getElementById("outputText").value = data.result;
+                let processedText = data.result;
+                try {
+                    processedText = shortify(processedText);
+                } catch (err) {
+                    console.error("Error in text replacement:", err);
+                }
+                document.getElementById("outputText").value = processedText;
             } else {
                 alert("Error: " + data.error);
             }
         })
-        .catch(error => console.error("Error:", error));
+        .catch(error => {
+            console.error("Error:", error);
+            if (error.message.startsWith("service-busy:")) {
+                const retryDelay = error.message.split(":")[1];
+                alert(`The service is temporarily busy. Please try again in ${retryDelay} seconds.`);
+            } else if (error.message === "Authentication required") {
+                // Already handled by redirect
+                return;
+            } else {
+                alert("An error occurred while processing your request. Please try again.");
+            }
+        })
+        .finally(() => {
+            hideLoading();
+        });
     }
 
     // Add event listeners to buttons if they exist
     const actionButtons = document.querySelectorAll(".action-button");
     if (actionButtons.length > 0) {
         actionButtons.forEach(button => {
-            button.addEventListener("click", function () {
-                processText(this.getAttribute("data-action"));
+            button.addEventListener("click", function() {
+                // Pass both button and action parameters
+                processText(this, this.getAttribute("data-action"));
             });
         });
     }

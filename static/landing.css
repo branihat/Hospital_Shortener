@@ -67,10 +67,10 @@ nav {
     color: var(--text-color);
 }
 
-.logo img {
-    height: 200px;
-    margin-bottom: -64px;
-    margin-top: -64px;
+.logo {
+    margin: 8px;
+    height: 68px;
+    width: auto;
 }
 
 .nav-buttons {
@@ -358,10 +358,10 @@ footer {
     margin-bottom: 2rem;
 }
 
-.footer-logo img{
-    height: 203px;
-    margin-bottom: -64px;
-    margin-top: -64px;
+.footer-logo {
+    margin: 8px;
+    height: 68px;
+    width: auto;
 }
 .footer-logo p {
     color: var(--gray);
@@ -545,26 +545,4 @@ footer {
     .newsletter-form button {
         margin-top: 0.5rem;
     }
-}
-/* Logo Visibility */
-.logo-light,
-.logo-dark {
-    height: 50px;
-    transition: opacity 0.3s ease;
-}
-
-body .logo-light {
-    display: block;
-}
-
-body .logo-dark {
-    display: none;
-}
-
-body.dark-mode .logo-light {
-    display: none;
-}
-
-body.dark-mode .logo-dark {
-    display: block;
 }

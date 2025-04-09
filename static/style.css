@@ -48,7 +48,7 @@ html, body {
 }
 
 body {
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: Verdana, serif;
     background-color: var(--background);
     color: var(--text-color);
     line-height: 1.6;
@@ -77,24 +77,43 @@ body {
     border-bottom: 2px solid var(--primary-purple);
 }
 
-.header h2 {
+.logo-container {
     display: flex;
     align-items: center;
-    font-weight: 600;
-    color: var(--primary-purple);
-    font-size: 1.5rem;
+    position: static;
+    left: 50%;
+    /* transform: translateX(-50%); */
 }
 
-.header h2::before {
-    content: '🧙‍♀️';
-    margin-right: 10px;
-    font-size: 1.5em;
+.logo {
+    margin: 8px;
+    height: 68px;
+    width: auto;
+}
+
+/* Show/hide logos based on theme */
+.dark-mode-logo {
+    display: block;
+}
+
+.light-mode-logo {
+    display: none;
+}
+
+.light-mode .dark-mode-logo {
+    display: none;
+}
+
+.light-mode .light-mode-logo {
+    display: block;
 }
 
 .header-actions {
     display: flex;
+    content: center;
     align-items: center;
     gap: 15px;
+    margin-left: auto;
 }
 
 #theme-toggle {
@@ -248,5 +267,82 @@ textarea#outputText {
     .header-actions {
         width: 100%;
         justify-content: space-between;
+    }
+}
+/* Loading Overlay Styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.loading-container {
+    background-color: var(--card-background);
+    padding: 30px 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--primary-purple);
+}
+
+.loading-container p {
+    margin-top: 15px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Emoji Witch Animation */
+.emoji-witch {
+    font-size: 50px;
+    position: relative;
+    display: inline-block;
+    animation: floatWitch 2s ease-in-out infinite;
+}
+
+.magic-wand {
+    position: absolute;
+    content: '✨';
+    font-size: 24px;
+    right: -20px;
+    top: 15px;
+    transform-origin: left center;
+    animation: wandWave 1.5s ease-in-out infinite, sparkle 0.8s linear infinite;
+}
+
+/* Animations */
+@keyframes floatWitch {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes wandWave {
+    0%, 100% {
+        transform: rotate(0deg) translateX(0);
+    }
+    50% {
+        transform: rotate(20deg) translateX(5px);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.3);
     }
 }

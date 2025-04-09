@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChartWitch - Medical Note Automation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='fonts/verdana.ttf') }}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="/static/English_salad.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h2>ChartWitch</h2>
+    <div class="header">
+        <div class="logo-container">
+            <img id="dark-logo" class="logo dark-mode-logo" src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo">
+            <img id="light-logo" class="logo light-mode-logo" src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo">
+        </div>
             <div class="header-actions">
                 <button id="theme-toggle"></button>
                 <button id="logout">Logout</button>

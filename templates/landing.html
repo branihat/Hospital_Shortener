@@ -39,8 +39,9 @@
             padding: 20px 0;
         }
         
-        .logo img {
-            height: 40px;
+        .logo {
+            margin: 8px;
+            height: 68px;
             width: auto;
         }
         
@@ -65,18 +66,55 @@
             background-color: var(--primary-light);
         }
         
-        /* Dark mode display logic */
-        .logo-dark {
-            display: none;
-        }
-        
-        .dark-mode .logo-light {
-            display: none;
-        }
-        
-        .dark-mode .logo-dark {
+
+        /* Show/hide logos based on theme */
+        .dark-mode-logo {
             display: block;
         }
+
+        .light-mode-logo {
+            display: none;
+        }
+
+        .light-mode .dark-mode-logo {
+            display: none;
+        }
+
+        .light-mode .light-mode-logo {
+            display: block;
+        }
+
+        .logo-container {
+            margin: 8px;
+            height: 68px;
+            position: relative;
+        }
+
+        .logo {
+            height: 100%;
+            width: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dark-mode-logo {
+            opacity: 1;
+        }
+
+        .light-mode-logo {
+            opacity: 0;
+        }
+
+        body.light-mode .dark-mode-logo {
+            opacity: 0;
+        }
+
+        body.light-mode .light-mode-logo {
+            opacity: 1;
+        }
+
     </style>
     
     <!-- Load non-critical CSS asynchronously -->
@@ -98,9 +136,9 @@
 <body>
     <div class="landing-container">
         <nav>
-            <div class="logo">
-                <img src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo" class="logo-light" width="180" height="40">
-                <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo" class="logo-dark" width="180" height="40">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo" class="logo light-mode-logo">
+                <img src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo" class="logo dark-mode-logo">
             </div>
             <div class="nav-buttons">
                 <a href="/login" class="nav-button">Login</a>
