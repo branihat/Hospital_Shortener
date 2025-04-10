@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const specializationGroup = document.getElementById('specialization-group');
     const specializationSelect = document.getElementById('specialization-select');
     const errorContainer = document.getElementById('error-container');
+    const eulaCheckbox = document.getElementById('eula-checkbox');
     
     // Show signup form
     if (showSignup) {
@@ -129,8 +130,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.querySelector('input[name="password"]');
             const confirmPassword = document.querySelector('input[name="confirmPassword"]');
     
+            // Check if passwords match
             if (password.value !== confirmPassword.value) {
                 alert("Passwords do not match!");
+                return;
+            }
+            
+            // Check if EULA is agreed to
+            if (!eulaCheckbox.checked) {
+                errorContainer.textContent = "You must agree to the End User License Agreement";
                 return;
             }
     
@@ -143,7 +151,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 lastName: formData.get("lastName"),
                 degree: formData.get("degree"),
                 profession: formData.get("profession"),
-                specialization: formData.get("specialization") || null
+                specialization: formData.get("specialization") || null,
+                agreeToEula: formData.get("agreeToEula") === "on" // Include EULA agreement
             };
     
             fetch("/register", {

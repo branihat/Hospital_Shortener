@@ -546,3 +546,19 @@ footer {
         margin-top: 0.5rem;
     }
 }
+/* Show/hide logos based on theme */
+.dark-mode-logo {
+    display: block;
+}
+
+.light-mode-logo {
+    display: none;
+}
+
+.light-mode .dark-mode-logo {
+    display: none;
+}
+
+.light-mode .light-mode-logo {
+    display: block;
+}

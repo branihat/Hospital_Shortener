@@ -377,3 +377,113 @@
 2025-04-09 17:39:06,341 - INFO - 127.0.0.1 - - [09/Apr/2025 17:39:06] "GET /static/landing.js HTTP/1.1" 200 -
 2025-04-09 17:39:06,342 - INFO - 127.0.0.1 - - [09/Apr/2025 17:39:06] "GET /static/landing.css HTTP/1.1" 200 -
 2025-04-09 17:41:41,822 - INFO - 127.0.0.1 - - [09/Apr/2025 17:41:41] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 18:05:18,905 - INFO - Default prompts initialized in MongoDB
+2025-04-09 18:05:18,945 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-09 18:05:18,945 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-09 18:05:29,639 - INFO - 127.0.0.1 - - [09/Apr/2025 18:05:29] "GET / HTTP/1.1" 200 -
+2025-04-09 18:05:29,664 - INFO - 127.0.0.1 - - [09/Apr/2025 18:05:29] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-09 18:05:29,669 - INFO - 127.0.0.1 - - [09/Apr/2025 18:05:29] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-09 18:05:29,670 - INFO - 127.0.0.1 - - [09/Apr/2025 18:05:29] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-09 18:05:29,673 - INFO - 127.0.0.1 - - [09/Apr/2025 18:05:29] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 18:05:29,694 - INFO - 127.0.0.1 - - [09/Apr/2025 18:05:29] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-09 18:09:17,092 - INFO - Default prompts initialized in MongoDB
+2025-04-09 18:09:17,152 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-09 18:09:17,152 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-09 18:09:38,747 - INFO - 127.0.0.1 - - [09/Apr/2025 18:09:38] "GET / HTTP/1.1" 200 -
+2025-04-09 18:09:38,778 - INFO - 127.0.0.1 - - [09/Apr/2025 18:09:38] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-09 18:09:38,780 - INFO - 127.0.0.1 - - [09/Apr/2025 18:09:38] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-09 18:09:38,781 - INFO - 127.0.0.1 - - [09/Apr/2025 18:09:38] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 18:09:38,784 - INFO - 127.0.0.1 - - [09/Apr/2025 18:09:38] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-09 18:09:38,784 - INFO - 127.0.0.1 - - [09/Apr/2025 18:09:38] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-09 18:10:57,545 - INFO - Default prompts initialized in MongoDB
+2025-04-09 18:10:57,601 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-09 18:10:57,601 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-09 18:11:04,450 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:04] "GET / HTTP/1.1" 200 -
+2025-04-09 18:11:04,473 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:04] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-09 18:11:04,474 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:04] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-09 18:11:04,478 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:04] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-09 18:11:04,480 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:04] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-09 18:11:04,481 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:04] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 18:11:11,477 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:11] "GET /login HTTP/1.1" 200 -
+2025-04-09 18:11:11,505 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:11] "GET /static/style1.css HTTP/1.1" 200 -
+2025-04-09 18:11:11,506 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:11] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:11:11,509 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:11] "GET /static/auth.js HTTP/1.1" 200 -
+2025-04-09 18:11:20,199 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-04-09 18:11:20,200 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:20] "POST /api/login HTTP/1.1" 200 -
+2025-04-09 18:11:20,218 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:20] "GET /dashboard HTTP/1.1" 200 -
+2025-04-09 18:11:20,249 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:20] "GET /static/style.css HTTP/1.1" 200 -
+2025-04-09 18:11:20,252 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:20] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:11:20,254 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:20] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-04-09 18:11:20,254 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:20] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:11:20,260 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:20] "GET /static/script.js HTTP/1.1" 200 -
+2025-04-09 18:11:20,306 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:20] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-04-09 18:11:20,370 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-04-09 18:11:20,371 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:20] "POST /api/login HTTP/1.1" 200 -
+2025-04-09 18:11:23,535 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:23] "GET / HTTP/1.1" 200 -
+2025-04-09 18:11:23,558 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:23] "[36mGET /static/hero-image.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:11:23,561 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:23] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:11:23,564 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:23] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:11:23,565 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:23] "[36mGET /static/landing.js HTTP/1.1[0m" 304 -
+2025-04-09 18:11:23,567 - INFO - 127.0.0.1 - - [09/Apr/2025 18:11:23] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 18:12:00,164 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:00] "GET /login HTTP/1.1" 200 -
+2025-04-09 18:12:00,190 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:00] "GET /static/style1.css HTTP/1.1" 200 -
+2025-04-09 18:12:00,192 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:00] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:12:00,194 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:00] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-04-09 18:12:02,623 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:02] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-09 18:12:02,806 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:02] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-04-09 18:12:02,808 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:02] "GET /static/style.css HTTP/1.1" 200 -
+2025-04-09 18:12:06,222 - WARNING - Unauthorized access attempt: Invalid token
+2025-04-09 18:12:06,222 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:06] "[31m[1mPOST /process HTTP/1.1[0m" 401 -
+2025-04-09 18:12:06,239 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:06] "GET /login HTTP/1.1" 200 -
+2025-04-09 18:12:06,262 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:06] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-04-09 18:12:06,265 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:06] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-04-09 18:12:06,266 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:06] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:12:08,954 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:08] "GET /dashboard HTTP/1.1" 200 -
+2025-04-09 18:12:08,980 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:08] "[36mGET /static/fonts/verdana.ttf HTTP/1.1[0m" 304 -
+2025-04-09 18:12:08,989 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:08] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-04-09 18:12:08,990 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:08] "[36mGET /static/English_salad.js HTTP/1.1[0m" 304 -
+2025-04-09 18:12:08,992 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:08] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:12:08,994 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:08] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:12:09,000 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:08] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-04-09 18:12:09,770 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:09] "[36mGET /static/landing.css HTTP/1.1[0m" 304 -
+2025-04-09 18:12:13,135 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:13] "GET /login HTTP/1.1" 200 -
+2025-04-09 18:12:13,160 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:13] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-04-09 18:12:13,162 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:13] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:12:13,163 - INFO - 127.0.0.1 - - [09/Apr/2025 18:12:13] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-04-09 18:26:44,935 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-04-09 18:26:44,936 - INFO - 127.0.0.1 - - [09/Apr/2025 18:26:44] "POST /api/login HTTP/1.1" 200 -
+2025-04-09 18:26:44,950 - INFO - 127.0.0.1 - - [09/Apr/2025 18:26:44] "GET /dashboard HTTP/1.1" 200 -
+2025-04-09 18:26:44,973 - INFO - 127.0.0.1 - - [09/Apr/2025 18:26:44] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-04-09 18:26:44,981 - INFO - 127.0.0.1 - - [09/Apr/2025 18:26:44] "GET /static/style.css HTTP/1.1" 200 -
+2025-04-09 18:26:44,982 - INFO - 127.0.0.1 - - [09/Apr/2025 18:26:44] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-04-09 18:26:44,983 - INFO - 127.0.0.1 - - [09/Apr/2025 18:26:44] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-09 18:26:44,985 - INFO - 127.0.0.1 - - [09/Apr/2025 18:26:44] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-09 18:26:44,990 - INFO - 127.0.0.1 - - [09/Apr/2025 18:26:44] "GET /static/script.js HTTP/1.1" 200 -
+2025-04-09 18:27:00,517 - WARNING - Unauthorized access attempt to admin panel
+2025-04-09 18:27:00,517 - INFO - 127.0.0.1 - - [09/Apr/2025 18:27:00] "[32mGET /admin/prompts HTTP/1.1[0m" 302 -
+2025-04-09 18:27:00,523 - INFO - 127.0.0.1 - - [09/Apr/2025 18:27:00] "GET /admin/login HTTP/1.1" 200 -
+2025-04-09 18:27:10,093 - INFO - Admin login successful
+2025-04-09 18:27:10,094 - INFO - 127.0.0.1 - - [09/Apr/2025 18:27:10] "[32mPOST /admin/login HTTP/1.1[0m" 302 -
+2025-04-09 18:27:10,125 - INFO - 127.0.0.1 - - [09/Apr/2025 18:27:10] "GET /admin/prompts HTTP/1.1" 200 -
+2025-04-09 18:27:55,328 - INFO - 127.0.0.1 - - [09/Apr/2025 18:27:55] "GET /admin/prompt/history/cleanup HTTP/1.1" 200 -
+2025-04-09 18:28:12,968 - INFO - 127.0.0.1 - - [09/Apr/2025 18:28:12] "GET /admin/prompts HTTP/1.1" 200 -
+2025-04-10 17:37:27,516 - INFO - Default prompts initialized in MongoDB
+2025-04-10 17:37:27,580 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-04-10 17:37:27,580 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-10 17:37:59,390 - INFO - 127.0.0.1 - - [10/Apr/2025 17:37:59] "GET / HTTP/1.1" 200 -
+2025-04-10 17:37:59,412 - INFO - 127.0.0.1 - - [10/Apr/2025 17:37:59] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-04-10 17:37:59,418 - INFO - 127.0.0.1 - - [10/Apr/2025 17:37:59] "GET /static/landing.css HTTP/1.1" 200 -
+2025-04-10 17:37:59,425 - INFO - 127.0.0.1 - - [10/Apr/2025 17:37:59] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-04-10 17:37:59,425 - INFO - 127.0.0.1 - - [10/Apr/2025 17:37:59] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-04-10 17:37:59,433 - INFO - 127.0.0.1 - - [10/Apr/2025 17:37:59] "GET /static/landing.js HTTP/1.1" 200 -
+2025-04-10 17:37:59,953 - INFO - 127.0.0.1 - - [10/Apr/2025 17:37:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-10 17:38:04,154 - INFO - 127.0.0.1 - - [10/Apr/2025 17:38:04] "GET /login HTTP/1.1" 200 -
+2025-04-10 17:38:04,161 - INFO - 127.0.0.1 - - [10/Apr/2025 17:38:04] "GET /login HTTP/1.1" 200 -
+2025-04-10 17:38:04,178 - INFO - 127.0.0.1 - - [10/Apr/2025 17:38:04] "GET /static/style1.css HTTP/1.1" 200 -
+2025-04-10 17:38:04,181 - INFO - 127.0.0.1 - - [10/Apr/2025 17:38:04] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-04-10 17:38:04,194 - INFO - 127.0.0.1 - - [10/Apr/2025 17:38:04] "GET /static/auth.js HTTP/1.1" 200 -
+2025-04-10 17:38:08,863 - INFO - 127.0.0.1 - - [10/Apr/2025 17:38:08] "[33mGET /terms HTTP/1.1[0m" 404 -

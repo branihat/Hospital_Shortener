@@ -231,11 +231,17 @@ def register():
     degree = request.json.get("degree")
     profession = request.json.get("profession")
     specialization = request.json.get("specialization")
+    agreeToEula = request.json.get("agreeToEula")  # Get EULA agreement value
 
     # Validate required fields
     if not email or not password or not firstName or not lastName or not degree or not profession:
         logger.warning("Registration attempt with missing required fields")
         return jsonify({"error": "All required fields must be completed"}), 400
+
+    # Validate EULA agreement
+    if not agreeToEula:
+        logger.warning("Registration attempt without EULA agreement")
+        return jsonify({"error": "You must agree to the End User License Agreement"}), 400
 
     # Validate email format
     if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
@@ -282,6 +288,8 @@ def register():
             "degree": degree,
             "profession": profession,
             "specialization": specialization,
+            "eula_accepted": True,
+            "eula_accepted_date": datetime.datetime.utcnow(),
             "created_at": datetime.datetime.utcnow(),
             "last_login": None
         }

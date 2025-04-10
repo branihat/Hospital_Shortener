@@ -12,18 +12,20 @@
         .form-container {
             width: 100%;
         }
-        
-        .login-form, .signup-form {
+
+        .login-form,
+        .signup-form {
             width: 100%;
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
+
         .signup-form {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
         }
-        
+
         select.input-field {
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
@@ -32,54 +34,85 @@
             background-size: 16px;
             padding-right: 30px;
         }
-        
+
         .form-toggle {
             margin-top: 20px;
             text-align: center;
             color: rgb(255, 255, 255);
         }
-        
+
         .form-toggle a {
             color: #00c6ff;
             text-decoration: none;
             font-weight: bold;
             cursor: pointer;
         }
-        
+
         .form-toggle a:hover {
             text-decoration: underline;
         }
-        
+
         .active-form {
             display: flex;
         }
 
         .specialization-field {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
         }
 
         /* Hide one form completely when the other is active */
         .hide-completely {
             display: none !important;
         }
-        
+
         .image-container {
             filter: drop-shadow(0px 5px 6px #000000);
         }
-        
+
         option {
             background-color: #000000;
         }
-        
+
         option:hover {
             background-color: #333333;
         }
-        
+
         .error-message {
             color: #ff6b6b;
             font-size: 0.9rem;
             margin-top: 5px;
             text-align: center;
+        }
+
+        /* Styles for the EULA checkbox */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #00c6ff;
+        }
+
+        .checkbox-container label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .checkbox-container a {
+            color: #00c6ff;
+            text-decoration: none;
+        }
+
+        .checkbox-container a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -87,12 +120,12 @@
 <body>
     <div class="container">
         <div class="image-container">
-            <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="Login Image" class="login-image"/>
+            <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="Login Image" class="login-image" />
         </div>
 
         <div class="form-container">
             <h1 class="title" id="form-title">Login</h1>
-            
+
             <div id="error-container" class="error-message"></div>
 
             <form action="#" class="login-form active-form" id="login-form">
@@ -100,13 +133,13 @@
                     <div class="icon">
                         <i class="ri-mail-line"></i>
                     </div>
-                    <input type="email" id="emailid1" placeholder="Email" class="input-field" required/>
+                    <input type="email" id="emailid1" placeholder="Email" class="input-field" required />
                 </div>
                 <div class="input-group">
                     <div class="icon">
                         <i class="ri-lock-line"></i>
                     </div>
-                    <input type="password" id="password" placeholder="Password" class="input-field" required/>
+                    <input type="password" id="password" placeholder="Password" class="input-field" required />
                 </div>
                 <div class="input-group">
                     <div class="icon">
@@ -125,31 +158,32 @@
                     <div class="icon">
                         <i class="ri-user-line"></i>
                     </div>
-                    <input type="text" placeholder="First Name" class="input-field" name="firstName" required/>
+                    <input type="text" placeholder="First Name" class="input-field" name="firstName" required />
                 </div>
                 <div class="input-group">
                     <div class="icon">
                         <i class="ri-user-line"></i>
                     </div>
-                    <input type="text" placeholder="Last Name" class="input-field" name="lastName" required/>
+                    <input type="text" placeholder="Last Name" class="input-field" name="lastName" required />
                 </div>
                 <div class="input-group">
                     <div class="icon">
                         <i class="ri-mail-line"></i>
                     </div>
-                    <input type="email" id="emailid2" placeholder="Email" class="input-field" name="email" required/>
+                    <input type="email" id="emailid2" placeholder="Email" class="input-field" name="email" required />
                 </div>
                 <div class="input-group">
                     <div class="icon">
                         <i class="ri-lock-line"></i>
                     </div>
-                    <input type="password" placeholder="Password" class="input-field" name="password" required/>
+                    <input type="password" placeholder="Password" class="input-field" name="password" required />
                 </div>
                 <div class="input-group">
                     <div class="icon">
                         <i class="ri-lock-line"></i>
                     </div>
-                    <input type="password" placeholder="Confirm Password" class="input-field" name="confirmPassword" required/>
+                    <input type="password" placeholder="Confirm Password" class="input-field" name="confirmPassword"
+                        required />
                 </div>
                 <div class="input-group">
                     <div class="icon">
@@ -191,6 +225,12 @@
                         <option value="pediatrics">Pediatrics</option>
                         <option value="psychiatry">Psychiatry</option>
                     </select>
+                </div>
+                <!-- EULA Checkbox -->
+                <div class="checkbox-container">
+                    <input type="checkbox" id="eula-checkbox" name="agreeToEula" required>
+                    <label for="eula-checkbox">I agree to the <a href="/terms" target="_blank">End User License
+                            Agreement</a></label>
                 </div>
                 <button type="submit" class="submit-button">Sign up</button>
             </form>
