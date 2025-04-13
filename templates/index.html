@@ -15,84 +15,60 @@
             <img id="dark-logo" class="logo dark-mode-logo" src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo">
             <img id="light-logo" class="logo light-mode-logo" src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo">
         </div>
-            <div class="header-actions">
-                <button id="theme-toggle"></button>
-                <button id="logout">Logout</button>
-            </div>
-        </div>
-
-        <div class="textarea-container">
-            <textarea id="inputText" placeholder="Enter your medical notes here..."></textarea>
-            <div class="output-container">
-                <textarea id="outputText" placeholder="Processed notes will appear here..." readonly></textarea>
-                <div class="output-actions">
-                    <button id="copy-output" class="output-action-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                        </svg>
-                        Copy
-                    </button>
-                    <button id="download-pdf" class="output-action-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        PDF
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="button-container">
-            <button class="action-button" data-action="short_signout">Create Signout</button>
-            <button class="action-button" data-action="hospital_summary">Hospital Summary</button>
-            <button class="action-button" data-action="cleanup">Clean Up Note</button>
-            <button class="action-button" data-action="discharge_summary">Discharge Summary</button>
-            <button class="action-button" data-action="diagnoses">Extract Diagnoses</button>
-            <button class="action-button" data-action="emergencies">Predict Emergencies</button>
+        <div class="header-actions">
+            <button id="theme-toggle"></button>
+            <button id="logout">Logout</button>
         </div>
     </div>
+
+    <div class="textarea-container">
+        <textarea id="inputText" placeholder="Enter your medical notes here..."></textarea>
+        <div class="output-container">
+            <textarea id="outputText" placeholder="Processed notes will appear here..." readonly></textarea>
+            <div class="output-actions">
+                <button id="copy-output" class="output-action-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    Copy
+                </button>
+                <button id="download-pdf" class="output-action-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <!-- Default Tools Category Button -->
+        <button class="tool-category-button" data-target="default-tools-container">Default Tools</button>
+        
+        <!-- Suggested Tools Category Button -->
+        <button class="tool-category-button" data-target="suggested-tools-container">Suggested Tools</button>
+    </div>
+    
+    <!-- Default Tools Container -->
+    <div id="default-tools-container" class="tools-container">
+        <button class="action-button" data-action="short_signout" data-tooltip="Creates a concise signout note from your medical text">Create Signout</button>
+        <button class="action-button" data-action="hospital_summary" data-tooltip="Generates a comprehensive hospital summary from your notes">Hospital Summary</button>
+        <button class="action-button" data-action="cleanup" data-tooltip="Cleans and organizes your medical notes for better readability">Clean Up Note</button>
+        <button class="action-button" data-action="discharge_summary" data-tooltip="Creates a structured discharge summary from patient information">Discharge Summary</button>
+        <button class="action-button" data-action="diagnoses" data-tooltip="Identifies and lists all diagnoses from your medical notes">Extract Diagnoses</button>
+        <button class="action-button" data-action="emergencies" data-tooltip="Analyzes notes to predict potential emergencies or complications">Predict Emergencies</button>
+    </div>
+    
+    <!-- Suggested Tools Container -->
+    <div id="suggested-tools-container" class="tools-container">
+        <button class="action-button" data-action="insurance_denial" data-tooltip="Generates an insurance denial letter based on clinical information">Insurance Denial Letter</button>
+        <button class="action-button" data-action="impression_ap" data-tooltip="Creates impression and assessment/plan sections from your notes">Impression & A/P</button>
+        <button class="action-button" data-action="improve_los" data-tooltip="Suggests ways to improve Length of Stay based on patient data">Improve LOS</button>
+        <button class="action-button" data-action="cut_readmission" data-tooltip="Identifies factors to reduce readmission risk">Cut Readmission Risk</button>
+        <button class="action-button" data-action="improve_care" data-tooltip="Recommends improvements to clinical care based on your notes">Improve Clinical Care</button>
+    </div>
+    
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-    async function processText() {
-        const inputText = document.getElementById('input-text').value;
-        const action = document.getElementById('action-select').value;
-        const token = localStorage.getItem('token');
-
-        try {
-            const response = await fetch('/process', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    action: action,
-                    text: inputText
-                })
-            });
-
-            const data = await response.json();
-            if (data.error) {
-                throw new Error(data.error);
-            }
-
-            // Place the AI result in the input field for shortify
-            document.getElementById('GetMedNotes').value = data.result;
-            
-            // Call existing shortify function if needed
-            if (data.shouldShorten) {
-                shortify();
-            }
-
-            // Get the shortened result
-            const finalResult = document.getElementById('GetMedNotes').value;
-            document.getElementById('result').textContent = finalResult;
-
-        } catch (error) {
-            console.error('Error:', error);
-            document.getElementById('error').textContent = error.message;
-        }
-    }
-    </script>
 </body>
 </html>

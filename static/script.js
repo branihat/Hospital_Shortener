@@ -72,38 +72,69 @@ document.addEventListener("DOMContentLoaded", function() {
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
         doc.save(`ChartWitch_Output_${timestamp}.pdf`);
     });
-});
-document.addEventListener("DOMContentLoaded", function () {
-        // Create loading overlay
-        const loadingOverlay = document.createElement('div');
-        loadingOverlay.classList.add('loading-overlay');
-        loadingOverlay.innerHTML = `
-            <div class="loading-container">
-                <div class="emoji-witch">
-                    🧙‍♀️
-                    <span class="magic-wand">✨</span>
-                </div>
-                <p>Working some magic...</p>
+
+    // Tool Category Buttons - show/hide buttons on click
+    const toolCategoryButtons = document.querySelectorAll('.tool-category-button');
+    
+    toolCategoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const toolsContainer = document.getElementById(targetId);
+            
+            // Toggle the visibility of the tools container
+            const isVisible = toolsContainer.classList.toggle('visible');
+            
+            // Update button text
+            if (isVisible) {
+                this.classList.add('active');
+            } else {
+                this.classList.remove('active');
+            }
+            
+            // Hide other tool containers
+            document.querySelectorAll('.tools-container').forEach(container => {
+                if (container.id !== targetId && container.classList.contains('visible')) {
+                    container.classList.remove('visible');
+                    const otherButton = document.querySelector(`.tool-category-button[data-target="${container.id}"]`);
+                    if (otherButton) {
+                        otherButton.classList.remove('active');
+                    }
+                }
+            });
+        });
+    });
+
+    // Create loading overlay
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.classList.add('loading-overlay');
+    loadingOverlay.innerHTML = `
+        <div class="loading-container">
+            <div class="emoji-witch">
+                🧙‍♀️
+                <span class="magic-wand">✨</span>
             </div>
-        `;
-        document.body.appendChild(loadingOverlay);
-    
-        // Function to show loading overlay
-        function showLoading() {
-            loadingOverlay.style.display = 'flex';
-            document.querySelectorAll(".action-button").forEach(btn => {
-                btn.disabled = true;
-            });
-        }
-    
-        // Function to hide loading overlay
-        function hideLoading() {
-            loadingOverlay.style.display = 'none';
-            document.querySelectorAll(".action-button").forEach(btn => {
-                const action = btn.getAttribute("data-action");
-                btn.disabled = false;
-            });
-        }
+            <p>Working some magic...</p>
+        </div>
+    `;
+    document.body.appendChild(loadingOverlay);
+
+    // Function to show loading overlay
+    function showLoading() {
+        loadingOverlay.style.display = 'flex';
+        document.querySelectorAll(".action-button").forEach(btn => {
+            btn.disabled = true;
+        });
+    }
+
+    // Function to hide loading overlay
+    function hideLoading() {
+        loadingOverlay.style.display = 'none';
+        document.querySelectorAll(".action-button").forEach(btn => {
+            const action = btn.getAttribute("data-action");
+            btn.disabled = false;
+        });
+    }
+
     // Check if user is logged in
     const authToken = localStorage.getItem("authToken");
     if (!authToken && !window.location.pathname.includes("login")) {
@@ -111,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "/login";
         return;
     }
+
     // Process text function with authentication
     function processText(button, action) {
         let text = document.getElementById("inputText").value;
@@ -177,23 +209,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Add event listeners to buttons if they exist
+    // Add event listeners to action buttons
     const actionButtons = document.querySelectorAll(".action-button");
     if (actionButtons.length > 0) {
         actionButtons.forEach(button => {
             button.addEventListener("click", function() {
-                // Pass both button and action parameters
                 processText(this, this.getAttribute("data-action"));
             });
-        });
-    }
-
-    // Add logout functionality if the logout button exists
-    const logoutButton = document.getElementById("logout");
-    if (logoutButton) {
-        logoutButton.addEventListener("click", function() {
-            localStorage.removeItem("authToken");
-            window.location.href = "/";
         });
     }
 });

@@ -474,7 +474,22 @@ def initialize_default_prompts():
         "emergencies": """You are a veteran physician and a statistician.
         Study this Medical progress note and predict the five most likely emergency situations that could arise.
         Provide a one-line reasoning for each and list red flag symptoms to monitor.
-        Use medical acronyms and shorthand to keep it short:"""
+        Use medical acronyms and shorthand to keep it short:""",
+        
+        # New prompts added
+        "insurance_denial": """You are an experienced American physican. Here is a medical progress note you can use or use any clinical information given as input for understanding the patient. Please review it and decipher the clinical context with the main and critical issues. Their medical Insurance company has unfortunately denied their care. Please write a letter to the insurance company challenging their denial. Start the letter very brielfy going over the important clinical events. Then explaining the medical reasons why patient absolutely needed this medical care and the dangers of denying the care. Explain to the insurance company why they need to cover the costs. Make the letter maximum 600 words, make it sound passionate, firm, formal yet friendly""",
+        
+        "impression_ap": """You are an experienced American physican. Here is a history of medical illness note of HPI for a patient. Use this to generate the following output format:
+        Impression: (create a short concise clinical signout using standard medical acronyms capturing the essence of the medical picture only and main clinical issues)
+        Assessment/Plan: (Create a list of active diagnosis, next to each diagnosis create a short plan to include for further investigation to rule out differential diagnoses and suggest treaments. At the botton create a list of chronic issues. Start every diagnosis and plan suggestion on a new line using the "-" character):""",
+        
+        "improve_los": """You are an experienced American physican and a medical case manager and medical social worker. Here is a medical progress note you can use or use any clinical information given as input for understanding the patient. Please review it and decipher the clinical context and the psychosocial issues. Give me the following output only:
+        Enlist brief practical actionable suggestions for improving this patient's length of stay. Start every suggestion on a new line using the "-" character""",
+        
+        "cut_readmission": """You are an experienced American physican and a medical case manager and medical social worker. Here is a medical progress note you can use or use any clinical information given as input for understanding the patient. Please review it and decipher the clinical contexgt and the psychosocial issues. Give me the following output only:
+        Enlist brief practical actionable suggestions for reducing risk of admission in the next 30 days for this patient. Start every suggestion on a new line using the "-" character.""",
+        
+        "improve_care": """You are an experienced American physican, Medical case manager and a expert clinical pharmacist. Here is a medical progress note or any clinical information on a patient. Understand it as a whole to create a clear clinical story and context in your mind. For output give me a list of suggestions to improve the quality of my clinical care, reduce readmission risk and reduce medical errors. Base your suggestions on the latest evidence-based guidelines from American medical societies and CDC. Do not imagine new information only work with input provided. For output formatting, start every suggestion with a "-" character followed by your very short reasoning. OK to use standard medical acronyms and shorthand:"""
     }
     
     # Check existing prompts in the database
@@ -497,7 +512,6 @@ def initialize_default_prompts():
             logger.info(f"Added default prompt: {key}")
     
     logger.info("Default prompts initialized in MongoDB")
-
 # Function to get a prompt from MongoDB
 def get_prompt(key):
     """Get an active prompt from MongoDB by key."""
