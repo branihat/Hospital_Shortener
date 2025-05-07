@@ -115,6 +115,27 @@
             opacity: 1;
         }
 
+        .footer-logo .logo-container {
+            margin: 8px;
+            height: 68px;
+            width: auto;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo .logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Remove conflicting logo classes */
+        .logo-dark, .logo-light {
+            display: none;
+        }
     </style>
     
     <!-- Load non-critical CSS asynchronously -->
@@ -231,8 +252,10 @@
         <footer>
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo" class="logo-dark" width="150" height="35">
-                    <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo" class="logo-light" width="150" height="35">
+                    <div class="logo-container">
+                        <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo" class="logo dark-mode-logo" width="150" height="35">
+                        <img src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo" class="logo light-mode-logo" width="150" height="35">
+                    </div>
                     <p>ChartWitch - Automate Medical Notes</p>
                 </div>
                 <!-- Update the Quick Links section in the footer -->
