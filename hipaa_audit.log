@@ -9,3 +9,106 @@
 2025-04-13 21:39:20,288 - INFO - 127.0.0.1 - - [13/Apr/2025 21:39:20] "GET /static/logo-light.svg HTTP/1.1" 200 -
 2025-04-13 21:39:20,309 - INFO - 127.0.0.1 - - [13/Apr/2025 21:39:20] "GET /static/style.css HTTP/1.1" 200 -
 2025-04-13 21:39:20,324 - INFO - 127.0.0.1 - - [13/Apr/2025 21:39:20] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-05-07 15:21:17,125 - INFO - Default prompts initialized in MongoDB
+2025-05-07 15:21:17,193 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-05-07 15:21:17,193 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-07 15:21:47,521 - INFO - 127.0.0.1 - - [07/May/2025 15:21:47] "GET / HTTP/1.1" 200 -
+2025-05-07 15:21:47,542 - INFO - 127.0.0.1 - - [07/May/2025 15:21:47] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-05-07 15:21:47,545 - INFO - 127.0.0.1 - - [07/May/2025 15:21:47] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-05-07 15:21:47,546 - INFO - 127.0.0.1 - - [07/May/2025 15:21:47] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-05-07 15:21:47,547 - INFO - 127.0.0.1 - - [07/May/2025 15:21:47] "GET /static/landing.js HTTP/1.1" 200 -
+2025-05-07 15:21:47,548 - INFO - 127.0.0.1 - - [07/May/2025 15:21:47] "GET /static/landing.css HTTP/1.1" 200 -
+2025-05-07 15:21:56,538 - INFO - 127.0.0.1 - - [07/May/2025 15:21:56] "GET /login HTTP/1.1" 200 -
+2025-05-07 15:21:56,553 - INFO - 127.0.0.1 - - [07/May/2025 15:21:56] "GET /static/style1.css HTTP/1.1" 200 -
+2025-05-07 15:21:56,554 - INFO - 127.0.0.1 - - [07/May/2025 15:21:56] "GET /static/auth.js HTTP/1.1" 200 -
+2025-05-07 15:21:56,556 - INFO - 127.0.0.1 - - [07/May/2025 15:21:56] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-07 15:32:53,097 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-05-07 15:32:53,098 - INFO - 127.0.0.1 - - [07/May/2025 15:32:53] "POST /api/login HTTP/1.1" 200 -
+2025-05-07 15:32:53,131 - INFO - 127.0.0.1 - - [07/May/2025 15:32:53] "GET /dashboard HTTP/1.1" 200 -
+2025-05-07 15:32:53,152 - INFO - 127.0.0.1 - - [07/May/2025 15:32:53] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-05-07 15:32:53,155 - INFO - 127.0.0.1 - - [07/May/2025 15:32:53] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-07 15:32:53,156 - INFO - 127.0.0.1 - - [07/May/2025 15:32:53] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-05-07 15:32:53,158 - INFO - 127.0.0.1 - - [07/May/2025 15:32:53] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-07 15:32:53,160 - INFO - 127.0.0.1 - - [07/May/2025 15:32:53] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-05-07 15:32:53,165 - INFO - 127.0.0.1 - - [07/May/2025 15:32:53] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-07 15:32:53,382 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-05-07 15:32:53,383 - INFO - 127.0.0.1 - - [07/May/2025 15:32:53] "POST /api/login HTTP/1.1" 200 -
+2025-05-07 15:33:01,688 - INFO - Authorized access by user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-05-07 15:33:02,222 - ERROR - AI processing error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. [violations {
+}
+violations {
+}
+violations {
+}
+, links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, retry_delay {
+  seconds: 57
+}
+]
+2025-05-07 15:33:02,223 - INFO - 127.0.0.1 - - [07/May/2025 15:33:02] "[35m[1mPOST /process HTTP/1.1[0m" 500 -
+2025-05-07 15:33:11,915 - INFO - 127.0.0.1 - - [07/May/2025 15:33:11] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-05-07 15:33:11,921 - INFO - 127.0.0.1 - - [07/May/2025 15:33:11] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-07 15:36:16,866 - INFO - 127.0.0.1 - - [07/May/2025 15:36:16] "GET /login HTTP/1.1" 200 -
+2025-05-07 15:36:16,890 - INFO - 127.0.0.1 - - [07/May/2025 15:36:16] "GET /static/style1.css HTTP/1.1" 200 -
+2025-05-07 15:36:16,892 - INFO - 127.0.0.1 - - [07/May/2025 15:36:16] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-07 15:36:16,894 - INFO - 127.0.0.1 - - [07/May/2025 15:36:16] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-05-07 17:20:13,397 - INFO - Default prompts initialized in MongoDB
+2025-05-07 17:20:13,471 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-05-07 17:20:13,471 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-07 17:20:22,504 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /dashboard HTTP/1.1" 200 -
+2025-05-07 17:20:22,533 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-07 17:20:22,537 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-05-07 17:20:22,539 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-05-07 17:20:22,540 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-05-07 17:20:22,542 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-05-07 17:20:22,587 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-07 17:20:22,644 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /login HTTP/1.1" 200 -
+2025-05-07 17:20:22,679 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /static/style1.css HTTP/1.1" 200 -
+2025-05-07 17:20:22,681 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-07 17:20:22,682 - INFO - 127.0.0.1 - - [07/May/2025 17:20:22] "GET /static/auth.js HTTP/1.1" 200 -
+2025-05-07 17:20:34,638 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-05-07 17:20:34,639 - INFO - 127.0.0.1 - - [07/May/2025 17:20:34] "POST /api/login HTTP/1.1" 200 -
+2025-05-07 17:20:34,653 - INFO - 127.0.0.1 - - [07/May/2025 17:20:34] "GET /dashboard HTTP/1.1" 200 -
+2025-05-07 17:20:34,679 - INFO - 127.0.0.1 - - [07/May/2025 17:20:34] "[36mGET /static/fonts/verdana.ttf HTTP/1.1[0m" 304 -
+2025-05-07 17:20:34,682 - INFO - 127.0.0.1 - - [07/May/2025 17:20:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-07 17:20:34,684 - INFO - 127.0.0.1 - - [07/May/2025 17:20:34] "[36mGET /static/English_salad.js HTTP/1.1[0m" 304 -
+2025-05-07 17:20:34,687 - INFO - 127.0.0.1 - - [07/May/2025 17:20:34] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-07 17:20:34,688 - INFO - 127.0.0.1 - - [07/May/2025 17:20:34] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-05-07 17:20:34,693 - INFO - 127.0.0.1 - - [07/May/2025 17:20:34] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-07 17:20:34,808 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-05-07 17:20:34,808 - INFO - 127.0.0.1 - - [07/May/2025 17:20:34] "POST /api/login HTTP/1.1" 200 -
+2025-05-07 17:20:39,251 - INFO - Authorized access by user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-05-07 17:20:39,812 - ERROR - AI processing error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. [violations {
+}
+violations {
+}
+violations {
+}
+, links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, retry_delay {
+  seconds: 19
+}
+]
+2025-05-07 17:20:39,813 - INFO - 127.0.0.1 - - [07/May/2025 17:20:39] "[35m[1mPOST /process HTTP/1.1[0m" 500 -
+2025-05-07 17:20:43,858 - INFO - 127.0.0.1 - - [07/May/2025 17:20:43] "GET /login HTTP/1.1" 200 -
+2025-05-07 17:20:43,881 - INFO - 127.0.0.1 - - [07/May/2025 17:20:43] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-05-07 17:20:43,885 - INFO - 127.0.0.1 - - [07/May/2025 17:20:43] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-05-07 17:20:43,886 - INFO - 127.0.0.1 - - [07/May/2025 17:20:43] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-07 17:20:50,133 - INFO - 127.0.0.1 - - [07/May/2025 17:20:50] "GET / HTTP/1.1" 200 -
+2025-05-07 17:20:50,159 - INFO - 127.0.0.1 - - [07/May/2025 17:20:50] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-05-07 17:20:50,161 - INFO - 127.0.0.1 - - [07/May/2025 17:20:50] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-07 17:20:50,162 - INFO - 127.0.0.1 - - [07/May/2025 17:20:50] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-05-07 17:20:50,164 - INFO - 127.0.0.1 - - [07/May/2025 17:20:50] "GET /static/landing.js HTTP/1.1" 200 -
+2025-05-07 17:20:50,166 - INFO - 127.0.0.1 - - [07/May/2025 17:20:50] "GET /static/landing.css HTTP/1.1" 200 -
+2025-05-07 17:20:52,710 - INFO - 127.0.0.1 - - [07/May/2025 17:20:52] "GET /pricing HTTP/1.1" 200 -
+2025-05-07 17:20:52,735 - INFO - 127.0.0.1 - - [07/May/2025 17:20:52] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-07 17:20:52,737 - INFO - 127.0.0.1 - - [07/May/2025 17:20:52] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-05-07 17:20:52,739 - INFO - 127.0.0.1 - - [07/May/2025 17:20:52] "[33mGET /static/pricing.js HTTP/1.1[0m" 404 -

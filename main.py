@@ -595,6 +595,53 @@ def create_new_prompt():
 def serve_js():
     return send_file('English_salad.js', mimetype='application/javascript')
 
+@app.route('/pricing')
+def pricing():
+    plans = {
+        'basic': {
+            'name': 'Basic',
+            'price': '29',
+            'description': 'Perfect for individual healthcare providers',
+            'features': [
+                'All core features',
+                'Basic API access',
+                'Email support',
+                'HIPAA compliance'
+            ],
+            'api_requests': '1,000',
+            'id': 'price_basic'
+        },
+        'pro': {
+            'name': 'Professional',
+            'price': '99',
+            'description': 'Ideal for small practices',
+            'features': [
+                'All Basic features',
+                'Priority API access',
+                'Priority support',
+                'Advanced analytics'
+            ],
+            'api_requests': '5,000',
+            'id': 'price_pro'
+        },
+        'enterprise': {
+            'name': 'Enterprise',
+            'price': '299',
+            'description': 'For large healthcare organizations',
+            'features': [
+                'All Pro features',
+                'Unlimited API access',
+                '24/7 phone support',
+                'Custom integration'
+            ],
+            'api_requests': 'Unlimited',
+            'id': 'price_enterprise'
+        }
+    }
+    return render_template('pricing.html', 
+                         plans=plans,
+                         stripe_public_key=os.getenv('STRIPE_PUBLIC_KEY'))
+
 # Error Handling
 @app.errorhandler(404)
 def not_found(error):
