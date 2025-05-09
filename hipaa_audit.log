@@ -278,3 +278,34 @@ violations {
 2025-05-09 17:55:19,051 - INFO - 127.0.0.1 - - [09/May/2025 17:55:19] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
 2025-05-09 17:55:21,333 - INFO - Authorized access by user: 92d1ca7c-3347-437d-a583-2c67a3457183
 2025-05-09 17:55:24,801 - INFO - 127.0.0.1 - - [09/May/2025 17:55:24] "POST /process HTTP/1.1" 200 -
+2025-05-09 23:02:32,232 - INFO - Default prompts initialized in MongoDB
+2025-05-09 23:02:32,500 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-05-09 23:02:32,500 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-09 23:02:58,028 - INFO - 127.0.0.1 - - [09/May/2025 23:02:58] "GET /login HTTP/1.1" 200 -
+2025-05-09 23:02:58,398 - INFO - 127.0.0.1 - - [09/May/2025 23:02:58] "GET /static/style1.css HTTP/1.1" 200 -
+2025-05-09 23:02:58,422 - INFO - 127.0.0.1 - - [09/May/2025 23:02:58] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-05-09 23:02:58,429 - INFO - 127.0.0.1 - - [09/May/2025 23:02:58] "GET /static/auth.js HTTP/1.1" 200 -
+2025-05-09 23:02:59,975 - INFO - 127.0.0.1 - - [09/May/2025 23:02:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-09 23:03:07,958 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-05-09 23:03:07,958 - INFO - 127.0.0.1 - - [09/May/2025 23:03:07] "POST /api/login HTTP/1.1" 200 -
+2025-05-09 23:03:08,038 - INFO - 127.0.0.1 - - [09/May/2025 23:03:08] "GET /dashboard HTTP/1.1" 200 -
+2025-05-09 23:03:08,155 - INFO - 127.0.0.1 - - [09/May/2025 23:03:08] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-09 23:03:08,155 - INFO - 127.0.0.1 - - [09/May/2025 23:03:08] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-05-09 23:03:08,170 - INFO - 127.0.0.1 - - [09/May/2025 23:03:08] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-09 23:03:08,281 - INFO - 127.0.0.1 - - [09/May/2025 23:03:08] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-05-09 23:03:08,289 - INFO - 127.0.0.1 - - [09/May/2025 23:03:08] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-09 23:03:08,321 - INFO - 127.0.0.1 - - [09/May/2025 23:03:08] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-05-09 23:03:35,732 - INFO - 127.0.0.1 - - [09/May/2025 23:03:35] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-05-09 23:03:35,746 - INFO - 127.0.0.1 - - [09/May/2025 23:03:35] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-09 23:09:43,164 - INFO - Default prompts initialized in MongoDB
+2025-05-09 23:09:43,238 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-05-09 23:09:43,238 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-09 23:10:05,166 - INFO - 127.0.0.1 - - [09/May/2025 23:10:05] "GET /dashboard HTTP/1.1" 200 -
+2025-05-09 23:10:05,560 - INFO - 127.0.0.1 - - [09/May/2025 23:10:05] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-09 23:10:05,568 - INFO - 127.0.0.1 - - [09/May/2025 23:10:05] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-05-09 23:10:05,586 - INFO - 127.0.0.1 - - [09/May/2025 23:10:05] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-05-09 23:10:05,651 - INFO - 127.0.0.1 - - [09/May/2025 23:10:05] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-05-09 23:10:05,651 - INFO - 127.0.0.1 - - [09/May/2025 23:10:05] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-05-09 23:10:05,765 - INFO - 127.0.0.1 - - [09/May/2025 23:10:05] "GET /static/script.js HTTP/1.1" 200 -
