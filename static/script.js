@@ -159,25 +159,24 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             body: JSON.stringify({ text: text, action: action })
         })
-        .then(response => {
+        .then(async response => {
+            const data = await response.json();
+            
             if (response.status === 401) {
                 localStorage.removeItem("authToken");
                 window.location.href = "/login";
                 throw new Error("Authentication required");
             }
-            if (response.status === 500) {
-                return response.json().then(data => {
-                    // Check if error message contains quota exceeded
-                    if (data.error && data.error.includes("429")) {
-                        // Extract retry delay seconds from error message
-                        const retryDelayMatch = data.error.match(/seconds: (\d+)/);
-                        const retryDelay = retryDelayMatch ? retryDelayMatch[1] : "few";
-                        throw new Error(`service-busy:${retryDelay}`);
-                    }
-                    throw new Error(data.error);
-                });
+            
+            if (response.status === 429) {
+                throw new Error(`rate-limit:${data.retry_after}`);
             }
-            return response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error || "An error occurred");
+            }
+            
+            return data;
         })
         .then(data => {
             if (data.result) {
@@ -188,15 +187,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     console.error("Error in text replacement:", err);
                 }
                 document.getElementById("outputText").value = processedText;
-            } else {
-                alert("Error: " + data.error);
             }
         })
         .catch(error => {
             console.error("Error:", error);
-            if (error.message.startsWith("service-busy:")) {
-                const retryDelay = error.message.split(":")[1];
-                alert(`The service is temporarily busy. Please try again in ${retryDelay} seconds.`);
+            if (error.message.startsWith("rate-limit:")) {
+                const retrySeconds = error.message.split(":")[1];
+                alert(`Service is busy. Please try again in ${retrySeconds} seconds.`);
             } else if (error.message === "Authentication required") {
                 // Already handled by redirect
                 return;

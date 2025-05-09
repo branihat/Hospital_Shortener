@@ -363,7 +363,7 @@ def process_text():
         return jsonify({"error": "Missing required fields"}), 400
     
     try:
-        model = genai.GenerativeModel("gemini-1.5-pro")
+        model = genai.GenerativeModel("gemini-2.0-flash-lite")
         anonymized_text = anonymize_text(text)
         
         prompt_text = get_prompt(action)
