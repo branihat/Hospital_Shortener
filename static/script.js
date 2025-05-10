@@ -73,34 +73,29 @@ document.addEventListener("DOMContentLoaded", function() {
         doc.save(`ChartWitch_Output_${timestamp}.pdf`);
     });
 
-    // Tool Category Buttons - show/hide buttons on click
-    const toolCategoryButtons = document.querySelectorAll('.tool-category-button');
+    // New Tab Navigation Functionality
+    const tabItems = document.querySelectorAll('.tab-item');
     
-    toolCategoryButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const targetId = this.getAttribute('data-target');
-            const toolsContainer = document.getElementById(targetId);
+    tabItems.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
             
-            // Toggle the visibility of the tools container
-            const isVisible = toolsContainer.classList.toggle('visible');
-            
-            // Update button text
-            if (isVisible) {
-                this.classList.add('active');
-            } else {
-                this.classList.remove('active');
-            }
-            
-            // Hide other tool containers
-            document.querySelectorAll('.tools-container').forEach(container => {
-                if (container.id !== targetId && container.classList.contains('visible')) {
-                    container.classList.remove('visible');
-                    const otherButton = document.querySelector(`.tool-category-button[data-target="${container.id}"]`);
-                    if (otherButton) {
-                        otherButton.classList.remove('active');
-                    }
-                }
+            // Remove active class from all tabs
+            tabItems.forEach(item => {
+                item.classList.remove('active');
             });
+            
+            // Add active class to clicked tab
+            this.classList.add('active');
+            
+            // Hide all tab panes
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('active');
+            });
+            
+            // Show the corresponding tab pane
+            const target = this.getAttribute('data-target');
+            document.getElementById(target).classList.add('active');
         });
     });
 

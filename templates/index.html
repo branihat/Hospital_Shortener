@@ -6,6 +6,7 @@
     <title>ChartWitch - Medical Note Automation</title>
     <link href="{{ url_for('static', filename='fonts/verdana.ttf') }}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="/static/English_salad.js"></script>
 </head>
@@ -42,31 +43,33 @@
         </div>
     </div>
 
-    <div class="button-container">
-        <!-- Default Tools Category Button -->
-        <button class="tool-category-button" data-target="default-tools-container">Default Tools</button>
-        
-        <!-- Suggested Tools Category Button -->
-        <button class="tool-category-button" data-target="suggested-tools-container">Suggested Tools</button>
-    </div>
-    
-    <!-- Default Tools Container -->
-    <div id="default-tools-container" class="tools-container">
-        <button class="action-button" data-action="short_signout" data-tooltip="Creates a concise signout note from your medical text">Create Signout</button>
-        <button class="action-button" data-action="hospital_summary" data-tooltip="Generates a comprehensive hospital summary from your notes">Hospital Summary</button>
-        <button class="action-button" data-action="cleanup" data-tooltip="Cleans and organizes your medical notes for better readability">Clean Up Note</button>
-        <button class="action-button" data-action="discharge_summary" data-tooltip="Creates a structured discharge summary from patient information">Discharge Summary</button>
-        <button class="action-button" data-action="diagnoses" data-tooltip="Identifies and lists all diagnoses from your medical notes">Extract Diagnoses</button>
-        <button class="action-button" data-action="emergencies" data-tooltip="Analyzes notes to predict potential emergencies or complications">Predict Emergencies</button>
-    </div>
-    
-    <!-- Suggested Tools Container -->
-    <div id="suggested-tools-container" class="tools-container">
-        <button class="action-button" data-action="insurance_denial" data-tooltip="Generates an insurance denial letter based on clinical information">Insurance Denial Letter</button>
-        <button class="action-button" data-action="impression_ap" data-tooltip="Creates impression and assessment/plan sections from your notes">Impression & A/P</button>
-        <button class="action-button" data-action="improve_los" data-tooltip="Suggests ways to improve Length of Stay based on patient data">Improve LOS</button>
-        <button class="action-button" data-action="cut_readmission" data-tooltip="Identifies factors to reduce readmission risk">Cut Readmission Risk</button>
-        <button class="action-button" data-action="improve_care" data-tooltip="Recommends improvements to clinical care based on your notes">Improve Clinical Care</button>
+    <!-- New Tab Interface -->
+    <div class="tab-container">
+        <ul class="tab-list">
+            <li class="tab-item active" data-target="default-tools-container"><a href="#default-tools">Default Tools</a></li>
+            <li class="tab-item" data-target="suggested-tools-container"><a href="#suggested-tools">Suggested Tools</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Default Tools Container -->
+            <div id="default-tools-container" class="tab-pane active">
+                <button class="action-button" data-action="short_signout" data-tooltip="Creates a concise signout note from your medical text">Create Signout</button>
+                <button class="action-button" data-action="hospital_summary" data-tooltip="Generates a comprehensive hospital summary from your notes">Hospital Summary</button>
+                <button class="action-button" data-action="cleanup" data-tooltip="Cleans and organizes your medical notes for better readability">Clean Up Note</button>
+                <button class="action-button" data-action="discharge_summary" data-tooltip="Creates a structured discharge summary from patient information">Discharge Summary</button>
+                <button class="action-button" data-action="diagnoses" data-tooltip="Identifies and lists all diagnoses from your medical notes">Extract Diagnoses</button>
+                <button class="action-button" data-action="emergencies" data-tooltip="Analyzes notes to predict potential emergencies or complications">Predict Emergencies</button>
+            </div>
+            
+            <!-- Suggested Tools Container -->
+            <div id="suggested-tools-container" class="tab-pane">
+                <button class="action-button" data-action="insurance_denial" data-tooltip="Generates an insurance denial letter based on clinical information">Insurance Denial Letter</button>
+                <button class="action-button" data-action="impression_ap" data-tooltip="Creates impression and assessment/plan sections from your notes">Impression & A/P</button>
+                <button class="action-button" data-action="improve_los" data-tooltip="Suggests ways to improve Length of Stay based on patient data">Improve LOS</button>
+                <button class="action-button" data-action="cut_readmission" data-tooltip="Identifies factors to reduce readmission risk">Cut Readmission Risk</button>
+                <button class="action-button" data-action="improve_care" data-tooltip="Recommends improvements to clinical care based on your notes">Improve Clinical Care</button>
+            </div>
+        </div>
     </div>
     
     <script src="{{ url_for('static', filename='script.js') }}"></script>
