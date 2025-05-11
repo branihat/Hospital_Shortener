@@ -406,6 +406,127 @@ footer {
     margin-bottom: 1rem;
 }
 
+/* How It Works Section Styles */
+.how-it-works-section {
+    padding: 5rem 5%;
+    background-color: var(--background);
+    text-align: center;
+}
+
+.how-it-works-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+}
+
+.how-it-works-section h2:after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    background: var(--gradient);
+    bottom: -10px;
+    left: 25%;
+    border-radius: 2px;
+}
+
+.how-it-works-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.how-it-works-video {
+    flex: 1;
+    max-width: 550px;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.process-gif {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+
+.video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.video-placeholder i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.how-it-works-steps {
+    flex: 1;
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: left;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.step-number {
+    background: var(--gradient);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.step-content h3 {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.step-content p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .how-it-works-container {
+        flex-direction: column;
+    }
+    
+    .how-it-works-video,
+    .how-it-works-steps {
+        max-width: 100%;
+    }
+}
+
 .newsletter-form {
     display: flex;
 }
