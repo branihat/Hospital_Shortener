@@ -600,7 +600,7 @@ def pricing():
     plans = {
         'basic': {
             'name': 'Basic',
-            'price': '29',
+            'price': '22',
             'description': 'Perfect for individual healthcare providers',
             'features': [
                 'All core features',
@@ -609,7 +609,7 @@ def pricing():
                 'HIPAA compliance'
             ],
             'api_requests': '1,000',
-            'id': 'price_basic'
+            'payment_link': 'https://buy.stripe.com/test_9B6aEWelx5BT3nyge44wM00'
         },
         'pro': {
             'name': 'Professional',
@@ -622,7 +622,7 @@ def pricing():
                 'Advanced analytics'
             ],
             'api_requests': '5,000',
-            'id': 'price_pro'
+            'payment_link': 'https://buy.stripe.com/test_3cI4gy3GT9S93nybXO4wM01'
         },
         'enterprise': {
             'name': 'Enterprise',
@@ -635,7 +635,7 @@ def pricing():
                 'Custom integration'
             ],
             'api_requests': 'Unlimited',
-            'id': 'price_enterprise'
+            'payment_link': 'https://buy.stripe.com/test_00wfZgdhte8pf6gbXO4wM02'
         }
     }
     return render_template('pricing.html', 
