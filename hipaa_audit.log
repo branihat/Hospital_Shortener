@@ -1,0 +1,27 @@
+2025-05-12 01:06:13,609 - INFO - Default prompts initialized in MongoDB
+2025-05-12 01:06:13,727 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-05-12 01:06:13,727 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-12 01:07:39,876 - INFO - 127.0.0.1 - - [12/May/2025 01:07:39] "GET / HTTP/1.1" 200 -
+2025-05-12 01:07:40,397 - INFO - 127.0.0.1 - - [12/May/2025 01:07:40] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-05-12 01:07:40,433 - INFO - 127.0.0.1 - - [12/May/2025 01:07:40] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-05-12 01:07:40,450 - INFO - 127.0.0.1 - - [12/May/2025 01:07:40] "GET /static/landing.css HTTP/1.1" 200 -
+2025-05-12 01:07:40,450 - INFO - 127.0.0.1 - - [12/May/2025 01:07:40] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-05-12 01:07:40,473 - INFO - 127.0.0.1 - - [12/May/2025 01:07:40] "GET /static/landing.js HTTP/1.1" 200 -
+2025-05-12 01:07:40,493 - INFO - 127.0.0.1 - - [12/May/2025 01:07:40] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-05-12 01:07:47,676 - INFO - 127.0.0.1 - - [12/May/2025 01:07:47] "GET /pricing HTTP/1.1" 200 -
+2025-05-12 01:07:47,714 - INFO - 127.0.0.1 - - [12/May/2025 01:07:47] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-05-12 01:07:47,718 - INFO - 127.0.0.1 - - [12/May/2025 01:07:47] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-05-15 18:12:02,135 - INFO - Default prompts initialized in MongoDB
+2025-05-15 18:12:02,306 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-05-15 18:12:02,306 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-15 18:12:36,816 - INFO - 127.0.0.1 - - [15/May/2025 18:12:36] "GET / HTTP/1.1" 200 -
+2025-05-15 18:12:36,816 - INFO - 127.0.0.1 - - [15/May/2025 18:12:36] "GET / HTTP/1.1" 200 -
+2025-05-15 18:12:38,478 - INFO - 127.0.0.1 - - [15/May/2025 18:12:38] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-05-15 18:12:38,484 - INFO - 127.0.0.1 - - [15/May/2025 18:12:38] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-05-15 18:12:38,806 - INFO - 127.0.0.1 - - [15/May/2025 18:12:38] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-05-15 18:12:38,923 - INFO - 127.0.0.1 - - [15/May/2025 18:12:38] "GET /static/landing.css HTTP/1.1" 200 -
+2025-05-15 18:12:39,094 - INFO - 127.0.0.1 - - [15/May/2025 18:12:39] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-05-15 18:12:39,141 - INFO - 127.0.0.1 - - [15/May/2025 18:12:39] "GET /static/landing.js HTTP/1.1" 200 -
+2025-05-15 18:12:39,470 - INFO - 127.0.0.1 - - [15/May/2025 18:12:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
