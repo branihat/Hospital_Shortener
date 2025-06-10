@@ -307,3 +307,21 @@ jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'basic'
 2025-06-10 17:20:23,275 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:23] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
 2025-06-10 17:20:35,862 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:35] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
 2025-06-10 17:21:03,887 - INFO - 127.0.0.1 - - [10/Jun/2025 17:21:03] "[31m[1mPOST /register HTTP/1.1[0m" 402 -
+2025-06-10 17:35:38,046 - INFO - Default prompts initialized in MongoDB
+2025-06-10 17:35:38,083 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-10 17:35:38,084 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 17:46:39,173 - INFO - Default prompts initialized in MongoDB
+2025-06-10 17:46:39,229 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-10 17:46:39,230 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 17:46:52,559 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:52] "GET / HTTP/1.1" 200 -
+2025-06-10 17:46:52,582 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:52] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-10 17:46:52,585 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:52] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-10 17:46:52,586 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:52] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-10 17:46:52,588 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:52] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-10 17:46:52,589 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:52] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-10 17:46:52,591 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:52] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-10 17:46:53,083 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-10 17:46:54,355 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:54] "GET /pricing HTTP/1.1" 200 -
+2025-06-10 17:46:54,370 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:54] "GET /static/css/style.css HTTP/1.1" 200 -
