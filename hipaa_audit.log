@@ -25,3 +25,285 @@
 2025-05-15 18:12:39,094 - INFO - 127.0.0.1 - - [15/May/2025 18:12:39] "GET /static/how-it-works.gif HTTP/1.1" 200 -
 2025-05-15 18:12:39,141 - INFO - 127.0.0.1 - - [15/May/2025 18:12:39] "GET /static/landing.js HTTP/1.1" 200 -
 2025-05-15 18:12:39,470 - INFO - 127.0.0.1 - - [15/May/2025 18:12:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-03 16:33:17,850 - INFO - Default prompts initialized in MongoDB
+2025-06-03 16:33:17,918 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-03 16:33:17,918 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-03 16:33:23,800 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:23] "GET /login HTTP/1.1" 200 -
+2025-06-03 16:33:23,817 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:23] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-03 16:33:23,818 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:23] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-03 16:33:23,819 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:23] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-03 16:33:32,836 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-06-03 16:33:32,837 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:32] "POST /api/login HTTP/1.1" 200 -
+2025-06-03 16:33:32,851 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:32] "GET /dashboard HTTP/1.1" 200 -
+2025-06-03 16:33:32,878 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:32] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-03 16:33:32,879 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:32] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-03 16:33:32,882 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:32] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-06-03 16:33:32,882 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:32] "GET /static/script.js HTTP/1.1" 200 -
+2025-06-03 16:33:32,883 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:32] "GET /static/style.css HTTP/1.1" 200 -
+2025-06-03 16:33:32,924 - INFO - 127.0.0.1 - - [03/Jun/2025 16:33:32] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-06-03 17:03:15,586 - INFO - Default prompts initialized in MongoDB
+2025-06-03 17:03:15,638 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-03 17:03:15,639 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-03 17:03:40,083 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:40] "GET /login HTTP/1.1" 200 -
+2025-06-03 17:03:40,104 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:40] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-03 17:03:40,105 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:40] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-03 17:03:40,107 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:40] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-03 17:03:46,972 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-06-03 17:03:46,973 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:46] "POST /api/login HTTP/1.1" 200 -
+2025-06-03 17:03:46,987 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:46] "GET /dashboard HTTP/1.1" 200 -
+2025-06-03 17:03:47,007 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:47] "GET /static/style.css HTTP/1.1" 200 -
+2025-06-03 17:03:47,009 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:47] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-06-03 17:03:47,011 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:47] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-06-03 17:03:47,013 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:47] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-03 17:03:47,014 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:47] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-03 17:03:47,024 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:47] "GET /static/script.js HTTP/1.1" 200 -
+2025-06-03 17:03:50,232 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:50] "GET /login HTTP/1.1" 200 -
+2025-06-03 17:03:50,246 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:50] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-03 17:03:50,247 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:50] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-06-03 17:03:50,249 - INFO - 127.0.0.1 - - [03/Jun/2025 17:03:50] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-03 17:04:08,480 - INFO - 127.0.0.1 - - [03/Jun/2025 17:04:08] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-06-03 17:04:20,127 - INFO - 127.0.0.1 - - [03/Jun/2025 17:04:20] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-06-03 17:04:24,270 - INFO - 127.0.0.1 - - [03/Jun/2025 17:04:24] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-03 17:04:24,282 - INFO - 127.0.0.1 - - [03/Jun/2025 17:04:24] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-03 17:04:30,189 - INFO - 127.0.0.1 - - [03/Jun/2025 17:04:30] "[31m[1mGET /register HTTP/1.1[0m" 405 -
+2025-06-03 17:06:12,570 - INFO - Default prompts initialized in MongoDB
+2025-06-03 17:06:12,639 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-03 17:06:12,639 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-03 17:06:24,362 - INFO - 127.0.0.1 - - [03/Jun/2025 17:06:24] "GET /login HTTP/1.1" 200 -
+2025-06-03 17:06:24,385 - INFO - 127.0.0.1 - - [03/Jun/2025 17:06:24] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-03 17:06:24,388 - INFO - 127.0.0.1 - - [03/Jun/2025 17:06:24] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-06-03 17:06:24,389 - INFO - 127.0.0.1 - - [03/Jun/2025 17:06:24] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-03 17:06:24,390 - INFO - 127.0.0.1 - - [03/Jun/2025 17:06:24] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-03 17:06:46,375 - INFO - 127.0.0.1 - - [03/Jun/2025 17:06:46] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-06-03 17:06:53,177 - INFO - 127.0.0.1 - - [03/Jun/2025 17:06:53] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-06-03 17:25:37,287 - INFO - Default prompts initialized in MongoDB
+2025-06-03 17:25:37,337 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-03 17:25:37,337 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-03 17:25:49,309 - INFO - 127.0.0.1 - - [03/Jun/2025 17:25:49] "GET /login HTTP/1.1" 200 -
+2025-06-03 17:25:49,328 - INFO - 127.0.0.1 - - [03/Jun/2025 17:25:49] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-03 17:25:49,329 - INFO - 127.0.0.1 - - [03/Jun/2025 17:25:49] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-03 17:25:49,331 - INFO - 127.0.0.1 - - [03/Jun/2025 17:25:49] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-03 17:26:11,736 - INFO - 127.0.0.1 - - [03/Jun/2025 17:26:11] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2025-06-03 17:26:21,854 - ERROR - Error sending verification email: {'brani..hat@gmail.com': (553, b'5.1.3 The recipient address <brani..hat@gmail.com> is not a valid RFC 5321\n5.1.3 address. For more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. d2e1a72fcca58-747affadf65sm9510848b3a.95 - gsmtp')}
+2025-06-03 17:26:21,854 - INFO - 127.0.0.1 - - [03/Jun/2025 17:26:21] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-06-03 17:26:38,262 - INFO - 127.0.0.1 - - [03/Jun/2025 17:26:38] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2025-06-03 17:26:48,062 - INFO - Verification email sent to Vishnu.thand.el163@gmail.com
+2025-06-03 17:26:48,063 - INFO - 127.0.0.1 - - [03/Jun/2025 17:26:48] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-06-03 17:31:30,163 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "[31m[1mGET /api/login HTTP/1.1[0m" 405 -
+2025-06-03 17:31:30,283 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-03 17:31:30,464 - INFO - Successful login for user: 8c6e2089-e82b-444c-86c6-2d418ddded1a
+2025-06-03 17:31:30,464 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "POST /api/login HTTP/1.1" 200 -
+2025-06-03 17:31:30,478 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "GET /dashboard HTTP/1.1" 200 -
+2025-06-03 17:31:30,498 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-06-03 17:31:30,507 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "GET /static/style.css HTTP/1.1" 200 -
+2025-06-03 17:31:30,509 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-06-03 17:31:30,511 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-03 17:31:30,513 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-03 17:31:30,515 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-03 17:31:30,525 - INFO - Successful login for user: 8c6e2089-e82b-444c-86c6-2d418ddded1a
+2025-06-03 17:31:30,526 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "POST /api/login HTTP/1.1" 200 -
+2025-06-03 17:31:30,547 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:30] "GET /static/script.js HTTP/1.1" 200 -
+2025-06-03 17:31:31,695 - INFO - Successful login for user: 8c6e2089-e82b-444c-86c6-2d418ddded1a
+2025-06-03 17:31:31,695 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:31] "POST /api/login HTTP/1.1" 200 -
+2025-06-03 17:31:44,560 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:44] "GET /login HTTP/1.1" 200 -
+2025-06-03 17:31:44,576 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:44] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-03 17:31:44,578 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:44] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-06-03 17:31:44,579 - INFO - 127.0.0.1 - - [03/Jun/2025 17:31:44] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-03 17:47:35,116 - INFO - Default prompts initialized in MongoDB
+2025-06-03 17:47:35,185 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-03 17:47:35,185 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-09 17:51:27,525 - INFO - Default prompts initialized in MongoDB
+2025-06-09 17:51:27,574 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-09 17:51:27,574 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-09 17:51:37,249 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:37] "GET / HTTP/1.1" 200 -
+2025-06-09 17:51:37,273 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:37] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-09 17:51:37,273 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:37] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-09 17:51:37,277 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:37] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-09 17:51:37,278 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:37] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-09 17:51:37,279 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:37] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-09 17:51:37,281 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:37] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-09 17:51:37,749 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-09 17:51:40,844 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:40] "GET /pricing HTTP/1.1" 200 -
+2025-06-09 17:51:40,861 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:40] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-09 17:51:40,863 - INFO - 127.0.0.1 - - [09/Jun/2025 17:51:40] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-06-10 15:09:10,427 - INFO - Default prompts initialized in MongoDB
+2025-06-10 15:09:10,513 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-10 15:09:10,513 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 15:10:35,999 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:35] "GET / HTTP/1.1" 200 -
+2025-06-10 15:10:36,031 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:36] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-10 15:10:36,035 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:36] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-10 15:10:36,038 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:36] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-10 15:10:36,043 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:36] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-10 15:10:36,045 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:36] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-10 15:10:36,045 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:36] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-10 15:10:36,466 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-10 15:10:37,823 - ERROR - Exception on /pricing [GET]
+Traceback (most recent call last):
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\main.py", line 626, in pricing
+    return render_template('pricing.html',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\templates\pricing.html", line 289, in top-level template code
+    <div class="plan-name">{{ plans['basic']['name'] }}</div>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 471, in getitem
+    return obj[argument]
+           ~~~^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'basic'
+2025-06-10 15:10:37,839 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:37] "[35m[1mGET /pricing HTTP/1.1[0m" 500 -
+2025-06-10 15:10:44,759 - ERROR - Exception on /pricing [GET]
+Traceback (most recent call last):
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\main.py", line 626, in pricing
+    return render_template('pricing.html',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\templates\pricing.html", line 289, in top-level template code
+    <div class="plan-name">{{ plans['basic']['name'] }}</div>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 471, in getitem
+    return obj[argument]
+           ~~~^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'basic'
+2025-06-10 15:10:44,760 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:44] "[35m[1mGET /pricing HTTP/1.1[0m" 500 -
+2025-06-10 15:10:48,143 - ERROR - Exception on /pricing [GET]
+Traceback (most recent call last):
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\main.py", line 626, in pricing
+    return render_template('pricing.html',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\templates\pricing.html", line 289, in top-level template code
+    <div class="plan-name">{{ plans['basic']['name'] }}</div>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 471, in getitem
+    return obj[argument]
+           ~~~^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'basic'
+2025-06-10 15:10:48,144 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:48] "[35m[1mGET /pricing HTTP/1.1[0m" 500 -
+2025-06-10 15:10:52,169 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:52] "GET /login HTTP/1.1" 200 -
+2025-06-10 15:10:52,186 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:52] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-10 15:10:52,188 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:52] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-10 15:10:52,189 - INFO - 127.0.0.1 - - [10/Jun/2025 15:10:52] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-10 15:11:10,480 - INFO - 127.0.0.1 - - [10/Jun/2025 15:11:10] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2025-06-10 15:11:28,569 - INFO - 127.0.0.1 - - [10/Jun/2025 15:11:28] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2025-06-10 15:11:34,010 - INFO - 127.0.0.1 - - [10/Jun/2025 15:11:34] "[31m[1mPOST /register HTTP/1.1[0m" 402 -
+2025-06-10 15:19:05,058 - INFO - Default prompts initialized in MongoDB
+2025-06-10 15:19:05,120 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-10 15:19:05,120 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 15:19:08,712 - INFO - 127.0.0.1 - - [10/Jun/2025 15:19:08] "GET /login HTTP/1.1" 200 -
+2025-06-10 15:19:08,730 - INFO - 127.0.0.1 - - [10/Jun/2025 15:19:08] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-10 15:19:08,732 - INFO - 127.0.0.1 - - [10/Jun/2025 15:19:08] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-10 15:19:08,734 - INFO - 127.0.0.1 - - [10/Jun/2025 15:19:08] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-10 15:19:19,218 - INFO - 127.0.0.1 - - [10/Jun/2025 15:19:19] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-06-10 15:26:40,579 - INFO - Default prompts initialized in MongoDB
+2025-06-10 15:26:40,619 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-10 15:26:40,619 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 15:26:49,412 - INFO - 127.0.0.1 - - [10/Jun/2025 15:26:49] "GET /login HTTP/1.1" 200 -
+2025-06-10 15:26:49,431 - INFO - 127.0.0.1 - - [10/Jun/2025 15:26:49] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-10 15:26:49,432 - INFO - 127.0.0.1 - - [10/Jun/2025 15:26:49] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-10 15:26:49,434 - INFO - 127.0.0.1 - - [10/Jun/2025 15:26:49] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-10 15:26:59,331 - INFO - 127.0.0.1 - - [10/Jun/2025 15:26:59] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-06-10 15:27:04,107 - INFO - 127.0.0.1 - - [10/Jun/2025 15:27:04] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-06-10 17:19:57,147 - INFO - Default prompts initialized in MongoDB
+2025-06-10 17:19:57,187 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-10 17:19:57,187 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 17:20:04,019 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:04] "GET /login HTTP/1.1" 200 -
+2025-06-10 17:20:04,039 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:04] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-10 17:20:04,040 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:04] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-10 17:20:04,042 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:04] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-10 17:20:17,980 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-06-10 17:20:17,981 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:17] "POST /api/login HTTP/1.1" 200 -
+2025-06-10 17:20:17,998 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:17] "GET /dashboard HTTP/1.1" 200 -
+2025-06-10 17:20:18,023 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:18] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-06-10 17:20:18,025 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:18] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-06-10 17:20:18,025 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:18] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-10 17:20:18,027 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:18] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-10 17:20:18,030 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:18] "GET /static/script.js HTTP/1.1" 200 -
+2025-06-10 17:20:18,031 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:18] "GET /static/style.css HTTP/1.1" 200 -
+2025-06-10 17:20:23,257 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:23] "GET /login HTTP/1.1" 200 -
+2025-06-10 17:20:23,272 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:23] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-10 17:20:23,274 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:23] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-10 17:20:23,275 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:23] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-06-10 17:20:35,862 - INFO - 127.0.0.1 - - [10/Jun/2025 17:20:35] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-06-10 17:21:03,887 - INFO - 127.0.0.1 - - [10/Jun/2025 17:21:03] "[31m[1mPOST /register HTTP/1.1[0m" 402 -

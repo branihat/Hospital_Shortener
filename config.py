@@ -4,13 +4,26 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# Load environment variables
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+MONGO_URI = os.getenv('MONGO_URI')
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+# Email configuration
+MAIL_SERVER = os.getenv('MAIL_SERVER')
+MAIL_PORT = int(os.getenv('MAIL_PORT', 587))
+MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'True').lower() == 'true'
+MAIL_USERNAME = os.getenv('MAIL_USERNAME')
+MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
+MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER')
+
 def load_api_key():
     """Load Gemini API key from environment variables."""
-    return os.getenv("GEMINI_API_KEY")
+    return GEMINI_API_KEY
 
 def load_mongo_uri():
     """Load MongoDB connection URI from environment variables."""
-    return os.getenv("MONGO_URI")
+    return MONGO_URI 
 
 
 import os
@@ -38,10 +51,8 @@ def generate_secret_key():
     return secret_key
 
 def get_secret_key():
-    """
-    Get the secret key, generating one if it doesn't exist.
-    """
-    return generate_secret_key()
+    """Get the secret key from environment variable."""
+    return SECRET_KEY
 
 # AI prompt settings with detailed instructions
 PROMPTS = {

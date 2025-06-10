@@ -244,6 +244,50 @@
         </div>
     </div>
 
+    <!-- Add this to your login.html template -->
+    <div class="resend-verification" style="display: none;">
+        <p>Haven't received the verification email?</p>
+        <button onclick="resendVerification()" class="resend-button">Resend Verification Email</button>
+    </div>
+
+    <script>
+    async function resendVerification() {
+        const email = document.getElementById('login-email').value;
+        if (!email) {
+            alert('Please enter your email address');
+            return;
+        }
+
+        try {
+            const response = await fetch('/resend-verification', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                alert('Verification email sent! Please check your inbox.');
+            } else {
+                alert(data.error || 'Failed to send verification email');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to send verification email');
+        }
+    }
+
+    // Show resend option if verification needed
+    function showResendOption(show) {
+        const resendDiv = document.querySelector('.resend-verification');
+        if (resendDiv) {
+            resendDiv.style.display = show ? 'block' : 'none';
+        }
+    }
+    </script>
     <script src="{{ url_for('static', filename='auth.js') }}"></script>
 </body>
 

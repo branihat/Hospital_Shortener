@@ -5,7 +5,17 @@ import bcrypt
 import jwt
 import datetime
 from functools import wraps
-from config import PROMPTS, load_api_key, load_mongo_uri
+from config import (
+    PROMPTS, 
+    load_api_key, 
+    load_mongo_uri, 
+    MAIL_SERVER,
+    MAIL_PORT,
+    MAIL_USE_TLS,
+    MAIL_USERNAME,
+    MAIL_PASSWORD,
+    MAIL_DEFAULT_SENDER
+)
 from flask_pymongo import PyMongo
 import logging
 import os
@@ -20,6 +30,8 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_cors import CORS
 from config import get_secret_key
+from email_service import generate_verification_token, send_verification_email, mail
+import stripe
 
 # Configure logging for audit trail
 logging.basicConfig(
@@ -219,136 +231,137 @@ def show_login_page():
 def dashboard():
     return render_template("index.html")
 
-# Update to the register route to handle additional user data
+# Initialize Flask-Mail
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT'))
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS').lower() == 'true'
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
+
+mail.init_app(app)
+
+# Update the register route
 @app.route("/register", methods=["POST"])
-@limiter.limit("3 per minute")
 def register():
-    """Handle user registration with enhanced security and additional medical professional data."""
-    email = request.json.get("email")
-    password = request.json.get("password")
-    firstName = request.json.get("firstName")
-    lastName = request.json.get("lastName")
-    degree = request.json.get("degree")
-    profession = request.json.get("profession")
-    specialization = request.json.get("specialization")
-    agreeToEula = request.json.get("agreeToEula")  # Get EULA agreement value
-
-    # Validate required fields
-    if not email or not password or not firstName or not lastName or not degree or not profession:
-        logger.warning("Registration attempt with missing required fields")
-        return jsonify({"error": "All required fields must be completed"}), 400
-
-    # Validate EULA agreement
-    if not agreeToEula:
-        logger.warning("Registration attempt without EULA agreement")
-        return jsonify({"error": "You must agree to the End User License Agreement"}), 400
-
-    # Validate email format
-    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
-        logger.warning(f"Invalid email format: {email}")
-        return jsonify({"error": "Invalid email format"}), 400
-
-    # Validate password strength
-    if len(password) < 8:
-        logger.warning("Registration attempt with weak password")
-        return jsonify({"error": "Password must be at least 8 characters long"}), 400
-
+    """Handle user registration with payment check and email verification"""
     try:
-        # Create a deterministic hash of the email for lookup
+        data = request.json
+        email = data.get('email')
+        password = data.get('password')
+        first_name = data.get('firstName')
+        last_name = data.get('lastName')
+        degree = data.get('degree')
+        profession = data.get('profession')
+        institution = data.get('institution')
+
+        # Check if user already exists
         email_hash = HIPAAEncryption.hash_email(email)
-        
-        # Encrypt email for storage (separate from the hash used for lookups)
-        encrypted_email = HIPAAEncryption.encrypt_data(email, app.config["SECRET_KEY"])
+        if mongo.db.users.find_one({"email_hash": email_hash}):
+            return jsonify({"error": "Email already registered"}), 409
 
-        # Check if user already exists using the deterministic hash
-        existing_user = mongo.db.users.find_one({"email_hash": email_hash})
-        if existing_user:
-            logger.warning(f"Registration attempt for existing email: {email}")
-            return jsonify({"error": "An account with this email already exists"}), 409
+        # Check if payment exists and hasn't been used
+        payment = mongo.db.payments.find_one({
+            "email": email,
+            "registration_used": False
+        })
 
-        # Enhanced password hashing
-        salt = bcrypt.gensalt(rounds=12)
-        hashed_pw = bcrypt.hashpw(password.encode("utf-8"), salt)
+        if not payment:
+            return jsonify({
+                "error": "Payment required",
+                "payment_link": "https://buy.stripe.com/test_00wfZgdhte8pf6gbX04wM02"
+            }), 402
+
+        # Generate verification token
+        token = generate_verification_token(email)
         
-        # Generate unique user ID for audit trail
+        # Create user with encrypted data and unverified status
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
         user_id = str(uuid.uuid4())
 
-        # Encrypt personal information
-        encrypted_firstName = HIPAAEncryption.encrypt_data(firstName, app.config["SECRET_KEY"])
-        encrypted_lastName = HIPAAEncryption.encrypt_data(lastName, app.config["SECRET_KEY"])
-
-        # Save user to database with professional information
         user_doc = {
             "user_id": user_id,
-            "email": encrypted_email,
             "email_hash": email_hash,
-            "password": hashed_pw,
-            "firstName": encrypted_firstName,
-            "lastName": encrypted_lastName,
+            "email": HIPAAEncryption.encrypt_data(email, app.config["SECRET_KEY"]),
+            "password": hashed_password,
+            "firstName": HIPAAEncryption.encrypt_data(first_name, app.config["SECRET_KEY"]),
+            "lastName": HIPAAEncryption.encrypt_data(last_name, app.config["SECRET_KEY"]),
             "degree": degree,
             "profession": profession,
-            "specialization": specialization,
-            "eula_accepted": True,
-            "eula_accepted_date": datetime.datetime.utcnow(),
-            "created_at": datetime.datetime.utcnow(),
-            "last_login": None
+            "institution": institution,
+            "is_verified": False,  # Set unverified initially
+            "verification_token": token,
+            "created_at": datetime.datetime.utcnow()
         }
-        mongo.db.users.insert_one(user_doc)
 
-        logger.info(f"New user registered: {user_id}")
-        return jsonify({"message": "User registered successfully", "user_id": user_id}), 201
+        # Insert user and mark payment as used
+        mongo.db.users.insert_one(user_doc)
+        mongo.db.payments.update_one(
+            {"_id": payment["_id"]},
+            {"$set": {"registration_used": True}}
+        )
+
+        # Send verification email
+        if send_verification_email(email, token, first_name):
+            return jsonify({
+                "message": "Registration successful! Please check your email to verify your account.",
+                "email": email
+            }), 201
+        else:
+            # If email fails, still create account but inform user
+            return jsonify({
+                "message": "Account created but verification email failed. Please contact support.",
+                "email": email
+            }), 201
 
     except Exception as e:
         logger.error(f"Registration error: {str(e)}")
         return jsonify({"error": "Registration failed"}), 500
-        
+
+
+
 @app.route("/api/login", methods=["POST"])
 @limiter.limit("5 per minute")
 def login():
-    """Handle user login with enhanced security and audit logging."""
+    """Handle user login without re-verification"""
     email = request.json.get("email")
     password = request.json.get("password")
 
-    # Validate input
     if not email or not password:
-        logger.warning("Login attempt with missing email or password")
         return jsonify({"error": "Email and password are required"}), 400
 
     try:
-        # Get email hash for lookup
         email_hash = HIPAAEncryption.hash_email(email)
-        
-        # Find user by email hash
         user = mongo.db.users.find_one({"email_hash": email_hash})
 
-        if user and bcrypt.checkpw(password.encode("utf-8"), user["password"]):
-            # Create JWT token with shorter expiration for security
+        if not user:
+            return jsonify({"error": "Invalid credentials"}), 401
+
+        # Check password
+        if bcrypt.checkpw(password.encode("utf-8"), user["password"]):
+            # Create JWT token
             token = jwt.encode(
                 {
-                    "email_hash": email_hash,  # Store hash in token instead of encrypted email
+                    "email_hash": email_hash,
                     "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
                     "user_id": user.get("user_id")
                 },
                 app.config["SECRET_KEY"],
                 algorithm="HS256"
             )
-
-            # Update last login timestamp
-            mongo.db.users.update_one(
-                {"user_id": user["user_id"]},
-                {"$set": {"last_login": datetime.datetime.utcnow()}}
-            )
-
-            logger.info(f"Successful login for user: {user['user_id']}")
+            
+            # Log successful login
+            logger.info(f"Successful login for user: {user.get('user_id')}")
             return jsonify({"token": token, "user_id": user["user_id"]}), 200
-        else:
-            logger.warning(f"Failed login attempt for email: {email}")
-            return jsonify({"error": "Invalid credentials"}), 401
+        
+        # Log failed login attempt
+        logger.warning(f"Failed login attempt for email hash: {email_hash}")
+        return jsonify({"error": "Invalid credentials"}), 401
 
     except Exception as e:
         logger.error(f"Login error: {str(e)}")
         return jsonify({"error": "Authentication failed"}), 500
-
 # API routes that need tokens can still use token_required
 @app.route("/process", methods=["POST"])
 @token_required
@@ -598,44 +611,20 @@ def serve_js():
 @app.route('/pricing')
 def pricing():
     plans = {
-        'basic': {
-            'name': 'Basic',
-            'price': '22',
-            'description': 'Perfect for individual healthcare providers',
-            'features': [
-                'All core features',
-                'Basic API access',
-                'Email support',
-                'HIPAA compliance'
-            ],
-            'api_requests': '1,000',
-            'payment_link': 'https://buy.stripe.com/test_9B6aEWelx5BT3nyge44wM00'
-        },
-        'pro': {
-            'name': 'Professional',
-            'price': '99',
-            'description': 'Ideal for small practices',
-            'features': [
-                'All Basic features',
-                'Priority API access',
-                'Priority support',
-                'Advanced analytics'
-            ],
-            'api_requests': '5,000',
-            'payment_link': 'https://buy.stripe.com/test_3cI4gy3GT9S93nybXO4wM01'
-        },
-        'enterprise': {
-            'name': 'Enterprise',
+        'premium': {
+            'name': 'Premium',
             'price': '299',
-            'description': 'For large healthcare organizations',
+            'description': 'Complete Medical Documentation Solution',
             'features': [
-                'All Pro features',
-                'Unlimited API access',
-                '24/7 phone support',
-                'Custom integration'
+                'All Core Features',
+                'Unlimited API Access',
+                '24/7 Support',
+                'HIPAA Compliance',
+                'Custom Integration',
+                'Priority Processing'
             ],
             'api_requests': 'Unlimited',
-            'payment_link': 'https://buy.stripe.com/test_00wfZgdhte8pf6gbXO4wM02'
+            'payment_link': 'https://buy.stripe.com/test_00wfZgdhte8pf6gbX04wM02'
         }
     }
     return render_template('pricing.html', 
@@ -651,6 +640,209 @@ def not_found(error):
 def server_error(error):
     return jsonify({"error": "Internal server error"}), 500
 
+@app.route("/verify/<token>")
+def verify_email(token):
+    """Handle email verification links"""
+    try:
+        # Decode the verification token
+        decoded = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
+        email = decoded['email']
+        
+        # Get email hash for lookup
+        email_hash = HIPAAEncryption.hash_email(email)
+        
+        logger.info(f"Attempting to verify email with hash: {email_hash}")
+        
+        # Check current verification status
+        user = mongo.db.users.find_one({"email_hash": email_hash})
+        if not user:
+            logger.error(f"User not found for email hash: {email_hash}")
+            return render_template("login.html", 
+                                message="User not found.",
+                                message_type="error")
+                                
+        if user.get("is_verified", False):
+            logger.info(f"Email already verified for hash: {email_hash}")
+            return render_template("login.html", 
+                                message="Email already verified. Please login.",
+                                message_type="info")
+
+        # Update user verification status
+        result = mongo.db.users.update_one(
+            {
+                "email_hash": email_hash,
+                "is_verified": False
+            },
+            {
+                "$set": {
+                    "is_verified": True,
+                    "verified_at": datetime.datetime.utcnow(),
+                    "verification_token": None
+                }
+            }
+        )
+
+        if result.modified_count == 1:
+            logger.info(f"Email verified successfully for hash: {email_hash}")
+            return render_template("login.html", 
+                                message="Email verified successfully! You can now log in.",
+                                message_type="success")
+        else:
+            logger.warning(f"No update performed for hash: {email_hash}")
+            return render_template("login.html", 
+                                message="Verification failed. Please try again.",
+                                message_type="warning")
+
+    except Exception as e:
+        logger.error(f"Verification error: {str(e)}")
+        return render_template("login.html", 
+                            message="An error occurred during verification. Please try again.",
+                            message_type="error")
+    
+# Add this after MongoDB initialization
+def initialize_payment_collection():
+    """Initialize payment collection with unique indexes"""
+    try:
+        mongo.db.payments.create_index("session_id", unique=True)
+        mongo.db.payments.create_index("email", unique=True)
+        logger.info("Payment collection initialized")
+    except Exception as e:
+        logger.error(f"Error initializing payment collection: {str(e)}")
+        
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+
+@app.route('/webhook', methods=['POST'])
+def stripe_webhook():
+    payload = request.data
+    sig_header = request.headers.get('Stripe-Signature')
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, os.getenv('STRIPE_WEBHOOK_SECRET')
+        )
+    except ValueError as e:
+        logger.error(f"Invalid payload: {str(e)}")
+        return jsonify({'error': 'Invalid payload'}), 400
+    except stripe.error.SignatureVerificationError as e:
+        logger.error(f"Invalid signature: {str(e)}")
+        return jsonify({'error': 'Invalid signature'}), 400
+
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        customer_email = session['customer_details']['email']
+        
+        # Store payment info in MongoDB
+        try:
+            mongo.db.payments.insert_one({
+                'session_id': session['id'],
+                'email': customer_email,
+                'amount': session['amount_total'],
+                'status': 'completed',
+                'created_at': datetime.datetime.utcnow(),
+                'registration_used': False
+            })
+            # Redirect to registration with email parameter
+            registration_url = url_for('show_signup_page', email=customer_email, _external=True)
+            return jsonify({'redirect_url': registration_url})
+            
+        except Exception as e:
+            logger.error(f"Error recording payment: {str(e)}")
+            return jsonify({'error': 'Payment processing failed'}), 500
+
+    return jsonify({'status': 'success'})
+
+def payment_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if request.method == "GET":
+            email = request.args.get("email")
+            if not email:
+                return redirect(url_for('pricing'))
+            
+            payment = mongo.db.payments.find_one({
+                "email": email,
+                "registration_used": False
+            })
+            
+            if not payment:
+                return redirect(url_for('pricing'))
+        
+        return f(*args, **kwargs)
+    return decorated
+
+def verify_payment(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        email = request.args.get('email')
+        if not email:
+            return redirect(url_for('pricing'))
+        
+        payment = mongo.db.payments.find_one({
+            'email': email,
+            'registration_used': False
+        })
+        
+        if not payment:
+            return redirect(url_for('pricing', 
+                                  message="Please complete payment first"))
+        
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/signup')
+@verify_payment
+def show_signup_page():
+    email = request.args.get('email')
+    return render_template('signup.html', email=email)
+
+@app.route('/payment/success')
+def payment_success():
+    session_id = request.args.get('session_id')
+    try:
+        session = stripe.checkout.Session.retrieve(session_id)
+        customer_email = session.customer_details.email
+        return redirect(url_for('show_signup_page', email=customer_email))
+    except Exception as e:
+        logger.error(f"Error retrieving session: {str(e)}")
+        return redirect(url_for('pricing', error="Payment verification failed"))
+
+@app.route("/resend-verification", methods=["POST"])
+def resend_verification():
+    try:
+        email = request.json.get("email")
+        if not email:
+            return jsonify({"error": "Email is required"}), 400
+
+        email_hash = HIPAAEncryption.hash_email(email)
+        user = mongo.db.users.find_one({"email_hash": email_hash})
+
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+
+        if user.get("is_verified", False):
+            return jsonify({"error": "Email already verified"}), 400
+
+        # Generate new verification token
+        token = generate_verification_token(email)
+        
+        # Update user's verification token
+        mongo.db.users.update_one(
+            {"email_hash": email_hash},
+            {"$set": {"verification_token": token}}
+        )
+
+        # Send new verification email
+        first_name = HIPAAEncryption.decrypt_data(user["firstName"], app.config["SECRET_KEY"])
+        if send_verification_email(email, token, first_name):
+            return jsonify({
+                "message": "Verification email sent successfully"
+            }), 200
+        else:
+            return jsonify({"error": "Failed to send verification email"}), 500
+
+    except Exception as e:
+        logger.error(f"Resend verification error: {str(e)}")
+        return jsonify({"error": "Failed to resend verification"}), 500
 if __name__ == "__main__":
     initialize_default_prompts()
     app.run(debug=False, ssl_context='adhoc')  # Enable HTTPS
