@@ -1,15 +1,18 @@
-flask
-google-generativeai
-python-dotenv
-spacy
-gunicorn
-flask-cors
-flask-PyMongo
-bcrypt
-PyJWT  # Keep only this one, remove the other 'jwt' entry
-python-dotenv
-google-generativeai
-flask-talisman
-cryptography
-flask-limiter
-pyopenssl  # For SSL context
+flask==3.0.0
+google-generativeai==0.3.1
+python-dotenv==1.0.0
+spacy==3.7.2
+gunicorn==21.2.0
+flask-cors==4.0.0
+flask-pymongo==2.3.0
+bcrypt==4.1.1
+PyJWT==2.8.0
+cryptography==41.0.7
+flask-limiter==3.5.0
+pyopenssl==23.3.0
+stripe==7.6.0
+flask-mail==0.9.1
+dnspython==2.4.2
+email-validator==2.1.0.post1
+Werkzeug==3.0.1
+pymongo==4.6.1
