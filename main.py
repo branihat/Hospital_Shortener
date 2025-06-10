@@ -269,7 +269,7 @@ def register():
         if not payment:
             return jsonify({
                 "error": "Payment required",
-                "payment_link": "https://buy.stripe.com/test_00wfZgdhte8pf6gbX04wM02"
+                "payment_link": "https://buy.stripe.com/test_00wfZgdhte8pf6gbXO4wM02"
             }), 402
 
         # Generate verification token
@@ -624,7 +624,7 @@ def pricing():
                 'Priority Processing'
             ],
             'api_requests': 'Unlimited',
-            'payment_link': 'https://buy.stripe.com/test_00wfZgdhte8pf6gbX04wM02'
+            'payment_link': 'https://buy.stripe.com/test_00wfZgdhte8pf6gbXO4wM02'
         }
     }
     return render_template('pricing.html', 
