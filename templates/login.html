@@ -6,24 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
-    <title>Login & Signup Form</title>
+    <title>Login Form</title>
     <style>
-        /* Additional styles for the signup form */
+        /* Styles for the login form */
         .form-container {
             width: 100%;
         }
 
-        .login-form,
-        .signup-form {
+        .login-form {
             width: 100%;
             display: flex;
             flex-direction: column;
             gap: 15px;
-        }
-
-        .signup-form {
-            display: none;
-            /* Hidden by default */
         }
 
         select.input-field {
@@ -54,28 +48,6 @@
 
         .active-form {
             display: flex;
-        }
-
-        .specialization-field {
-            display: none;
-            /* Hidden by default */
-        }
-
-        /* Hide one form completely when the other is active */
-        .hide-completely {
-            display: none !important;
-        }
-
-        .image-container {
-            filter: drop-shadow(0px 5px 6px #000000);
-        }
-
-        option {
-            background-color: #000000;
-        }
-
-        option:hover {
-            background-color: #333333;
         }
 
         .error-message {
@@ -113,6 +85,18 @@
 
         .checkbox-container a:hover {
             text-decoration: underline;
+        }
+
+        .image-container {
+            filter: drop-shadow(0px 5px 6px #000000);
+        }
+
+        option {
+            background-color: #000000;
+        }
+
+        option:hover {
+            background-color: #333333;
         }
     </style>
 </head>
@@ -153,93 +137,8 @@
                 <button type="submit" class="submit-button">Sign in</button>
             </form>
 
-            <form action="#" class="signup-form" id="signup-form">
-                <div class="input-group">
-                    <div class="icon">
-                        <i class="ri-user-line"></i>
-                    </div>
-                    <input type="text" placeholder="First Name" class="input-field" name="firstName" required />
-                </div>
-                <div class="input-group">
-                    <div class="icon">
-                        <i class="ri-user-line"></i>
-                    </div>
-                    <input type="text" placeholder="Last Name" class="input-field" name="lastName" required />
-                </div>
-                <div class="input-group">
-                    <div class="icon">
-                        <i class="ri-mail-line"></i>
-                    </div>
-                    <input type="email" id="emailid2" placeholder="Email" class="input-field" name="email" required />
-                </div>
-                <div class="input-group">
-                    <div class="icon">
-                        <i class="ri-lock-line"></i>
-                    </div>
-                    <input type="password" placeholder="Password" class="input-field" name="password" required />
-                </div>
-                <div class="input-group">
-                    <div class="icon">
-                        <i class="ri-lock-line"></i>
-                    </div>
-                    <input type="password" placeholder="Confirm Password" class="input-field" name="confirmPassword"
-                        required />
-                </div>
-                <div class="input-group">
-                    <div class="icon">
-                        <i class="ri-graduation-cap-line"></i>
-                    </div>
-                    <select class="input-field" id="degree-select" name="degree" required>
-                        <option value="" disabled selected>Select Degree</option>
-                        <option value="md">MD</option>
-                        <option value="do">DO</option>
-                        <option value="mbbs">MBBS</option>
-                        <option value="cmp">CMP</option>
-                        <option value="pa">PA</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <div class="icon">
-                        <i class="ri-briefcase-line"></i>
-                    </div>
-                    <select class="input-field" id="profession-select" name="profession" required>
-                        <option value="" disabled selected>Select Profession</option>
-                        <option value="physician">Physician</option>
-                        <option value="med_student">Med Student</option>
-                        <option value="medi_surg_resident">Medi-Surg Resident</option>
-                        <option value="nurse">Nurse</option>
-                        <option value="nurse_practitioner">Nurse Practitioner</option>
-                        <option value="physician_assistant">Physician Assistant</option>
-                    </select>
-                </div>
-                <div class="input-group specialization-field" id="specialization-group">
-                    <div class="icon">
-                        <i class="ri-stethoscope-line"></i>
-                    </div>
-                    <select class="input-field" id="specialization-select" name="specialization">
-                        <option value="" disabled selected>Select Specialization</option>
-                        <option value="internal_medicine">Internal Medicine</option>
-                        <option value="family_medicine">Family Medicine</option>
-                        <option value="radiology">Radiology</option>
-                        <option value="orthopedic">Orthopedic</option>
-                        <option value="pediatrics">Pediatrics</option>
-                        <option value="psychiatry">Psychiatry</option>
-                    </select>
-                </div>
-                <!-- EULA Checkbox -->
-                <div class="checkbox-container">
-                    <input type="checkbox" id="eula-checkbox" name="agreeToEula" required>
-                    <label for="eula-checkbox">I agree to the <a href="/terms" target="_blank">End User License
-                            Agreement</a></label>
-                </div>
-                <button type="submit" class="submit-button">Sign up</button>
-            </form>
-
             <div class="form-toggle" id="login-toggle">
-                <p>Don't have an account? <a id="show-signup">Sign up</a></p>
-            </div>
-            <div class="form-toggle" id="signup-toggle" style="display: none;">
-                <p>Already have an account? <a id="show-login">Sign in</a></p>
+                <p>Don't have an account? <a href="/signup">Sign up</a></p>
             </div>
         </div>
     </div>

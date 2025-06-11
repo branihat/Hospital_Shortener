@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <title>Sign Up - ChartWitch</title>
+    <style>
+        .form-container {
+            width: 100%;
+        }
+
+        .signup-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        select.input-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+            padding-right: 30px;
+        }
+
+        option {
+            background-color: #000000;
+        }
+
+        option:hover {
+            background-color: #333333;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #00c6ff;
+        }
+
+        .checkbox-container label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .checkbox-container a {
+            color: #00c6ff;
+            text-decoration: none;
+        }
+
+        .checkbox-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .close-modal {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            margin-top: 10px;
+        }
+
+        .agreement-section {
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .agreement-section h4 {
+            color: var(--primary-color);
+            margin-top: 20px;
+        }
+
+        .agreement-section ul {
+            margin-left: 20px;
+        }
+
+        .agreement-section li {
+            margin-bottom: 10px;
+        }
+
+        .agreement-text {
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .agreement-progress {
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #eee;
+            margin: 15px 0;
+        }
+
+        #progress-indicator {
+            width: 0%;
+            height: 100%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        #progress-text {
+            color: #ffffff;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .modal-footer {
+            margin-top: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .primary-btn {
+            background-color: #00c6ff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .primary-btn:disabled {
+            background-color: #333;
+            cursor: not-allowed;
+        }
+
+        #confirm-read {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #confirm-read.active {
+            opacity: 1;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="Sign Up Image" class="login-image" />
+        </div>
+
+        <div class="form-container">
+            <h1 class="title">Sign Up</h1>
+            <div id="error-container" class="error-message"></div>
+
+            <form action="#" class="signup-form" id="signup-form">
+                <div class="input-group">
+                    <div class="icon"><i class="ri-user-line"></i></div>
+                    <input type="text" placeholder="First Name" class="input-field" name="firstName" required />
+                </div>
+                <div class="input-group">
+                    <div class="icon"><i class="ri-user-line"></i></div>
+                    <input type="text" placeholder="Last Name" class="input-field" name="lastName" required />
+                </div>
+                <div class="input-group">
+                    <div class="icon"><i class="ri-mail-line"></i></div>
+                    <input type="email" placeholder="Email" class="input-field" name="email" required />
+                </div>
+                <div class="input-group">
+                    <div class="icon"><i class="ri-lock-line"></i></div>
+                    <input type="password" placeholder="Password" class="input-field" name="password" required />
+                </div>
+                <div class="input-group">
+                    <div class="icon"><i class="ri-lock-line"></i></div>
+                    <input type="password" placeholder="Confirm Password" class="input-field" name="confirmPassword" required />
+                </div>
+                <div class="input-group">
+                    <div class="icon"><i class="ri-graduation-cap-line"></i></div>
+                    <select class="input-field" id="degree-select" name="degree" required>
+                        <option value="" disabled selected>Select Degree</option>
+                        <option value="md">MD</option>
+                        <option value="do">DO</option>
+                        <option value="mbbs">MBBS</option>
+                        <option value="cmp">CMP</option>
+                        <option value="pa">PA</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <div class="icon"><i class="ri-briefcase-line"></i></div>
+                    <select class="input-field" id="profession-select" name="profession" required>
+                        <option value="" disabled selected>Select Profession</option>
+                        <option value="physician">Physician</option>
+                        <option value="med_student">Med Student</option>
+                        <option value="medi_surg_resident">Medi-Surg Resident</option>
+                        <option value="nurse">Nurse</option>
+                        <option value="nurse_practitioner">Nurse Practitioner</option>
+                        <option value="physician_assistant">Physician Assistant</option>
+                    </select>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="eula-checkbox" name="agreeToEula" required disabled>
+                    <label for="eula-checkbox">I agree to the <a href="#" class="agreement-link" data-agreement="eula">End User License Agreement</a></label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="baa-checkbox" name="agreeToBaa" required disabled>
+                    <label for="baa-checkbox">I agree to the <a href="#" class="agreement-link" data-agreement="baa">Business Associate Agreement</a></label>
+                </div>
+                <button type="submit" class="submit-button">Sign up</button>
+            </form>
+
+            <div class="form-toggle">
+                <p>Already have an account? <a href="/login">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+    <div id="agreement-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="agreement-text" class="agreement-text"></div>
+                <div class="agreement-progress">
+                    <div class="progress-bar">
+                        <div id="progress-indicator"></div>
+                    </div>
+                    <span id="progress-text">0% read</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-read" class="primary-btn" disabled>I have read and understand</button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='signup.js') }}"></script>
+</body>
+</html>

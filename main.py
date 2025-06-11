@@ -790,10 +790,9 @@ def verify_payment(f):
     return decorated_function
 
 @app.route('/signup')
-@verify_payment
 def show_signup_page():
-    email = request.args.get('email')
-    return render_template('signup.html', email=email)
+    """Show the signup page"""
+    return render_template("signup.html")
 
 @app.route('/payment/success')
 def payment_success():
@@ -843,6 +842,70 @@ def resend_verification():
     except Exception as e:
         logger.error(f"Resend verification error: {str(e)}")
         return jsonify({"error": "Failed to resend verification"}), 500
+
+@app.route("/api/agreements/<agreement_type>")
+def get_agreement(agreement_type):
+    agreements = {
+        "eula": {
+            "content": """
+            <h3>End User License Agreement</h3>
+            <div class="agreement-section">
+                <h4>1. Introduction</h4>
+                <p>This End User License Agreement ("Agreement") is a legal agreement between you and ChartWitch ("Company", "we", "us", or "our") for the use of our medical documentation software and services.</p>
+                
+                <h4>2. License Grant</h4>
+                <p>Subject to the terms of this Agreement, we grant you a limited, non-exclusive, non-transferable license to use our software for medical documentation purposes.</p>
+                
+                <h4>3. HIPAA Compliance</h4>
+                <p>Our service is designed to be HIPAA compliant. You agree to use the service in compliance with all applicable healthcare privacy laws and regulations.</p>
+                
+                <h4>4. Data Security</h4>
+                <p>We implement industry-standard security measures to protect patient information. However, you are responsible for maintaining the security of your login credentials.</p>
+                
+                <h4>5. Limitations</h4>
+                <p>You may not: (a) modify or create derivative works of the software; (b) reverse engineer the software; (c) use the software for illegal purposes.</p>
+            </div>
+            """
+        },
+        "baa": {
+            "content": """
+            <h3>Business Associate Agreement</h3>
+            <div class="agreement-section">
+                <h4>1. Definitions</h4>
+                <p>Terms used but not otherwise defined in this BAA shall have the same meaning as those terms in HIPAA Rules.</p>
+                
+                <h4>2. Obligations of Business Associate</h4>
+                <p>ChartWitch agrees to:</p>
+                <ul>
+                    <li>Not use or disclose Protected Health Information other than as permitted or required by this Agreement</li>
+                    <li>Use appropriate safeguards to prevent unauthorized use or disclosure of PHI</li>
+                    <li>Report to Covered Entity any use or disclosure not provided for by this Agreement</li>
+                </ul>
+                
+                <h4>3. Privacy Practices</h4>
+                <p>We maintain privacy practices that comply with HIPAA Security Rule requirements including:</p>
+                <ul>
+                    <li>Encryption of PHI in transit and at rest</li>
+                    <li>Access controls and authentication</li>
+                    <li>Audit logging and monitoring</li>
+                </ul>
+                
+                <h4>4. Breach Notification</h4>
+                <p>In the event of a data breach, we will:</p>
+                <ul>
+                    <li>Notify affected parties within required timeframes</li>
+                    <li>Assist in breach investigation</li>
+                    <li>Provide necessary documentation</li>
+                </ul>
+            </div>
+            """
+        }
+    }
+    
+    if agreement_type not in agreements:
+        return jsonify({"error": "Agreement not found"}), 404
+        
+    return jsonify(agreements[agreement_type])
 if __name__ == "__main__":
     initialize_default_prompts()
     app.run(debug=False, ssl_context='adhoc')  # Enable HTTPS

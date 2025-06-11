@@ -325,3 +325,139 @@ jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'basic'
 2025-06-10 17:46:53,083 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
 2025-06-10 17:46:54,355 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:54] "GET /pricing HTTP/1.1" 200 -
 2025-06-10 17:46:54,370 - INFO - 127.0.0.1 - - [10/Jun/2025 17:46:54] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-06-11 16:38:41,588 - INFO - Default prompts initialized in MongoDB
+2025-06-11 16:38:41,654 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-11 16:38:41,654 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 16:38:53,656 - INFO - 127.0.0.1 - - [11/Jun/2025 16:38:53] "GET / HTTP/1.1" 200 -
+2025-06-11 16:38:53,683 - INFO - 127.0.0.1 - - [11/Jun/2025 16:38:53] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-11 16:38:53,686 - INFO - 127.0.0.1 - - [11/Jun/2025 16:38:53] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-11 16:38:53,689 - INFO - 127.0.0.1 - - [11/Jun/2025 16:38:53] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-11 16:38:53,690 - INFO - 127.0.0.1 - - [11/Jun/2025 16:38:53] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-11 16:38:53,693 - INFO - 127.0.0.1 - - [11/Jun/2025 16:38:53] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-11 16:38:53,694 - INFO - 127.0.0.1 - - [11/Jun/2025 16:38:53] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-11 16:38:54,199 - INFO - 127.0.0.1 - - [11/Jun/2025 16:38:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-11 16:39:13,364 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:13] "GET /pricing HTTP/1.1" 200 -
+2025-06-11 16:39:13,381 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:13] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-06-11 16:39:18,017 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:18] "[33mGET /contact HTTP/1.1[0m" 404 -
+2025-06-11 16:39:20,832 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:20] "GET / HTTP/1.1" 200 -
+2025-06-11 16:39:20,848 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:20] "[36mGET /static/hero-image.svg HTTP/1.1[0m" 304 -
+2025-06-11 16:39:20,850 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:20] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 16:39:20,852 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:20] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-06-11 16:39:20,855 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:20] "[36mGET /static/how-it-works.gif HTTP/1.1[0m" 304 -
+2025-06-11 16:39:20,856 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:20] "[36mGET /static/landing.js HTTP/1.1[0m" 304 -
+2025-06-11 16:39:20,858 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:20] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-11 16:39:24,339 - INFO - 127.0.0.1 - - [11/Jun/2025 16:39:24] "[33mGET /about HTTP/1.1[0m" 404 -
+2025-06-11 16:51:19,343 - INFO - Default prompts initialized in MongoDB
+2025-06-11 16:51:19,392 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-11 16:51:19,392 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 16:51:28,163 - INFO - 127.0.0.1 - - [11/Jun/2025 16:51:28] "GET / HTTP/1.1" 200 -
+2025-06-11 16:51:28,180 - INFO - 127.0.0.1 - - [11/Jun/2025 16:51:28] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-11 16:51:28,181 - INFO - 127.0.0.1 - - [11/Jun/2025 16:51:28] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-11 16:51:28,185 - INFO - 127.0.0.1 - - [11/Jun/2025 16:51:28] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-11 16:51:28,188 - INFO - 127.0.0.1 - - [11/Jun/2025 16:51:28] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-11 16:51:28,191 - INFO - 127.0.0.1 - - [11/Jun/2025 16:51:28] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-11 16:51:28,202 - INFO - 127.0.0.1 - - [11/Jun/2025 16:51:28] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-11 16:51:33,987 - INFO - 127.0.0.1 - - [11/Jun/2025 16:51:33] "GET /pricing HTTP/1.1" 200 -
+2025-06-11 16:51:34,001 - INFO - 127.0.0.1 - - [11/Jun/2025 16:51:34] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-06-11 17:07:30,493 - INFO - 127.0.0.1 - - [11/Jun/2025 17:07:30] "GET /pricing HTTP/1.1" 200 -
+2025-06-11 17:07:30,512 - INFO - 127.0.0.1 - - [11/Jun/2025 17:07:30] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-06-11 17:23:28,809 - INFO - Default prompts initialized in MongoDB
+2025-06-11 17:23:28,858 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-11 17:23:28,858 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 17:25:20,245 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:20] "GET / HTTP/1.1" 200 -
+2025-06-11 17:25:20,270 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:20] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-11 17:25:20,272 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:20] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-11 17:25:20,277 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:20] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-11 17:25:20,278 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:20] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-11 17:25:20,285 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:20] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-11 17:25:20,285 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:20] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-11 17:25:23,493 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:23] "GET /login HTTP/1.1" 200 -
+2025-06-11 17:25:23,512 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:23] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-11 17:25:23,512 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:23] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:25:23,515 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:23] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-11 17:25:26,494 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:26] "GET /signup HTTP/1.1" 200 -
+2025-06-11 17:25:26,513 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:26] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-11 17:25:26,517 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:26] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:25:26,518 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:26] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-11 17:25:33,024 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:33] "GET /signup HTTP/1.1" 200 -
+2025-06-11 17:25:33,038 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:33] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-11 17:25:33,040 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:33] "[36mGET /static/signup.js HTTP/1.1[0m" 304 -
+2025-06-11 17:25:33,041 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:33] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:25:34,738 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:34] "GET /login HTTP/1.1" 200 -
+2025-06-11 17:25:34,753 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:34] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-11 17:25:34,756 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:34] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-06-11 17:25:34,757 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:34] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:25:37,745 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:37] "GET /signup HTTP/1.1" 200 -
+2025-06-11 17:25:37,760 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:37] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-11 17:25:37,763 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:37] "[36mGET /static/signup.js HTTP/1.1[0m" 304 -
+2025-06-11 17:25:37,764 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:37] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:25:46,153 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:46] "GET /login HTTP/1.1" 200 -
+2025-06-11 17:25:46,190 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:46] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-11 17:25:46,192 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:46] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-06-11 17:25:46,193 - INFO - 127.0.0.1 - - [11/Jun/2025 17:25:46] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:30:35,735 - INFO - 127.0.0.1 - - [11/Jun/2025 17:30:35] "GET /login HTTP/1.1" 200 -
+2025-06-11 17:30:35,754 - INFO - 127.0.0.1 - - [11/Jun/2025 17:30:35] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-11 17:30:35,757 - INFO - 127.0.0.1 - - [11/Jun/2025 17:30:35] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-06-11 17:30:35,758 - INFO - 127.0.0.1 - - [11/Jun/2025 17:30:35] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:30:37,601 - INFO - 127.0.0.1 - - [11/Jun/2025 17:30:37] "GET /signup HTTP/1.1" 200 -
+2025-06-11 17:30:37,617 - INFO - 127.0.0.1 - - [11/Jun/2025 17:30:37] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-11 17:30:37,619 - INFO - 127.0.0.1 - - [11/Jun/2025 17:30:37] "[36mGET /static/signup.js HTTP/1.1[0m" 304 -
+2025-06-11 17:30:37,621 - INFO - 127.0.0.1 - - [11/Jun/2025 17:30:37] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:30:57,447 - INFO - 127.0.0.1 - - [11/Jun/2025 17:30:57] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2025-06-11 17:31:05,077 - INFO - 127.0.0.1 - - [11/Jun/2025 17:31:05] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2025-06-11 17:31:26,921 - INFO - 127.0.0.1 - - [11/Jun/2025 17:31:26] "[31m[1mPOST /register HTTP/1.1[0m" 402 -
+2025-06-11 17:31:56,432 - INFO - 127.0.0.1 - - [11/Jun/2025 17:31:56] "GET /login HTTP/1.1" 200 -
+2025-06-11 17:31:56,448 - INFO - 127.0.0.1 - - [11/Jun/2025 17:31:56] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-11 17:31:56,451 - INFO - 127.0.0.1 - - [11/Jun/2025 17:31:56] "[36mGET /static/auth.js HTTP/1.1[0m" 304 -
+2025-06-11 17:31:56,452 - INFO - 127.0.0.1 - - [11/Jun/2025 17:31:56] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:32:02,240 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-06-11 17:32:02,240 - INFO - 127.0.0.1 - - [11/Jun/2025 17:32:02] "POST /api/login HTTP/1.1" 200 -
+2025-06-11 17:32:02,258 - INFO - 127.0.0.1 - - [11/Jun/2025 17:32:02] "GET /dashboard HTTP/1.1" 200 -
+2025-06-11 17:32:02,287 - INFO - 127.0.0.1 - - [11/Jun/2025 17:32:02] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:32:02,289 - INFO - 127.0.0.1 - - [11/Jun/2025 17:32:02] "[36mGET /static/logo-light.svg HTTP/1.1[0m" 304 -
+2025-06-11 17:32:02,290 - INFO - 127.0.0.1 - - [11/Jun/2025 17:32:02] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-06-11 17:32:02,293 - INFO - 127.0.0.1 - - [11/Jun/2025 17:32:02] "GET /static/script.js HTTP/1.1" 200 -
+2025-06-11 17:32:02,294 - INFO - 127.0.0.1 - - [11/Jun/2025 17:32:02] "GET /static/style.css HTTP/1.1" 200 -
+2025-06-11 17:32:02,344 - INFO - 127.0.0.1 - - [11/Jun/2025 17:32:02] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-06-11 17:42:37,632 - INFO - Default prompts initialized in MongoDB
+2025-06-11 17:42:37,710 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-11 17:42:37,710 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 17:42:43,864 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:43] "GET /signup HTTP/1.1" 200 -
+2025-06-11 17:42:43,907 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:43] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-11 17:42:43,908 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:43] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-11 17:42:43,910 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:43] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-11 17:42:45,438 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:45] "GET /login HTTP/1.1" 200 -
+2025-06-11 17:42:46,080 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:46] "GET / HTTP/1.1" 200 -
+2025-06-11 17:42:46,098 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:46] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-11 17:42:46,101 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:46] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-11 17:42:46,102 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:46] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-11 17:42:46,103 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:46] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-11 17:42:46,105 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:46] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-11 17:42:48,463 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:48] "GET /signup HTTP/1.1" 200 -
+2025-06-11 17:42:48,478 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:48] "[36mGET /static/style1.css HTTP/1.1[0m" 304 -
+2025-06-11 17:42:48,481 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:48] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-11 17:42:48,482 - INFO - 127.0.0.1 - - [11/Jun/2025 17:42:48] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-11 18:24:52,938 - INFO - Default prompts initialized in MongoDB
+2025-06-11 18:24:53,020 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-11 18:24:53,020 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 18:25:03,524 - INFO - 127.0.0.1 - - [11/Jun/2025 18:25:03] "GET /signup HTTP/1.1" 200 -
+2025-06-11 18:25:03,544 - INFO - 127.0.0.1 - - [11/Jun/2025 18:25:03] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-11 18:25:03,546 - INFO - 127.0.0.1 - - [11/Jun/2025 18:25:03] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-11 18:25:03,547 - INFO - 127.0.0.1 - - [11/Jun/2025 18:25:03] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-11 18:29:07,796 - INFO - Default prompts initialized in MongoDB
+2025-06-11 18:29:07,857 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-11 18:29:07,857 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 18:29:14,989 - INFO - 127.0.0.1 - - [11/Jun/2025 18:29:14] "GET /signup HTTP/1.1" 200 -
+2025-06-11 18:29:15,009 - INFO - 127.0.0.1 - - [11/Jun/2025 18:29:15] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-11 18:29:15,011 - INFO - 127.0.0.1 - - [11/Jun/2025 18:29:15] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-11 18:29:15,013 - INFO - 127.0.0.1 - - [11/Jun/2025 18:29:15] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-11 18:29:17,084 - INFO - 127.0.0.1 - - [11/Jun/2025 18:29:17] "GET /api/agreements/eula HTTP/1.1" 200 -
+2025-06-11 18:29:26,052 - INFO - 127.0.0.1 - - [11/Jun/2025 18:29:26] "GET /api/agreements/baa HTTP/1.1" 200 -
+2025-06-11 18:29:55,094 - INFO - 127.0.0.1 - - [11/Jun/2025 18:29:55] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2025-06-11 18:29:55,215 - INFO - 127.0.0.1 - - [11/Jun/2025 18:29:55] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
