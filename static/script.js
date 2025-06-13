@@ -75,27 +75,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // New Tab Navigation Functionality
     const tabItems = document.querySelectorAll('.tab-item');
+    const tabPanes = document.querySelectorAll('.tab-pane');
     
+    // Tab switching function
+    function switchTab(targetId) {
+        // Hide all panes and deactivate all tabs
+        tabPanes.forEach(pane => pane.classList.remove('active'));
+        tabItems.forEach(item => item.classList.remove('active'));
+        
+        // Show selected pane and activate tab
+        const selectedTab = document.querySelector(`[data-target="${targetId}"]`);
+        const selectedPane = document.getElementById(targetId);
+        
+        if (selectedTab && selectedPane) {
+            selectedTab.classList.add('active');
+            selectedPane.classList.add('active');
+            
+            // Only load custom tools when that tab is activated
+            if (targetId === 'custom-tools-container') {
+                loadCustomTools();
+            }
+        }
+    }
+
+    // Add click handlers to tabs
     tabItems.forEach(tab => {
-        tab.addEventListener('click', function(e) {
+        tab.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Remove active class from all tabs
-            tabItems.forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Add active class to clicked tab
-            this.classList.add('active');
-            
-            // Hide all tab panes
-            document.querySelectorAll('.tab-pane').forEach(pane => {
-                pane.classList.remove('active');
-            });
-            
-            // Show the corresponding tab pane
-            const target = this.getAttribute('data-target');
-            document.getElementById(target).classList.add('active');
+            const targetId = tab.getAttribute('data-target');
+            switchTab(targetId);
         });
     });
 
@@ -138,76 +146,157 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    // Process text function with authentication
-    function processText(button, action) {
-        let text = document.getElementById("inputText").value;
-        if (!text.trim()) {
-            alert("Please enter some text.");
+    // Add shortenText function before processText
+    function shortenText() {
+        const outputText = document.getElementById('outputText');
+        if (!outputText || !outputText.value) return;
+
+        let text = outputText.value;
+
+        // Remove extra whitespace and newlines
+        text = text.replace(/\s+/g, ' ').trim();
+
+        // Remove common filler words
+        const fillerWords = /\b(the|a|an|and|or|but|in|on|at|to|for|of|with)\b/gi;
+        text = text.replace(fillerWords, '');
+
+        // Remove redundant punctuation
+        text = text.replace(/[.,!?;:]+(?=[.,!?;:])/g, '');
+
+        // Collapse multiple newlines
+        text = text.replace(/\n\s*\n/g, '\n');
+
+        // Update the output text
+        outputText.value = text.trim();
+    }
+
+    // Update the processText function to use showLoading and hideLoading
+    async function processText(action, customPrompt) {
+        const authToken = localStorage.getItem('authToken');
+        if (!authToken) {
+            window.location.href = '/login';
             return;
         }
-        showLoading();
-        fetch("/process", {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("authToken")
-            },
-            body: JSON.stringify({ text: text, action: action })
-        })
-        .then(async response => {
+
+        const inputText = document.getElementById('inputText').value;
+        const outputText = document.getElementById('outputText');
+
+        if (!inputText) {
+            alert('Please enter some text first');
+            return;
+        }
+
+        try {
+            showLoading(); // Show the loading overlay instead of "Processing..."
+
+            const response = await fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: JSON.stringify({
+                    text: inputText,
+                    action: action,
+                    prompt: customPrompt
+                })
+            });
+
+            if (response.status === 401) {
+                localStorage.removeItem('authToken');
+                window.location.href = '/login';
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data = await response.json();
             
-            if (response.status === 401) {
-                localStorage.removeItem("authToken");
-                window.location.href = "/login";
-                throw new Error("Authentication required");
+            if (data.error) {
+                throw new Error(data.error);
             }
-            
-            if (response.status === 429) {
-                throw new Error(`rate-limit:${data.retry_after}`);
+
+            outputText.value = data.result;
+
+            if (data.shouldShorten) {
+                shortenText();
             }
-            
-            if (!response.ok) {
-                throw new Error(data.error || "An error occurred");
-            }
-            
-            return data;
-        })
-        .then(data => {
-            if (data.result) {
-                let processedText = data.result;
-                try {
-                    processedText = shortify(processedText);
-                } catch (err) {
-                    console.error("Error in text replacement:", err);
-                }
-                document.getElementById("outputText").value = processedText;
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            if (error.message.startsWith("rate-limit:")) {
-                const retrySeconds = error.message.split(":")[1];
-                alert(`Service is busy. Please try again in ${retrySeconds} seconds.`);
-            } else if (error.message === "Authentication required") {
-                // Already handled by redirect
-                return;
-            } else {
-                alert("An error occurred while processing your request. Please try again.");
-            }
-        })
-        .finally(() => {
-            hideLoading();
-        });
+        } catch (error) {
+            console.error('Error:', error);
+            outputText.value = 'Error processing text: ' + error.message;
+        } finally {
+            hideLoading(); // Hide the loading overlay when done
+        }
     }
 
     // Add event listeners to action buttons
-    const actionButtons = document.querySelectorAll(".action-button");
+    const actionButtons = document.querySelectorAll("#default-tools-container .action-button, #suggested-tools-container .action-button, #custom-tools-container .action-button");
     if (actionButtons.length > 0) {
         actionButtons.forEach(button => {
             button.addEventListener("click", function() {
-                processText(this, this.getAttribute("data-action"));
+                const action = this.getAttribute("data-action");
+                const customPrompt = this.getAttribute("data-text");
+                processText(action, customPrompt);
             });
         });
     }
+
+    // Tab switching functionality (using the existing switchTab function)
+    tabItems.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-target');
+            switchTab(targetId);
+        });
+    });
+
+    // Load custom tools function with loading state management
+    function loadCustomTools() {
+        const container = document.getElementById('custom-tools-container');
+        if (!container) return;
+
+        showLoading(); // Use existing loading overlay
+        container.innerHTML = '<div class="loading">Loading custom tools...</div>';
+
+        fetch('/api/custom-tools')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                container.innerHTML = ''; // Clear loading message
+                
+                if (!data.tools || !data.tools.length) {
+                    container.innerHTML = '<p class="no-tools">No custom tools available</p>';
+                    return;
+                }
+
+                data.tools.forEach(tool => {
+                    const button = document.createElement('button');
+                    button.className = 'action-button custom-tool';
+                    button.textContent = tool.button_label;
+                    button.setAttribute('data-action', tool.key);
+                    button.setAttribute('data-tooltip', tool.button_tooltip);
+                    button.setAttribute('data-text', tool.text);
+                    
+                    button.addEventListener('click', () => {
+                        processText(tool.key, tool.text);
+                    });
+                    
+                    container.appendChild(button);
+                });
+            })
+            .catch(error => {
+                console.error('Error loading custom tools:', error);
+                container.innerHTML = '<p class="error">Failed to load custom tools</p>';
+            })
+            .finally(() => {
+                hideLoading(); // Hide loading overlay when done
+            });
+    }
+
 });

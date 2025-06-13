@@ -13,13 +13,21 @@
     <style>
         /* Critical CSS inlined to prevent render blocking */
         :root {
-            --primary-color: #8244af; /* Darkened from #cb6dea for better contrast */
+            /* Light mode colors */
+            --primary-color: #8244af;
             --primary-light: #9f5cc8;
-            --text-dark: #333333;
-            --text-light: #ffffff;
-            --text-gray: #555555; /* Darkened from #888888 for better contrast */
-            --background-dark: #222222;
             --background-light: #ffffff;
+            --card-bg-light: #ffffff;
+            --text-dark: #2d2d2d;
+            --text-gray: #555555;
+            --border-light: #eaeaea;
+
+            /* Dark mode colors */
+            --background-dark: #1a1a1a;
+            --card-bg-dark: #2d2d2d;
+            --border-dark: #3d3d3d;
+            --text-light: #f0f0f0;
+            --text-gray-dark: #b0b0b0;
         }
         
         body {
@@ -73,19 +81,19 @@
 
         /* Show/hide logos based on theme */
         .dark-mode-logo {
-            display: block;
+            display: none;
         }
 
         .light-mode-logo {
-            display: none;
-        }
-
-        .light-mode .dark-mode-logo {
-            display: none;
-        }
-
-        .light-mode .light-mode-logo {
             display: block;
+        }
+
+        body.dark-mode .dark-mode-logo {
+            display: block;
+        }
+
+        body.dark-mode .light-mode-logo {
+            display: none;
         }
 
         .logo-container {
@@ -97,26 +105,6 @@
         .logo {
             height: 100%;
             width: auto;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .dark-mode-logo {
-            opacity: 1;
-        }
-
-        .light-mode-logo {
-            opacity: 0;
-        }
-
-        body.light-mode .dark-mode-logo {
-            opacity: 0;
-        }
-
-        body.light-mode .light-mode-logo {
-            opacity: 1;
         }
 
         .footer-logo .logo-container {
@@ -195,6 +183,132 @@
 
         .hero-section {
             padding-top: 80px; /* Account for fixed nav */
+        }
+
+        /* New styles for theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-light);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        body.light-mode .theme-toggle i {
+            transform: rotate(360deg);
+        }
+
+        /* Update the root variables to include dark mode colors */
+        :root {
+            --primary-color: #8244af;
+            --primary-light: #9f5cc8;
+            --text-dark: #333333;
+            --text-light: #ffffff;
+            --text-gray: #555555;
+            --background-dark: #222222;
+            --background-light: #ffffff;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #333333;
+            --border-light: #eaeaea;
+            --border-dark: #444444;
+        }
+
+        /* Add dark mode styles */
+        body.dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+        }
+
+        body.dark-mode nav {
+            background: var(--background-dark);
+            border-bottom: 1px solid var(--border-dark);
+        }
+
+        body.dark-mode .feature-card,
+        body.dark-mode .testimonial-card,
+        body.dark-mode .step {
+            background-color: var(--card-bg-dark);
+            border: 1px solid var(--border-dark);
+            color: var(--text-light);
+        }
+
+        body.dark-mode .feature-card p,
+        body.dark-mode .testimonial-card p,
+        body.dark-mode .step p {
+            color: var(--text-gray-dark);
+        }
+
+        body.dark-mode .feature-card i {
+            color: var(--primary-light);
+        }
+
+        body.dark-mode .hamburger-menu {
+            color: var(--text-light);
+        }
+
+        body.dark-mode .dropdown-menu {
+            background: var(--card-bg-dark);
+            border: 1px solid var(--border-dark);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .dropdown-item {
+            color: var(--text-light);
+        }
+
+        body.dark-mode .dropdown-item:hover {
+            background-color: var(--primary-color);
+        }
+
+        body.dark-mode footer {
+            background-color: var(--background-dark);
+            border-top: 1px solid var(--border-dark);
+        }
+
+        body.dark-mode .footer-bottom {
+            border-top: 1px solid var(--border-dark);
+        }
+
+        body.dark-mode .newsletter-form input {
+            background-color: var(--card-bg-dark);
+            border: 1px solid var(--border-dark);
+            color: var(--text-light);
+        }
+
+        body.dark-mode .newsletter-form input::placeholder {
+            color: var(--text-gray-dark);
+        }
+
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3,
+        body.dark-mode h4 {
+            color: var(--text-light);
+        }
+
+        body.dark-mode .highlight {
+            color: var(--primary-light);
         }
 
         /* Responsive styles */
@@ -412,6 +526,9 @@
                 <p>&copy; 2025 Vishnu Thandel. All rights reserved.</p>
             </div>
         </footer>
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
     </div>
 
     <!-- Defer JavaScript loading -->

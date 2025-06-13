@@ -91,6 +91,45 @@
             padding: 10px 15px;
             border-radius: 4px;
             cursor: pointer;
+            margin-top: 15px;
+        }
+        .custom-tool-badge {
+            background-color: #ff9800;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        .tool-details {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .custom-tool-fields {
+            margin-top: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .helper-text {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .submit-btn {
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -113,6 +152,13 @@
                     </div>
                 </div>
                 <div class="prompt-text">{{ prompt.text }}</div>
+                {% if prompt.isCustomTool %}
+                <div class="tool-details">
+                    <strong>Custom Tool Details:</strong><br>
+                    Button Label: {{ prompt.buttonLabel }}<br>
+                    Tooltip: {{ prompt.buttonTooltip }}
+                </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
@@ -127,6 +173,23 @@
                 <div>
                     <label for="newPromptText">Prompt Text:</label>
                     <textarea id="newPromptText" name="text" required></textarea>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="isCustomTool" name="isCustomTool">
+                        Add as Custom Tool
+                    </label>
+                </div>
+                <div class="custom-tool-fields" style="display: none;">
+                    <div>
+                        <label for="buttonLabel">Button Label (if Custom Tool):</label>
+                        <input type="text" id="buttonLabel" name="buttonLabel">
+                    </div>
+                    <div>
+                        <label for="buttonTooltip">Tool Tooltip (if Custom Tool):</label>
+                        <input type="text" id="buttonTooltip" name="buttonTooltip">
+                    </div>
+                    <span class="helper-text">Specify the label and tooltip for the custom tool button.</span>
                 </div>
                 <button type="submit" class="submit-btn">Create Prompt</button>
             </form>
@@ -163,28 +226,33 @@
         document.getElementById('newPromptForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const key = document.getElementById('newPromptKey').value;
-            const text = document.getElementById('newPromptText').value;
-            
+            const formData = {
+                key: document.getElementById('newPromptKey').value,
+                text: document.getElementById('newPromptText').value,
+                isCustomTool: document.getElementById('isCustomTool').checked,
+                buttonLabel: document.getElementById('buttonLabel').value,
+                buttonTooltip: document.getElementById('buttonTooltip').value
+            };
+
             fetch('/admin/prompt/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ key, text })
+                body: JSON.stringify(formData)
             })
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
                     alert(data.error);
                 } else {
-                    alert(data.message);
+                    alert('Prompt created successfully');
                     location.reload();
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Failed to create prompt');
+                alert('Failed to create prompt. Please check the console for details.');
             });
         });
 
@@ -216,6 +284,17 @@
                 console.error('Error:', error);
                 alert('Failed to update prompt');
             });
+        });
+
+        // Show/hide custom tool fields based on checkbox
+        document.getElementById('isCustomTool').addEventListener('change', function() {
+            const customToolFields = document.querySelector('.custom-tool-fields');
+            
+            if (this.checked) {
+                customToolFields.style.display = 'block';
+            } else {
+                customToolFields.style.display = 'none';
+            }
         });
     </script>
 </body>

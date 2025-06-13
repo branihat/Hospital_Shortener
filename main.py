@@ -574,34 +574,56 @@ def restore_prompt_version(prompt_id):
 
 @app.route("/admin/prompt/create", methods=["POST"])
 @admin_required
-def create_new_prompt():
-    """Create a new prompt type."""
-    prompt_key = request.json.get("key")
-    prompt_text = request.json.get("text")
-    
-    if not prompt_key or not prompt_text:
-        return jsonify({"error": "Missing required fields"}), 400
-    
-    # Check if prompt key already exists
-    existing = mongo.db.prompts.find_one({"key": prompt_key})
-    if existing:
-        return jsonify({"error": "Prompt key already exists"}), 409
-    
-    # Create new prompt
-    admin_id = session.get('admin_id', 'admin')
-    mongo.db.prompts.insert_one({
-        "key": prompt_key,
-        "text": prompt_text,
-        "active": True,
-        "created_at": datetime.datetime.utcnow(),
-        "created_by": admin_id,
-        "updated_at": datetime.datetime.utcnow(),
-        "updated_by": admin_id,
-        "version": 1
-    })
-    
-    logger.info(f"New prompt '{prompt_key}' created by admin")
-    return jsonify({"message": "New prompt created successfully"}), 201
+def create_prompt():
+    try:
+        data = request.get_json()
+        
+        # Validate required fields
+        if not data.get('key') or not data.get('text'):
+            return jsonify({"error": "Key and text are required"}), 400
+        
+        # Check if prompt already exists
+        existing = mongo.db.prompts.find_one({"key": data['key'], "active": True})
+        if existing:
+            return jsonify({"error": "Prompt key already exists"}), 409
+        
+        # Prepare prompt document
+        prompt = {
+            "key": data['key'],
+            "text": data['text'],
+            "is_custom_tool": data.get('isCustomTool', False),
+            "active": True,
+            "created_at": datetime.datetime.utcnow(),
+            "created_by": session.get('admin_id', 'admin'),
+            "updated_at": datetime.datetime.utcnow(),
+            "updated_by": session.get('admin_id', 'admin'),
+            "version": 1
+        }
+        
+        # Add custom tool fields if specified
+        if data.get('isCustomTool'):
+            if not data.get('buttonLabel') or not data.get('buttonTooltip'):
+                return jsonify({"error": "Button label and tooltip are required for custom tools"}), 400
+            prompt.update({
+                "button_label": data['buttonLabel'],
+                "button_tooltip": data['buttonTooltip']
+            })
+        
+        # Insert into database
+        result = mongo.db.prompts.insert_one(prompt)
+        
+        if result.inserted_id:
+            logger.info(f"New prompt '{data['key']}' created by admin")
+            return jsonify({
+                "message": "Prompt created successfully",
+                "id": str(result.inserted_id)
+            }), 201
+        else:
+            raise Exception("Failed to insert prompt")
+            
+    except Exception as e:
+        logger.error(f"Error creating prompt: {str(e)}")
+        return jsonify({"error": f"Failed to create prompt: {str(e)}"}), 500
 
 # Add route to serve the JavaScript file
 @app.route('/static/English_salad.js')
@@ -906,6 +928,32 @@ def get_agreement(agreement_type):
         return jsonify({"error": "Agreement not found"}), 404
         
     return jsonify(agreements[agreement_type])
+
+# Add this after your other routes
+@app.route("/api/custom-tools")
+def get_custom_tools():
+    """Get all custom tools."""
+    try:
+        # Find all active custom tools
+        custom_tools = list(mongo.db.prompts.find(
+            {
+                "is_custom_tool": True,
+                "active": True
+            },
+            {
+                "_id": 0,
+                "key": 1,
+                "button_label": 1,
+                "button_tooltip": 1,
+                "text": 1  # Include the prompt text
+            }
+        ))
+        
+        return jsonify({"tools": custom_tools})
+    except Exception as e:
+        logger.error(f"Error retrieving custom tools: {str(e)}")
+        return jsonify({"error": "Failed to retrieve custom tools"}), 500
+
 if __name__ == "__main__":
     initialize_default_prompts()
     app.run(debug=False, ssl_context='adhoc')  # Enable HTTPS

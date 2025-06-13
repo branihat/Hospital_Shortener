@@ -101,49 +101,37 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.querySelector('.dark-mode-toggle');
+    const themeToggle = document.querySelector('.theme-toggle');
     const body = document.body;
+    const icon = themeToggle.querySelector('i');
 
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('chartwitch-theme') || 'dark';
-    body.classList.toggle('light-mode', savedTheme === 'light');
-
-    // Update moon icon based on current theme
-    updateMoonIcon();
-
-    themeToggle.addEventListener('click', function() {
-        body.classList.toggle('light-mode');
-        
-        // Save theme preference
-        const currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
-        localStorage.setItem('chartwitch-theme', currentTheme);
-        
-        // Update moon icon
-        updateMoonIcon();
-    });
-
-    function updateMoonIcon() {
-        const moonIcon = themeToggle.querySelector('i');
-        if (body.classList.contains('light-mode')) {
-            moonIcon.className = 'fas fa-sun';
-        } else {
-            moonIcon.className = 'fas fa-moon';
-        }
+    // Check saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        icon.classList.replace('fa-moon', 'fa-sun');
     }
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger-menu');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-    
-    hamburger.addEventListener('click', function() {
-        dropdownMenu.classList.toggle('active');
+    // Theme toggle handler
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+            icon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
     });
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!hamburger.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.classList.remove('active');
+    // System theme preference listener
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    prefersDarkScheme.addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            body.classList.toggle('dark-mode', e.matches);
+            icon.classList.toggle('fa-sun', e.matches);
+            icon.classList.toggle('fa-moon', !e.matches);
         }
     });
 });
