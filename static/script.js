@@ -146,29 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    // Add shortenText function before processText
-    function shortenText() {
-        const outputText = document.getElementById('outputText');
-        if (!outputText || !outputText.value) return;
 
-        let text = outputText.value;
-
-        // Remove extra whitespace and newlines
-        text = text.replace(/\s+/g, ' ').trim();
-
-        // Remove common filler words
-        const fillerWords = /\b(the|a|an|and|or|but|in|on|at|to|for|of|with)\b/gi;
-        text = text.replace(fillerWords, '');
-
-        // Remove redundant punctuation
-        text = text.replace(/[.,!?;:]+(?=[.,!?;:])/g, '');
-
-        // Collapse multiple newlines
-        text = text.replace(/\n\s*\n/g, '\n');
-
-        // Update the output text
-        outputText.value = text.trim();
-    }
 
     // Update the processText function to use showLoading and hideLoading
     async function processText(action, customPrompt) {
@@ -220,9 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             outputText.value = data.result;
 
-            if (data.shouldShorten) {
-                shortenText();
-            }
+
         } catch (error) {
             console.error('Error:', error);
             outputText.value = 'Error processing text: ' + error.message;
