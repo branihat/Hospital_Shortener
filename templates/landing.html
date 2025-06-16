@@ -49,6 +49,9 @@
             background: var(--background-light);
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between; /* Add this */
+            align-items: center; /* Add this */
         }
         
         .logo {
@@ -134,9 +137,12 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            order: 1; /* Add this */
         }
 
         .hamburger-menu {
+            order: 2; /* Add this */
+            margin-left: auto; /* Add this */
             background: none;
             border: none;
             font-size: 1.5rem;
@@ -149,7 +155,7 @@
             display: none;
             position: absolute;
             top: 100%;
-            left: 0;
+            right: 0; /* Change from left: 0 to right: 0 */
             background: var(--background-light);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border-radius: 4px;
@@ -175,10 +181,19 @@
         }
 
         .main-logo {
-            text-align: right;
-            margin-bottom: 30px;
-            max-width: 300px;
-            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            margin-bottom: -265px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-logo img {
+            position: sticky;
+            min-height: calc(26vh - 156px);
+            margin-top: 3%;
         }
 
         .hero-section {
@@ -325,6 +340,7 @@
                 width: 100%;
             }
         }
+
     </style>
     
     <!-- Load non-critical CSS asynchronously -->
@@ -347,14 +363,16 @@
     <div class="landing-container">
         <nav>
             <div class="nav-left">
-                <button class="hamburger-menu" aria-label="Menu">
-                    <i class="fas fa-bars"></i>
-                </button>
                 <div class="nav-buttons">
                     <a href="/login" class="nav-button">Login</a>
                     <a href="/signup" class="nav-button signup-btn">Sign up</a>
                 </div>
             </div>
+            
+            <!-- Move hamburger menu outside nav-left -->
+            <button class="hamburger-menu" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
             
             <!-- Dropdown Menu -->
             <div class="dropdown-menu">
@@ -364,14 +382,13 @@
                 <a href="#contact" class="dropdown-item">Contact</a>
             </div>
         </nav>
-
+        <div class="main-logo">
+            <svg src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo" class="logo light-mode-logo"></svg>
+            <img src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo" class="logo dark-mode-logo">
+        </div>
         <!-- Move logo to hero section -->
         <main>
             <div class="hero-section">
-                <div class="main-logo">
-                    <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo" class="logo light-mode-logo">
-                    <img src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo" class="logo dark-mode-logo">
-                </div>
                 <div class="hero-content">
                     <h1>Transform Your <span class="highlight">Medical Documentation</span> with AI</h1>
                     <p>ChartWitch automates your medical notes, saving hours of documentation time while improving accuracy and patient care.</p>
