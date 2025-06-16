@@ -244,7 +244,6 @@ mail.init_app(app)
 # Update the register route
 @app.route("/register", methods=["POST"])
 def register():
-    """Handle user registration with payment check and email verification"""
     try:
         data = request.json
         email = data.get('email')
@@ -260,25 +259,9 @@ def register():
         if mongo.db.users.find_one({"email_hash": email_hash}):
             return jsonify({"error": "Email already registered"}), 409
 
-        # Check if payment exists and hasn't been used
-        payment = mongo.db.payments.find_one({
-            "email": email,
-            "registration_used": False
-        })
-
-        if not payment:
-            return jsonify({
-                "error": "Payment required",
-                "payment_link": "https://buy.stripe.com/test_00wfZgdhte8pf6gbXO4wM02"
-            }), 402
-
-        # Generate verification token
-        token = generate_verification_token(email)
-        
-        # Create user with encrypted data and unverified status
-        salt = bcrypt.gensalt()
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+        # Create user document
         user_id = str(uuid.uuid4())
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
         user_doc = {
             "user_id": user_id,
@@ -290,34 +273,22 @@ def register():
             "degree": degree,
             "profession": profession,
             "institution": institution,
-            "is_verified": False,  # Set unverified initially
-            "verification_token": token,
+            "status": "pending_payment",
             "created_at": datetime.datetime.utcnow()
         }
 
-        # Insert user and mark payment as used
+        # Insert user
         mongo.db.users.insert_one(user_doc)
-        mongo.db.payments.update_one(
-            {"_id": payment["_id"]},
-            {"$set": {"registration_used": True}}
-        )
 
-        # Send verification email
-        if send_verification_email(email, token, first_name):
-            return jsonify({
-                "message": "Registration successful! Please check your email to verify your account.",
-                "email": email
-            }), 201
-        else:
-            # If email fails, still create account but inform user
-            return jsonify({
-                "message": "Account created but verification email failed. Please contact support.",
-                "email": email
-            }), 201
+        return jsonify({
+            "message": "Registration successful",
+            "userId": user_id,
+            "redirect": "/payment"
+        }), 201
 
     except Exception as e:
         logger.error(f"Registration error: {str(e)}")
-        return jsonify({"error": "Registration failed"}), 500
+        return jsonify({"error": str(e)}), 500
 
 
 
@@ -953,6 +924,50 @@ def get_custom_tools():
     except Exception as e:
         logger.error(f"Error retrieving custom tools: {str(e)}")
         return jsonify({"error": "Failed to retrieve custom tools"}), 500
+
+@app.route('/payment')
+def payment_page():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return redirect(url_for('signup'))
+    
+    user = mongo.db.users.find_one({"user_id": user_id})
+    if not user:
+        return redirect(url_for('signup'))
+
+    return render_template('payment.html', 
+                         user_id=user_id,
+                         stripe_public_key=os.getenv('STRIPE_PUBLIC_KEY'))
+
+@app.route('/create-checkout-session', methods=['POST'])
+def create_checkout_session():
+    user_id = request.form.get('userId')
+    if not user_id:
+        return jsonify({"error": "User ID required"}), 400
+
+    try:
+        user = mongo.db.users.find_one({"user_id": user_id})
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+
+        # Create Stripe checkout session
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price': os.getenv('STRIPE_PRICE_ID'),
+                'quantity': 1,
+            }],
+            mode='subscription',
+            success_url=request.host_url + 'payment/success?session_id={CHECKOUT_SESSION_ID}&user_id=' + user_id,
+            cancel_url=request.host_url + 'payment/cancel?user_id=' + user_id,
+            customer_email=user['email']
+        )
+
+        return redirect(checkout_session.url, code=303)
+
+    except Exception as e:
+        logger.error(f"Error creating checkout session: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     initialize_default_prompts()

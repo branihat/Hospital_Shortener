@@ -155,6 +155,81 @@ body {
     box-shadow: 0 0 5px rgba(0, 198, 255, 0.5);
 }
 
+.form-group input[name="institution"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[name="institution"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+}
+
+/* Payment page styles */
+.payment-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.plan-details {
+    margin: 30px 0;
+    padding: 20px;
+    background: var(--input-bg);
+    border-radius: 8px;
+}
+
+.price {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 15px 0;
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.features li {
+    padding: 8px 0;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+.features li:before {
+    content: "✓";
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-button:hover {
+    background: var(--primary-dark);
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .container {

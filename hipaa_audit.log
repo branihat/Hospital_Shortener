@@ -1037,3 +1037,92 @@ AttributeError: module 'datetime' has no attribute 'utcnow'
 2025-06-13 18:34:24,846 - INFO - 127.0.0.1 - - [13/Jun/2025 18:34:24] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
 2025-06-13 18:34:24,850 - INFO - 127.0.0.1 - - [13/Jun/2025 18:34:24] "GET /static/landing.css HTTP/1.1" 200 -
 2025-06-13 18:34:24,857 - INFO - 127.0.0.1 - - [13/Jun/2025 18:34:24] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-16 18:08:50,272 - INFO - Default prompts initialized in MongoDB
+2025-06-16 18:08:50,323 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-16 18:08:50,323 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 18:08:55,934 - INFO - 127.0.0.1 - - [16/Jun/2025 18:08:55] "GET /signup HTTP/1.1" 200 -
+2025-06-16 18:08:55,965 - INFO - 127.0.0.1 - - [16/Jun/2025 18:08:55] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:08:56,015 - INFO - 127.0.0.1 - - [16/Jun/2025 18:08:56] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-16 18:08:56,024 - INFO - 127.0.0.1 - - [16/Jun/2025 18:08:56] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-16 18:08:56,024 - INFO - 127.0.0.1 - - [16/Jun/2025 18:08:56] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-16 18:09:17,317 - INFO - 127.0.0.1 - - [16/Jun/2025 18:09:17] "GET /api/agreements/eula HTTP/1.1" 200 -
+2025-06-16 18:09:20,722 - INFO - 127.0.0.1 - - [16/Jun/2025 18:09:20] "GET /api/agreements/baa HTTP/1.1" 200 -
+2025-06-16 18:15:44,552 - INFO - Default prompts initialized in MongoDB
+2025-06-16 18:15:44,599 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-16 18:15:44,599 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 18:16:19,649 - INFO - 127.0.0.1 - - [16/Jun/2025 18:16:19] "GET /signup HTTP/1.1" 200 -
+2025-06-16 18:16:19,677 - INFO - 127.0.0.1 - - [16/Jun/2025 18:16:19] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:16:19,731 - INFO - 127.0.0.1 - - [16/Jun/2025 18:16:19] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-16 18:16:19,733 - INFO - 127.0.0.1 - - [16/Jun/2025 18:16:19] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-16 18:16:19,735 - INFO - 127.0.0.1 - - [16/Jun/2025 18:16:19] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-16 18:18:27,266 - INFO - Default prompts initialized in MongoDB
+2025-06-16 18:18:27,316 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-16 18:18:27,316 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 18:18:41,925 - INFO - 127.0.0.1 - - [16/Jun/2025 18:18:41] "GET /signup HTTP/1.1" 200 -
+2025-06-16 18:18:41,955 - INFO - 127.0.0.1 - - [16/Jun/2025 18:18:41] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:18:41,993 - INFO - 127.0.0.1 - - [16/Jun/2025 18:18:41] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-16 18:18:42,014 - INFO - 127.0.0.1 - - [16/Jun/2025 18:18:42] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-16 18:18:42,016 - INFO - 127.0.0.1 - - [16/Jun/2025 18:18:42] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-16 18:19:18,630 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:18] "GET /api/agreements/eula HTTP/1.1" 200 -
+2025-06-16 18:19:20,794 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:20] "GET /api/agreements/baa HTTP/1.1" 200 -
+2025-06-16 18:19:24,435 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:24] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-06-16 18:19:24,450 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:24] "[33mGET /payment?user_id=5b4a8d18-920f-450d-bada-9ef7514fcb88 HTTP/1.1[0m" 404 -
+2025-06-16 18:19:24,494 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:24] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:19:55,906 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:55] "GET / HTTP/1.1" 200 -
+2025-06-16 18:19:55,941 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:55] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-16 18:19:55,942 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:55] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-16 18:19:55,946 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:55] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-16 18:19:55,947 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:55] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:19:55,948 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:55] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-16 18:19:55,949 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:55] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-16 18:19:55,951 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:55] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-16 18:19:56,326 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:56] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-16 18:19:57,473 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:57] "GET /login HTTP/1.1" 200 -
+2025-06-16 18:19:57,507 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:57] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-16 18:19:57,510 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:57] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-16 18:19:57,512 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:57] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-16 18:19:57,573 - INFO - 127.0.0.1 - - [16/Jun/2025 18:19:57] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:20:14,479 - INFO - 127.0.0.1 - - [16/Jun/2025 18:20:14] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-06-16 18:20:27,405 - INFO - 127.0.0.1 - - [16/Jun/2025 18:20:27] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:20:27,422 - INFO - 127.0.0.1 - - [16/Jun/2025 18:20:27] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-16 18:20:27,501 - INFO - 127.0.0.1 - - [16/Jun/2025 18:20:27] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:20:28,561 - INFO - 127.0.0.1 - - [16/Jun/2025 18:20:28] "[33mGET /payment?user_id=5b4a8d18-920f-450d-bada-9ef7514fcb88 HTTP/1.1[0m" 404 -
+2025-06-16 18:20:28,594 - INFO - 127.0.0.1 - - [16/Jun/2025 18:20:28] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:21:17,863 - INFO - Default prompts initialized in MongoDB
+2025-06-16 18:21:17,906 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-16 18:21:17,906 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 18:21:27,278 - INFO - 127.0.0.1 - - [16/Jun/2025 18:21:27] "GET /signup HTTP/1.1" 200 -
+2025-06-16 18:21:27,308 - INFO - 127.0.0.1 - - [16/Jun/2025 18:21:27] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:21:27,344 - INFO - 127.0.0.1 - - [16/Jun/2025 18:21:27] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-16 18:21:27,362 - INFO - 127.0.0.1 - - [16/Jun/2025 18:21:27] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-16 18:21:27,367 - INFO - 127.0.0.1 - - [16/Jun/2025 18:21:27] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-16 18:24:23,385 - INFO - Default prompts initialized in MongoDB
+2025-06-16 18:24:23,432 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-16 18:24:23,432 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 18:30:49,975 - INFO - Default prompts initialized in MongoDB
+2025-06-16 18:30:50,040 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-16 18:30:50,040 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 18:31:10,918 - INFO - 127.0.0.1 - - [16/Jun/2025 18:31:10] "GET /signup HTTP/1.1" 200 -
+2025-06-16 18:31:10,945 - INFO - 127.0.0.1 - - [16/Jun/2025 18:31:10] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:31:10,985 - INFO - 127.0.0.1 - - [16/Jun/2025 18:31:10] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-16 18:31:10,997 - INFO - 127.0.0.1 - - [16/Jun/2025 18:31:10] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-16 18:31:11,003 - INFO - 127.0.0.1 - - [16/Jun/2025 18:31:11] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-16 18:32:07,003 - INFO - 127.0.0.1 - - [16/Jun/2025 18:32:07] "GET /api/agreements/eula HTTP/1.1" 200 -
+2025-06-16 18:32:10,515 - INFO - 127.0.0.1 - - [16/Jun/2025 18:32:10] "GET /api/agreements/baa HTTP/1.1" 200 -
+2025-06-16 18:32:13,565 - INFO - 127.0.0.1 - - [16/Jun/2025 18:32:13] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2025-06-16 18:32:18,876 - INFO - 127.0.0.1 - - [16/Jun/2025 18:32:18] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-06-16 18:32:18,912 - INFO - 127.0.0.1 - - [16/Jun/2025 18:32:18] "GET /payment?user_id=870ba7c0-f652-4b0e-b850-3e208a7b7ae8 HTTP/1.1" 200 -
+2025-06-16 18:32:18,943 - INFO - 127.0.0.1 - - [16/Jun/2025 18:32:18] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-16 18:32:18,957 - INFO - 127.0.0.1 - - [16/Jun/2025 18:32:18] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-16 18:32:21,034 - INFO - message='Request to Stripe api' method=post path=https://api.stripe.com/v1/checkout/sessions
+2025-06-16 18:32:26,718 - INFO - message='Stripe API response' path=https://api.stripe.com/v1/checkout/sessions response_code=400
+2025-06-16 18:32:26,718 - INFO - error_code=email_invalid error_message='Invalid email address: 5wzxx+gcAdu80jUWFyo7hmM4+jbXr7bc+2PZW9kF74EHxd5Ju7wAG+w+LmwdhAIbjCv98YDa57eqBwss3FUJ0AJJlQ==' error_param=customer_email error_type=invalid_request_error message='Stripe API error received'
+2025-06-16 18:32:26,719 - ERROR - Error creating checkout session: Request req_flDGhgb67qk2Lc: Invalid email address: 5wzxx+gcAdu80jUWFyo7hmM4+jbXr7bc+2PZW9kF74EHxd5Ju7wAG+w+LmwdhAIbjCv98YDa57eqBwss3FUJ0AJJlQ==
+2025-06-16 18:32:26,719 - INFO - 127.0.0.1 - - [16/Jun/2025 18:32:26] "[35m[1mPOST /create-checkout-session HTTP/1.1[0m" 500 -
+2025-06-16 18:32:26,741 - INFO - 127.0.0.1 - - [16/Jun/2025 18:32:26] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
