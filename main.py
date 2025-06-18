@@ -295,7 +295,6 @@ def register():
 @app.route("/api/login", methods=["POST"])
 @limiter.limit("5 per minute")
 def login():
-    """Handle user login without re-verification"""
     email = request.json.get("email")
     password = request.json.get("password")
 
@@ -308,6 +307,10 @@ def login():
 
         if not user:
             return jsonify({"error": "Invalid credentials"}), 401
+
+        # Check if the user has a pending payment status
+        if user.get("status") == "pending_payment":
+            return jsonify({"error": "Please complete your payment before logging in"}), 403
 
         # Check password
         if bcrypt.checkpw(password.encode("utf-8"), user["password"]):
@@ -322,11 +325,9 @@ def login():
                 algorithm="HS256"
             )
             
-            # Log successful login
             logger.info(f"Successful login for user: {user.get('user_id')}")
             return jsonify({"token": token, "user_id": user["user_id"]}), 200
         
-        # Log failed login attempt
         logger.warning(f"Failed login attempt for email hash: {email_hash}")
         return jsonify({"error": "Invalid credentials"}), 401
 
@@ -724,23 +725,20 @@ def stripe_webhook():
         session = event['data']['object']
         customer_email = session['customer_details']['email']
         
-        # Store payment info in MongoDB
+        # Update user status to indicate payment is complete
         try:
-            mongo.db.payments.insert_one({
-                'session_id': session['id'],
-                'email': customer_email,
-                'amount': session['amount_total'],
-                'status': 'completed',
-                'created_at': datetime.datetime.utcnow(),
-                'registration_used': False
-            })
-            # Redirect to registration with email parameter
-            registration_url = url_for('show_signup_page', email=customer_email, _external=True)
-            return jsonify({'redirect_url': registration_url})
-            
+            email_hash = HIPAAEncryption.hash_email(customer_email)
+            result = mongo.db.users.update_one(
+                {"email_hash": email_hash},
+                {"$set": {"status": "active"}}
+            )
+            if result.modified_count == 1:
+                logger.info(f"User status updated to active for email: {customer_email}")
+            else:
+                logger.warning(f"User status not updated for email: {customer_email}")
         except Exception as e:
-            logger.error(f"Error recording payment: {str(e)}")
-            return jsonify({'error': 'Payment processing failed'}), 500
+            logger.error(f"Error updating user status: {str(e)}")
+            return jsonify({'error': 'User status update failed'}), 500
 
     return jsonify({'status': 'success'})
 
@@ -793,7 +791,9 @@ def payment_success():
     try:
         session = stripe.checkout.Session.retrieve(session_id)
         customer_email = session.customer_details.email
-        return redirect(url_for('show_signup_page', email=customer_email))
+        # Log success for debugging
+        logger.info(f"Successful payment for email: {customer_email}")
+        return render_template('success.html', email=customer_email)
     except Exception as e:
         logger.error(f"Error retrieving session: {str(e)}")
         return redirect(url_for('pricing', error="Payment verification failed"))
@@ -932,7 +932,7 @@ def payment_page():
         return redirect(url_for('signup'))
     
     user = mongo.db.users.find_one({"user_id": user_id})
-    if not user:
+    if not user or user.get('status') != 'pending_payment':
         return redirect(url_for('signup'))
 
     return render_template('payment.html', 
@@ -941,16 +941,7 @@ def payment_page():
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
-    user_id = request.form.get('userId')
-    if not user_id:
-        return jsonify({"error": "User ID required"}), 400
-
     try:
-        user = mongo.db.users.find_one({"user_id": user_id})
-        if not user:
-            return jsonify({"error": "User not found"}), 404
-
-        # Create Stripe checkout session
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
@@ -958,16 +949,29 @@ def create_checkout_session():
                 'quantity': 1,
             }],
             mode='subscription',
-            success_url=request.host_url + 'payment/success?session_id={CHECKOUT_SESSION_ID}&user_id=' + user_id,
-            cancel_url=request.host_url + 'payment/cancel?user_id=' + user_id,
-            customer_email=user['email']
+            success_url=request.host_url + 'payment/success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=request.host_url + 'payment/cancel',
         )
-
         return redirect(checkout_session.url, code=303)
-
     except Exception as e:
-        logger.error(f"Error creating checkout session: {str(e)}")
         return jsonify({"error": str(e)}), 500
+
+@app.route("/api/user-status", methods=["GET"])
+def get_user_status():
+    email = request.args.get("email")
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+
+    try:
+        email_hash = HIPAAEncryption.hash_email(email)
+        user = mongo.db.users.find_one({"email_hash": email_hash}, {"status": 1})
+        if user:
+            return jsonify({"status": user.get("status", "unknown")}), 200
+        else:
+            return jsonify({"error": "User not found"}), 404
+    except Exception as e:
+        logger.error(f"Error fetching user status: {str(e)}")
+        return jsonify({"error": "Failed to fetch user status"}), 500
 
 if __name__ == "__main__":
     initialize_default_prompts()
