@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+
     // // Check if user is already logged in
     // const authToken = localStorage.getItem("authToken");
     // if (authToken) {
@@ -124,7 +125,21 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('theme', 'light');
         }
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.querySelector('.hamburger-menu');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        
+        hamburger.addEventListener('click', function() {
+            dropdownMenu.classList.toggle('active');
+        });
 
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!hamburger.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+    });
     // System theme preference listener
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     prefersDarkScheme.addEventListener('change', (e) => {

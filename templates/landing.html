@@ -155,12 +155,13 @@
             display: none;
             position: absolute;
             top: 100%;
-            right: 0; /* Change from left: 0 to right: 0 */
+            right: 0;
             background: var(--background-light);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border-radius: 4px;
             padding: 10px 0;
             min-width: 200px;
+            z-index: 1000; /* Ensure dropdown appears above other elements */
         }
 
         .dropdown-menu.active {
@@ -334,10 +335,26 @@
 
             .hamburger-menu {
                 display: block;
+                cursor: pointer;
             }
 
             .dropdown-menu {
                 width: 100%;
+                max-width: 300px;
+                right: 0;
+            }
+
+            .dropdown-item {
+                padding: 12px 20px;
+                display: block;
+                color: var(--text-dark);
+                text-decoration: none;
+                transition: background-color 0.3s;
+            }
+
+            .dropdown-item:hover {
+                background-color: var(--primary-light);
+                color: var(--text-light);
             }
         }
 

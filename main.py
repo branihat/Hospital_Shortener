@@ -709,11 +709,16 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 def stripe_webhook():
     payload = request.data
     sig_header = request.headers.get('Stripe-Signature')
+    webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
+
+    logger.info("Webhook received")
 
     try:
         event = stripe.Webhook.construct_event(
-            payload, sig_header, os.getenv('STRIPE_WEBHOOK_SECRET')
+            payload, sig_header, webhook_secret
         )
+        logger.info(f"Webhook event type: {event['type']}")
+
     except ValueError as e:
         logger.error(f"Invalid payload: {str(e)}")
         return jsonify({'error': 'Invalid payload'}), 400
@@ -721,27 +726,58 @@ def stripe_webhook():
         logger.error(f"Invalid signature: {str(e)}")
         return jsonify({'error': 'Invalid signature'}), 400
 
-    if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
-        customer_email = session['customer_details']['email']
-        
-        # Update user status to indicate payment is complete
-        try:
+    try:
+        if event['type'] == 'checkout.session.completed':
+            session = event['data']['object']
+            customer_email = session.get('customer_details', {}).get('email')
+            
+            if not customer_email:
+                logger.error("No customer email in session data")
+                return jsonify({'error': 'No customer email found'}), 400
+
+            logger.info(f"Processing payment for email: {customer_email}")
+            
+            # Update user status to active
             email_hash = HIPAAEncryption.hash_email(customer_email)
             result = mongo.db.users.update_one(
                 {"email_hash": email_hash},
-                {"$set": {"status": "active"}}
+                {
+                    "$set": {
+                        "status": "active",
+                        "stripe_customer_id": session.get('customer'),
+                        "subscription_id": session.get('subscription'),
+                        "payment_status": "completed",
+                        "payment_date": datetime.datetime.utcnow()
+                    }
+                }
             )
+
             if result.modified_count == 1:
-                logger.info(f"User status updated to active for email: {customer_email}")
+                logger.info(f"Successfully updated user status to active for: {customer_email}")
+                
+                # Record the payment
+                payment_record = {
+                    "email_hash": email_hash,
+                    "stripe_session_id": session.get('id'),
+                    "stripe_customer_id": session.get('customer'),
+                    "subscription_id": session.get('subscription'),
+                    "amount_total": session.get('amount_total'),
+                    "currency": session.get('currency'),
+                    "payment_status": "completed",
+                    "created_at": datetime.datetime.utcnow()
+                }
+                mongo.db.payments.insert_one(payment_record)
+                logger.info(f"Payment record created for: {customer_email}")
+                
             else:
-                logger.warning(f"User status not updated for email: {customer_email}")
-        except Exception as e:
-            logger.error(f"Error updating user status: {str(e)}")
-            return jsonify({'error': 'User status update failed'}), 500
+                logger.error(f"Failed to update user status for: {customer_email}")
+                return jsonify({'error': 'User not found'}), 404
 
-    return jsonify({'status': 'success'})
+        return jsonify({'status': 'success'})
 
+    except Exception as e:
+        logger.error(f"Error processing webhook: {str(e)}")
+        return jsonify({'error': str(e)}), 500
 def payment_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -788,15 +824,37 @@ def show_signup_page():
 @app.route('/payment/success')
 def payment_success():
     session_id = request.args.get('session_id')
+    if not session_id:
+        return redirect(url_for('pricing'))
+
     try:
+        # Retrieve the session
         session = stripe.checkout.Session.retrieve(session_id)
-        customer_email = session.customer_details.email
-        # Log success for debugging
-        logger.info(f"Successful payment for email: {customer_email}")
-        return render_template('success.html', email=customer_email)
+        
+        # Verify payment status
+        if session.payment_status == 'paid':
+            customer_email = session.customer_details.email
+            
+            # Check if user status is updated
+            email_hash = HIPAAEncryption.hash_email(customer_email)
+            user = mongo.db.users.find_one({"email_hash": email_hash})
+            
+            if user and user.get('status') == 'active':
+                return render_template('success.html', 
+                                    email=customer_email,
+                                    message="Your payment was successful! You can now log in.")
+            else:
+                # If status not yet updated, show waiting message
+                return render_template('success.html',
+                                    email=customer_email,
+                                    message="Payment received, account activation in progress...")
+        else:
+            logger.error(f"Invalid payment status for session {session_id}")
+            return redirect(url_for('pricing'))
+
     except Exception as e:
-        logger.error(f"Error retrieving session: {str(e)}")
-        return redirect(url_for('pricing', error="Payment verification failed"))
+        logger.error(f"Error verifying payment success: {str(e)}")
+        return redirect(url_for('pricing'))
 
 @app.route("/resend-verification", methods=["POST"])
 def resend_verification():

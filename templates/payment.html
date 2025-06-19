@@ -26,6 +26,8 @@
 
             <form action="/create-checkout-session" method="POST">
                 <input type="hidden" name="lookup_key" value="{{PRICE_LOOKUP_KEY}}" />
+                <input type="hidden" name="user_id" value="{{ user_id }}" />
+                <input type="hidden" name="email" value="{{ email }}" />
                 <button id="checkout-and-portal-button" type="submit">Checkout</button>
             </form>
         </div>

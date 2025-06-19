@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - ChartWitch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="success-container">
+            <h1>Payment Successful!</h1>
+            <p>{{ message }}</p>
+            {% if email %}
+            <p>Registered email: {{ email }}</p>
+            {% endif %}
+            <div class="button-container">
+                <a href="{{ url_for('show_login_page') }}" class="login-button">Go to Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
