@@ -233,8 +233,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const container = document.getElementById('custom-tools-container');
         if (!container) return;
 
-        showLoading(); // Use existing loading overlay
-        container.innerHTML = '<div class="loading">Loading custom tools...</div>';
+        // showLoading(); // Use existing loading overlay
+        // container.innerHTML = '<div class="loading">Loading custom tools...</div>';
 
         fetch('/api/custom-tools')
             .then(response => {

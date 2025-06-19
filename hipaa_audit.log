@@ -1287,3 +1287,158 @@ AttributeError: module 'datetime' has no attribute 'utcnow'
 2025-06-18 11:51:30,935 - INFO - 127.0.0.1 - - [18/Jun/2025 11:51:30] "GET /static/style1.css HTTP/1.1" 200 -
 2025-06-18 11:51:30,936 - INFO - 127.0.0.1 - - [18/Jun/2025 11:51:30] "GET /static/logo-dark.svg HTTP/1.1" 200 -
 2025-06-18 11:51:30,938 - INFO - 127.0.0.1 - - [18/Jun/2025 11:51:30] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-19 17:55:07,596 - INFO - Default prompts initialized in MongoDB
+2025-06-19 17:55:07,647 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-19 17:55:07,647 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-19 17:55:13,181 - ERROR - Exception on /pricing [GET]
+Traceback (most recent call last):
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\main.py", line 624, in pricing
+    return render_template('pricing.html',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 151, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: pricing.html
+2025-06-19 17:55:13,230 - INFO - 127.0.0.1 - - [19/Jun/2025 17:55:13] "[35m[1mGET /pricing?error=Payment+verification+failed HTTP/1.1[0m" 500 -
+2025-06-19 17:55:54,231 - ERROR - Exception on /payment [GET]
+Traceback (most recent call last):
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\main.py", line 938, in payment_page
+    return render_template('payment.html',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 151, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: payment.html
+2025-06-19 17:55:54,232 - INFO - 127.0.0.1 - - [19/Jun/2025 17:55:54] "[35m[1mGET /payment?user_id=6b969d6f-f9b2-4efc-b69b-9e51850d1a15 HTTP/1.1[0m" 500 -
+2025-06-19 17:55:54,955 - INFO - 127.0.0.1 - - [19/Jun/2025 17:55:54] "GET /signup HTTP/1.1" 200 -
+2025-06-19 17:55:55,030 - INFO - 127.0.0.1 - - [19/Jun/2025 17:55:55] "GET /static/signup.js HTTP/1.1" 200 -
+2025-06-19 17:55:55,031 - INFO - 127.0.0.1 - - [19/Jun/2025 17:55:55] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-19 17:55:55,040 - INFO - 127.0.0.1 - - [19/Jun/2025 17:55:55] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-19 17:55:57,736 - ERROR - Exception on /payment [GET]
+Traceback (most recent call last):
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\Desktop\Hospital_Shortener-main\Hospital_Shortener\main.py", line 938, in payment_page
+    return render_template('payment.html',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 151, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Milind\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: payment.html
+2025-06-19 17:55:57,737 - INFO - 127.0.0.1 - - [19/Jun/2025 17:55:57] "[35m[1mGET /payment?user_id=6b969d6f-f9b2-4efc-b69b-9e51850d1a15 HTTP/1.1[0m" 500 -
+2025-06-19 17:59:28,819 - INFO - Default prompts initialized in MongoDB
+2025-06-19 17:59:28,863 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-19 17:59:28,863 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-19 17:59:38,678 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:38] "GET /login HTTP/1.1" 200 -
+2025-06-19 17:59:38,739 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:38] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-19 17:59:38,748 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:38] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-19 17:59:38,770 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:38] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-19 17:59:44,777 - INFO - Successful login for user: 92d1ca7c-3347-437d-a583-2c67a3457183
+2025-06-19 17:59:44,777 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:44] "POST /api/login HTTP/1.1" 200 -
+2025-06-19 17:59:44,794 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:44] "GET /dashboard HTTP/1.1" 200 -
+2025-06-19 17:59:44,815 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:44] "GET /static/style.css HTTP/1.1" 200 -
+2025-06-19 17:59:44,819 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:44] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-19 17:59:44,820 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:44] "GET /static/fonts/verdana.ttf HTTP/1.1" 200 -
+2025-06-19 17:59:44,829 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:44] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-19 17:59:44,841 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:44] "GET /static/script.js HTTP/1.1" 200 -
+2025-06-19 17:59:44,848 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:44] "GET /static/English_salad.js HTTP/1.1" 200 -
+2025-06-19 17:59:46,619 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:46] "GET /api/custom-tools HTTP/1.1" 200 -
+2025-06-19 17:59:46,644 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:46] "GET /api/custom-tools HTTP/1.1" 200 -
+2025-06-19 17:59:48,649 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:48] "GET /api/custom-tools HTTP/1.1" 200 -
+2025-06-19 17:59:48,672 - INFO - 127.0.0.1 - - [19/Jun/2025 17:59:48] "GET /api/custom-tools HTTP/1.1" 200 -
