@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
 </head>
 <body>
+        <style>
+        /* Critical CSS inlined to prevent render blocking */
+        :root {
+            /* Light mode colors */
+            --primary-color: #8244af;
+            --primary-light: #9f5cc8;
+            --background-light: #ffffff;
+            --card-bg-light: #ffffff;
+            --text-dark: #2d2d2d;
+            --text-gray: #555555;
+            --border-light: #eaeaea;
+
+            /* Dark mode colors */
+            --background-dark: #1a1a1a;
+            --card-bg-dark: #2d2d2d;
+            --border-dark: #3d3d3d;
+            --text-light: #f0f0f0;
+            --text-gray-dark: #b0b0b0;
+        }
+    </style>
     <div class="container">
         <div class="payment-container">
             <h1>Complete Your Registration</h1>
