@@ -52,24 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-    // Landing Page JavaScript
-    // const hamburgerButton = document.querySelector('.hamburger-menu');
-    // const dropdownMenu = document.querySelector('.dropdown-menu');
 
-    // if (hamburgerButton && dropdownMenu) {
-    // // Check if a toggle function already exists to avoid duplicates
-    // if (!window.toggleDropdown) {
-    //     window.toggleDropdown = () => {
-    //     const isVisible = dropdownMenu.style.display === 'block';
-    //     dropdownMenu.style.display = isVisible ? 'none' : 'block';
-    //     };
-    // }
-
-    // hamburgerButton.removeEventListener('click', window.toggleDropdown); // Remove existing listener to prevent duplicates
-    // hamburgerButton.addEventListener('click', window.toggleDropdown);
-    // } else {
-    // console.error("Could not find the hamburger button or the dropdown menu.");
-    // }
     // Newsletter form handling
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
