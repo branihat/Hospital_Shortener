@@ -53,7 +53,23 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
     // Landing Page JavaScript
+    // const hamburgerButton = document.querySelector('.hamburger-menu');
+    // const dropdownMenu = document.querySelector('.dropdown-menu');
 
+    // if (hamburgerButton && dropdownMenu) {
+    // // Check if a toggle function already exists to avoid duplicates
+    // if (!window.toggleDropdown) {
+    //     window.toggleDropdown = () => {
+    //     const isVisible = dropdownMenu.style.display === 'block';
+    //     dropdownMenu.style.display = isVisible ? 'none' : 'block';
+    //     };
+    // }
+
+    // hamburgerButton.removeEventListener('click', window.toggleDropdown); // Remove existing listener to prevent duplicates
+    // hamburgerButton.addEventListener('click', window.toggleDropdown);
+    // } else {
+    // console.error("Could not find the hamburger button or the dropdown menu.");
+    // }
     // Newsletter form handling
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
@@ -125,21 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('theme', 'light');
         }
     });
-    document.addEventListener('DOMContentLoaded', function() {
-        const hamburger = document.querySelector('.hamburger-menu');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-        
-        hamburger.addEventListener('click', function() {
-            dropdownMenu.classList.toggle('active');
-        });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!hamburger.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.classList.remove('active');
-            }
-        });
-    });
     // System theme preference listener
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     prefersDarkScheme.addEventListener('change', (e) => {
@@ -149,4 +151,22 @@ document.addEventListener('DOMContentLoaded', function() {
             icon.classList.toggle('fa-moon', !e.matches);
         }
     });
+
+    // Hamburger menu dropdown logic
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    if (hamburgerMenu && dropdownMenu) {
+        hamburgerMenu.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event bubbling
+            dropdownMenu.classList.toggle('active');
+        });
+
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownMenu.contains(e.target) && !hamburgerMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+    }
 });
