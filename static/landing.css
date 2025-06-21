@@ -683,3 +683,36 @@ footer {
 .light-mode .light-mode-logo {
     display: block;
 }
+
+/* Demo Video Section */
+.demo-video-section {
+    padding: 5rem 5%;
+    background: var(--background);
+    text-align: center;
+}
+
+.demo-video-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.demo-video-section .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.demo-video-section .video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 12px;
+}
+
+.demo-video-section p {
+    margin-top: 1.5rem;
+    color: var(--gray);
+}

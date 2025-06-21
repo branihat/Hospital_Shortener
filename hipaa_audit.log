@@ -1630,3 +1630,105 @@ jinja2.exceptions.TemplateNotFound: payment.html
 2025-06-19 18:49:17,854 - INFO - 127.0.0.1 - - [19/Jun/2025 18:49:17] "GET /static/logo-dark.svg HTTP/1.1" 200 -
 2025-06-19 18:49:17,855 - INFO - 127.0.0.1 - - [19/Jun/2025 18:49:17] "GET /static/auth.js HTTP/1.1" 200 -
 2025-06-19 18:49:28,242 - INFO - 127.0.0.1 - - [19/Jun/2025 18:49:28] "[31m[1mPOST /api/login HTTP/1.1[0m" 403 -
+2025-06-21 17:38:41,203 - INFO - Default prompts initialized in MongoDB
+2025-06-21 17:38:41,277 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-21 17:38:41,277 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-21 17:44:47,962 - INFO - Default prompts initialized in MongoDB
+2025-06-21 17:44:48,020 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-21 17:44:48,020 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-21 17:44:57,535 - INFO - 127.0.0.1 - - [21/Jun/2025 17:44:57] "GET / HTTP/1.1" 200 -
+2025-06-21 17:44:57,630 - INFO - 127.0.0.1 - - [21/Jun/2025 17:44:57] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-21 17:44:57,654 - INFO - 127.0.0.1 - - [21/Jun/2025 17:44:57] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-21 17:44:57,675 - INFO - 127.0.0.1 - - [21/Jun/2025 17:44:57] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-21 17:44:57,675 - INFO - 127.0.0.1 - - [21/Jun/2025 17:44:57] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-21 17:44:57,687 - INFO - 127.0.0.1 - - [21/Jun/2025 17:44:57] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-21 17:44:57,692 - INFO - 127.0.0.1 - - [21/Jun/2025 17:44:57] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-21 17:44:58,075 - INFO - 127.0.0.1 - - [21/Jun/2025 17:44:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-21 17:45:05,715 - INFO - 127.0.0.1 - - [21/Jun/2025 17:45:05] "[36mGET /static/landing.css HTTP/1.1[0m" 304 -
+2025-06-21 17:45:05,742 - INFO - 127.0.0.1 - - [21/Jun/2025 17:45:05] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-21 17:47:09,963 - INFO - Default prompts initialized in MongoDB
+2025-06-21 17:47:10,036 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-21 17:47:10,036 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-21 17:47:16,792 - INFO - 127.0.0.1 - - [21/Jun/2025 17:47:16] "GET / HTTP/1.1" 200 -
+2025-06-21 17:47:16,831 - INFO - 127.0.0.1 - - [21/Jun/2025 17:47:16] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-21 17:47:16,890 - INFO - 127.0.0.1 - - [21/Jun/2025 17:47:16] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-21 17:47:16,926 - INFO - 127.0.0.1 - - [21/Jun/2025 17:47:16] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-21 17:47:16,927 - INFO - 127.0.0.1 - - [21/Jun/2025 17:47:16] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-21 17:47:16,938 - INFO - 127.0.0.1 - - [21/Jun/2025 17:47:16] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-21 17:47:16,966 - INFO - 127.0.0.1 - - [21/Jun/2025 17:47:16] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-21 17:47:16,968 - INFO - 127.0.0.1 - - [21/Jun/2025 17:47:16] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-21 17:51:02,387 - INFO - Default prompts initialized in MongoDB
+2025-06-21 17:51:02,460 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-21 17:51:02,460 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-21 17:51:07,509 - INFO - 127.0.0.1 - - [21/Jun/2025 17:51:07] "GET / HTTP/1.1" 200 -
+2025-06-21 17:51:07,549 - INFO - 127.0.0.1 - - [21/Jun/2025 17:51:07] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-21 17:51:07,599 - INFO - 127.0.0.1 - - [21/Jun/2025 17:51:07] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-21 17:51:07,616 - INFO - 127.0.0.1 - - [21/Jun/2025 17:51:07] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-21 17:51:07,625 - INFO - 127.0.0.1 - - [21/Jun/2025 17:51:07] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-21 17:51:07,638 - INFO - 127.0.0.1 - - [21/Jun/2025 17:51:07] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-21 17:51:07,656 - INFO - 127.0.0.1 - - [21/Jun/2025 17:51:07] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-21 17:51:07,673 - INFO - 127.0.0.1 - - [21/Jun/2025 17:51:07] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-21 17:58:52,961 - INFO - Default prompts initialized in MongoDB
+2025-06-21 17:58:53,060 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-21 17:58:53,060 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-21 17:59:03,106 - INFO - 127.0.0.1 - - [21/Jun/2025 17:59:03] "GET / HTTP/1.1" 200 -
+2025-06-21 17:59:03,143 - INFO - 127.0.0.1 - - [21/Jun/2025 17:59:03] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-21 17:59:03,191 - INFO - 127.0.0.1 - - [21/Jun/2025 17:59:03] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-21 17:59:03,210 - INFO - 127.0.0.1 - - [21/Jun/2025 17:59:03] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-21 17:59:03,216 - INFO - 127.0.0.1 - - [21/Jun/2025 17:59:03] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-21 17:59:03,236 - INFO - 127.0.0.1 - - [21/Jun/2025 17:59:03] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-21 17:59:03,252 - INFO - 127.0.0.1 - - [21/Jun/2025 17:59:03] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-21 17:59:03,287 - INFO - 127.0.0.1 - - [21/Jun/2025 17:59:03] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-21 18:06:45,453 - INFO - Default prompts initialized in MongoDB
+2025-06-21 18:06:45,517 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-21 18:06:45,517 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-21 18:06:51,843 - INFO - 127.0.0.1 - - [21/Jun/2025 18:06:51] "GET / HTTP/1.1" 200 -
+2025-06-21 18:06:51,878 - INFO - 127.0.0.1 - - [21/Jun/2025 18:06:51] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-21 18:06:51,926 - INFO - 127.0.0.1 - - [21/Jun/2025 18:06:51] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-21 18:06:51,946 - INFO - 127.0.0.1 - - [21/Jun/2025 18:06:51] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-21 18:06:51,961 - INFO - 127.0.0.1 - - [21/Jun/2025 18:06:51] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-21 18:06:51,978 - INFO - 127.0.0.1 - - [21/Jun/2025 18:06:51] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-21 18:06:51,990 - INFO - 127.0.0.1 - - [21/Jun/2025 18:06:51] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-21 18:06:52,007 - INFO - 127.0.0.1 - - [21/Jun/2025 18:06:52] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-21 18:07:54,103 - INFO - Default prompts initialized in MongoDB
+2025-06-21 18:07:54,184 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-21 18:07:54,184 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-21 18:08:23,283 - INFO - 127.0.0.1 - - [21/Jun/2025 18:08:23] "GET / HTTP/1.1" 200 -
+2025-06-21 18:08:23,319 - INFO - 127.0.0.1 - - [21/Jun/2025 18:08:23] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-21 18:08:23,381 - INFO - 127.0.0.1 - - [21/Jun/2025 18:08:23] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-21 18:08:23,404 - INFO - 127.0.0.1 - - [21/Jun/2025 18:08:23] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-21 18:08:23,414 - INFO - 127.0.0.1 - - [21/Jun/2025 18:08:23] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-21 18:08:23,418 - INFO - 127.0.0.1 - - [21/Jun/2025 18:08:23] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-21 18:08:23,422 - INFO - 127.0.0.1 - - [21/Jun/2025 18:08:23] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-21 18:08:23,432 - INFO - 127.0.0.1 - - [21/Jun/2025 18:08:23] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-21 18:08:58,223 - INFO - Default prompts initialized in MongoDB
+2025-06-21 18:08:58,264 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-21 18:08:58,264 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-21 18:09:06,886 - INFO - 127.0.0.1 - - [21/Jun/2025 18:09:06] "GET / HTTP/1.1" 200 -
+2025-06-21 18:09:06,923 - INFO - 127.0.0.1 - - [21/Jun/2025 18:09:06] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-21 18:09:06,971 - INFO - 127.0.0.1 - - [21/Jun/2025 18:09:06] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-21 18:09:06,986 - INFO - 127.0.0.1 - - [21/Jun/2025 18:09:06] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-21 18:09:07,010 - INFO - 127.0.0.1 - - [21/Jun/2025 18:09:07] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-21 18:09:07,024 - INFO - 127.0.0.1 - - [21/Jun/2025 18:09:07] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-21 18:09:07,061 - INFO - 127.0.0.1 - - [21/Jun/2025 18:09:07] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-21 18:09:07,062 - INFO - 127.0.0.1 - - [21/Jun/2025 18:09:07] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-21 18:20:27,614 - INFO - Default prompts initialized in MongoDB
+2025-06-21 18:20:27,737 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-21 18:20:27,737 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-21 18:20:36,305 - INFO - 127.0.0.1 - - [21/Jun/2025 18:20:36] "GET / HTTP/1.1" 200 -
+2025-06-21 18:20:36,346 - INFO - 127.0.0.1 - - [21/Jun/2025 18:20:36] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-21 18:20:36,392 - INFO - 127.0.0.1 - - [21/Jun/2025 18:20:36] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-21 18:20:36,412 - INFO - 127.0.0.1 - - [21/Jun/2025 18:20:36] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-21 18:20:36,424 - INFO - 127.0.0.1 - - [21/Jun/2025 18:20:36] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-21 18:20:36,438 - INFO - 127.0.0.1 - - [21/Jun/2025 18:20:36] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-21 18:20:36,443 - INFO - 127.0.0.1 - - [21/Jun/2025 18:20:36] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-21 18:20:36,454 - INFO - 127.0.0.1 - - [21/Jun/2025 18:20:36] "GET /static/landing.css HTTP/1.1" 200 -
