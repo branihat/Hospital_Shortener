@@ -19,6 +19,32 @@
             --text-gray: #555555;
             --border-light: #eaeaea;
 
+            /* Light Mode Colors */
+            --primary: #cb6dea;
+            --primary-dark: #a94ec1;
+            --secondary: #87CEEB;
+            --accent: #ff7b7b;
+            --dark: #222;
+            --light: #f5f5f5;
+            --gray: #888;
+            --background: white;
+            --text-color: #222;
+            --gradient: linear-gradient(109.6deg, #ff7b7b 11.2%, #cb6dea 91.1%);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        
+        
+        /* Dark Mode Colors */
+        
+            --primary: #cb6dea;
+            --primary-dark: #a94ec1;
+            --dark: #f5f5f5;
+            --light: #222;
+            --gray: #aaa;
+            --background: #1a1a1a;
+            --text-color: #f5f5f5;
+            --gradient: linear-gradient(109.6deg, #ff7b7b 11.2%, #cb6dea 91.1%);
+            --shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+
             /* Dark mode colors */
             --background-dark: #1a1a1a;
             --card-bg-dark: #2d2d2d;
@@ -43,12 +69,14 @@
                     <li>Priority Processing</li>
                 </ul>
             </div>
-
-            <form action="/create-checkout-session" method="POST">
-                <input type="hidden" name="lookup_key" value="{{PRICE_LOOKUP_KEY}}" />
-                <input type="hidden" name="user_id" value="{{ user_id }}" />
-                <input type="hidden" name="email" value="{{ email }}" />
-                <button id="checkout-and-portal-button" type="submit">Checkout</button>
+                <form action="/create-checkout-session" method="POST" style="
+                        display: flex;
+                        flex-direction: column;">
+                <input type="hidden" name="lookup_key" value="">
+                <input type="hidden" name="user_id" value="2edfe4dd-e377-46d4-bccb-d087adb2873e">
+                <input type="hidden" name="email" value="">
+                <button id="checkout-and-portal-button" type="submit-" class="submit-button">Checkout</button>
+            </form>
             </form>
         </div>
     </div>
