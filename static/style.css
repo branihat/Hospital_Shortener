@@ -334,7 +334,9 @@ textarea#outputText {
     padding: 15px;
     min-height: 100px;
 }
-
+#custom-tools-container:not(.active) {
+    display: none;
+}
 /* Animation for tools container */
 @keyframes fadeIn {
     from {
