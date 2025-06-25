@@ -1031,6 +1031,42 @@ def get_user_status():
         logger.error(f"Error fetching user status: {str(e)}")
         return jsonify({"error": "Failed to fetch user status"}), 500
 
+@app.route("/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "GET":
+        return render_template("forgot_password.html")
+    email = request.form.get("email")
+    if not email:
+        return render_template("forgot_password.html", error="Please enter your email.")
+    try:
+        # Generate a reset token (e.g., JWT or random string)
+        token = generate_verification_token(email)
+        # Send reset email (reuse your email sending logic)
+        send_verification_email(email, token, "User", reset=True)
+        return render_template("forgot_password.html", message="Check your email for a password reset link.")
+    except Exception as e:
+        print("Forgot password error:", e)
+        return render_template("forgot_password.html", error="Something went wrong. Please try again later.")
+
+@app.route("/reset-password/<token>", methods=["GET", "POST"])
+def reset_password(token):
+    try:
+        decoded = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
+        email = decoded['email']
+    except Exception:
+        return "Invalid or expired token", 400
+
+    if request.method == "GET":
+        return render_template("reset_password.html", token=token)
+    new_password = request.form.get("password")
+    if not new_password:
+        return render_template("reset_password.html", token=token, error="Please enter a new password.")
+    # Hash and update password in DB
+    email_hash = HIPAAEncryption.hash_email(email)
+    hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+    mongo.db.users.update_one({"email_hash": email_hash}, {"$set": {"password": hashed_password}})
+    return render_template("reset_password.html", message="Password reset successful! You can now log in.")
 if __name__ == "__main__":
     initialize_default_prompts()
     app.run(debug=False, ssl_context='adhoc')  # Enable HTTPS
+    initialize_payment_collection()
