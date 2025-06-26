@@ -1,0 +1,101 @@
+2025-06-26 22:01:54,174 - INFO - Default prompts initialized in MongoDB
+2025-06-26 22:01:54,308 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-26 22:01:54,309 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-26 23:33:36,112 - INFO - Payment collection initialized
+2025-06-27 00:04:54,487 - INFO - Default prompts initialized in MongoDB
+2025-06-27 00:04:54,668 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-27 00:04:54,668 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-27 00:07:37,843 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:37] "GET / HTTP/1.1" 200 -
+2025-06-27 00:07:38,666 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:38] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-27 00:07:38,666 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:38] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-27 00:07:38,714 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:38] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-27 00:07:38,984 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:38] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-27 00:07:39,232 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:39] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-27 00:07:39,282 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:39] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-27 00:07:41,454 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-27 00:07:42,629 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:42] "GET /login HTTP/1.1" 200 -
+2025-06-27 00:07:42,697 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:42] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-27 00:07:42,697 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:42] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-27 00:07:42,745 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:42] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-27 00:07:45,307 - INFO - 127.0.0.1 - - [27/Jun/2025 00:07:45] "GET /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:08:53,104 - INFO - Payment collection initialized
+2025-06-27 00:09:12,484 - INFO - Default prompts initialized in MongoDB
+2025-06-27 00:09:12,618 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-27 00:09:12,618 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-27 00:09:52,524 - INFO - 127.0.0.1 - - [27/Jun/2025 00:09:52] "GET /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:09:53,704 - INFO - 127.0.0.1 - - [27/Jun/2025 00:09:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-27 00:10:02,700 - INFO - 127.0.0.1 - - [27/Jun/2025 00:10:02] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:10:28,842 - INFO - 127.0.0.1 - - [27/Jun/2025 00:10:28] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:10:47,228 - ERROR - Forgot password error for branihat@gmail.com: module 'datetime' has no attribute 'utcnow'
+2025-06-27 00:10:47,229 - INFO - 127.0.0.1 - - [27/Jun/2025 00:10:47] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:11:29,169 - ERROR - Forgot password error for branihat@gmail.com: module 'datetime' has no attribute 'utcnow'
+2025-06-27 00:11:29,169 - INFO - 127.0.0.1 - - [27/Jun/2025 00:11:29] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:11:33,668 - INFO - 127.0.0.1 - - [27/Jun/2025 00:11:33] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-27 00:11:50,917 - ERROR - Forgot password error for branihat@gmail.com: module 'datetime' has no attribute 'utcnow'
+2025-06-27 00:11:50,917 - INFO - 127.0.0.1 - - [27/Jun/2025 00:11:50] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:11:50,978 - INFO - 127.0.0.1 - - [27/Jun/2025 00:11:50] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-27 00:18:11,122 - INFO - Payment collection initialized
+2025-06-27 00:18:17,448 - INFO - Default prompts initialized in MongoDB
+2025-06-27 00:18:17,536 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-27 00:18:17,536 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-27 00:18:32,733 - INFO - 127.0.0.1 - - [27/Jun/2025 00:18:32] "GET /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:18:39,413 - INFO - 127.0.0.1 - - [27/Jun/2025 00:18:39] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:19:36,888 - INFO - 127.0.0.1 - - [27/Jun/2025 00:19:36] "[33mGET /reset-password HTTP/1.1[0m" 404 -
+2025-06-27 00:19:47,370 - INFO - 127.0.0.1 - - [27/Jun/2025 00:19:47] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:33:40,815 - INFO - Payment collection initialized
+2025-06-27 00:33:46,534 - INFO - Default prompts initialized in MongoDB
+2025-06-27 00:33:46,618 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-27 00:33:46,618 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-27 00:33:58,202 - INFO - 127.0.0.1 - - [27/Jun/2025 00:33:58] "[33mGET /forgot-password HTTP/1.1[0m" 404 -
+2025-06-27 00:34:06,433 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:06] "GET / HTTP/1.1" 200 -
+2025-06-27 00:34:06,935 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:06] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-27 00:34:06,941 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:06] "GET /static/logo-light.svg HTTP/1.1" 200 -
+2025-06-27 00:34:06,945 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:06] "GET /static/hero-image.svg HTTP/1.1" 200 -
+2025-06-27 00:34:06,958 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:06] "GET /static/how-it-works.gif HTTP/1.1" 200 -
+2025-06-27 00:34:06,962 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:06] "GET /static/landing.js HTTP/1.1" 200 -
+2025-06-27 00:34:06,972 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:06] "GET /static/landing.css HTTP/1.1" 200 -
+2025-06-27 00:34:08,967 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:08] "GET /login HTTP/1.1" 200 -
+2025-06-27 00:34:09,049 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:09] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-27 00:34:09,051 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:09] "[36mGET /static/logo-dark.svg HTTP/1.1[0m" 304 -
+2025-06-27 00:34:09,147 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:09] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-27 00:34:12,456 - INFO - 127.0.0.1 - - [27/Jun/2025 00:34:12] "[33mGET /forgot-password HTTP/1.1[0m" 404 -
+2025-06-27 00:35:51,800 - INFO - Payment collection initialized
+2025-06-27 00:35:57,088 - INFO - Default prompts initialized in MongoDB
+2025-06-27 00:35:57,265 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-27 00:35:57,280 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-27 00:36:03,703 - INFO - 127.0.0.1 - - [27/Jun/2025 00:36:03] "GET /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:36:13,914 - INFO - Email sent successfully to branihat@gmail.com
+2025-06-27 00:36:13,914 - INFO - 127.0.0.1 - - [27/Jun/2025 00:36:13] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:36:26,402 - INFO - 127.0.0.1 - - [27/Jun/2025 00:36:26] "GET /reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJyYW5paGF0QGdtYWlsLmNvbSIsInRva2VuX2lkIjoiV1ZzVlV1aHBkeG90bXJTUUMxZXRzeUg2M28zVDJJcUhoU0t1NEVraGVmQSIsImV4cCI6MTc1MDk2ODM2OSwiaWF0IjoxNzUwOTY0NzY5LCJwdXJwb3NlIjoicGFzc3dvcmRfcmVzZXQifQ.wY7yIeKK-F20ZWDTi5FfR5roUYFSzlFAVA6cv9doNLc HTTP/1.1" 200 -
+2025-06-27 00:37:02,135 - INFO - 127.0.0.1 - - [27/Jun/2025 00:37:02] "GET /reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJyYW5paGF0QGdtYWlsLmNvbSIsInRva2VuX2lkIjoiV1ZzVlV1aHBkeG90bXJTUUMxZXRzeUg2M28zVDJJcUhoU0t1NEVraGVmQSIsImV4cCI6MTc1MDk2ODM2OSwiaWF0IjoxNzUwOTY0NzY5LCJwdXJwb3NlIjoicGFzc3dvcmRfcmVzZXQifQ.wY7yIeKK-F20ZWDTi5FfR5roUYFSzlFAVA6cv9doNLc HTTP/1.1" 200 -
+2025-06-27 00:43:51,748 - INFO - Payment collection initialized
+2025-06-27 00:43:57,853 - INFO - Default prompts initialized in MongoDB
+2025-06-27 00:43:57,973 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2025-06-27 00:43:57,973 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-27 00:44:32,416 - INFO - 127.0.0.1 - - [27/Jun/2025 00:44:32] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:44:47,853 - INFO - 127.0.0.1 - - [27/Jun/2025 00:44:47] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:45:21,704 - INFO - 127.0.0.1 - - [27/Jun/2025 00:45:21] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:45:46,664 - INFO - 127.0.0.1 - - [27/Jun/2025 00:45:46] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:46:03,840 - INFO - 127.0.0.1 - - [27/Jun/2025 00:46:03] "GET /reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJyYW5paGF0QGdtYWlsLmNvbSIsInRva2VuX2lkIjoiV1ZzVlV1aHBkeG90bXJTUUMxZXRzeUg2M28zVDJJcUhoU0t1NEVraGVmQSIsImV4cCI6MTc1MDk2ODM2OSwiaWF0IjoxNzUwOTY0NzY5LCJwdXJwb3NlIjoicGFzc3dvcmRfcmVzZXQifQ.wY7yIeKK-F20ZWDTi5FfR5roUYFSzlFAVA6cv9doNLc HTTP/1.1" 200 -
+2025-06-27 00:47:52,003 - INFO - 127.0.0.1 - - [27/Jun/2025 00:47:52] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-27 00:49:16,332 - INFO - 127.0.0.1 - - [27/Jun/2025 00:49:16] "GET /login HTTP/1.1" 200 -
+2025-06-27 00:49:16,583 - INFO - 127.0.0.1 - - [27/Jun/2025 00:49:16] "GET /static/style1.css HTTP/1.1" 200 -
+2025-06-27 00:49:16,596 - INFO - 127.0.0.1 - - [27/Jun/2025 00:49:16] "GET /static/auth.js HTTP/1.1" 200 -
+2025-06-27 00:49:16,620 - INFO - 127.0.0.1 - - [27/Jun/2025 00:49:16] "GET /static/logo-dark.svg HTTP/1.1" 200 -
+2025-06-27 00:49:36,268 - ERROR - Login error: type object 'datetime.datetime' has no attribute 'datetime'
+2025-06-27 00:49:36,268 - INFO - 127.0.0.1 - - [27/Jun/2025 00:49:36] "[35m[1mPOST /api/login HTTP/1.1[0m" 500 -
+2025-06-27 00:50:02,503 - WARNING - Failed login attempt for email hash: J4y0uxG7i/fNKPGRY4MgCCqCeGTh1vii8VhHKGI3m4g=
+2025-06-27 00:50:02,503 - INFO - 127.0.0.1 - - [27/Jun/2025 00:50:02] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-06-27 00:50:09,251 - INFO - 127.0.0.1 - - [27/Jun/2025 00:50:09] "GET /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:50:14,581 - INFO - 127.0.0.1 - - [27/Jun/2025 00:50:14] "POST /forgot-password HTTP/1.1" 200 -
+2025-06-27 00:51:56,129 - INFO - 127.0.0.1 - - [27/Jun/2025 00:51:56] "GET /reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJyYW5paGF0QGdtYWlsLmNvbSIsInRva2VuX2lkIjoiV1ZzVlV1aHBkeG90bXJTUUMxZXRzeUg2M28zVDJJcUhoU0t1NEVraGVmQSIsImV4cCI6MTc1MDk2ODM2OSwiaWF0IjoxNzUwOTY0NzY5LCJwdXJwb3NlIjoicGFzc3dvcmRfcmVzZXQifQ.wY7yIeKK-F20ZWDTi5FfR5roUYFSzlFAVA6cv9doNLc HTTP/1.1" 200 -
+2025-06-27 00:52:26,505 - INFO - 127.0.0.1 - - [27/Jun/2025 00:52:26] "GET /reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJyYW5paGF0QGdtYWlsLmNvbSIsInRva2VuX2lkIjoiV1ZzVlV1aHBkeG90bXJTUUMxZXRzeUg2M28zVDJJcUhoU0t1NEVraGVmQSIsImV4cCI6MTc1MDk2ODM2OSwiaWF0IjoxNzUwOTY0NzY5LCJwdXJwb3NlIjoicGFzc3dvcmRfcmVzZXQifQ.wY7yIeKK-F20ZWDTi5FfR5roUYFSzlFAVA6cv9doNLc HTTP/1.1" 200 -
+2025-06-27 00:52:49,621 - INFO - 127.0.0.1 - - [27/Jun/2025 00:52:49] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-06-27 00:53:58,980 - INFO - Payment collection initialized

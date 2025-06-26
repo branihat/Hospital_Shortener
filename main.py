@@ -1031,41 +1031,730 @@ def get_user_status():
         logger.error(f"Error fetching user status: {str(e)}")
         return jsonify({"error": "Failed to fetch user status"}), 500
 
+# @app.route("/forgot-password", methods=["GET", "POST"])
+# def forgot_password():
+#     if request.method == "GET":
+#         return render_template("forgot_password.html")
+#     email = request.form.get("email")
+#     if not email:
+#         return render_template("forgot_password.html", error="Please enter your email.")
+#     try:
+#         # Generate a reset token (e.g., JWT or random string)
+#         token = generate_verification_token(email)
+#         # Send reset email (reuse your email sending logic)
+#         send_verification_email(email, token, "User", reset=True)
+#         return render_template("forgot_password.html", message="Check your email for a password reset link.")
+#     except Exception as e:
+#         print("Forgot password error:", e)
+#         return render_template("forgot_password.html", error="Something went wrong. Please try again later.")
+
+# @app.route("/reset-password/<token>", methods=["GET", "POST"])
+# def reset_password(token):
+#     try:
+#         decoded = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
+#         email = decoded['email']
+#     except Exception:
+#         return "Invalid or expired token", 400
+
+#     if request.method == "GET":
+#         return render_template("reset_password.html", token=token)
+#     new_password = request.form.get("password")
+#     if not new_password:
+#         return render_template("reset_password.html", token=token, error="Please enter a new password.")
+#     # Hash and update password in DB
+#     email_hash = HIPAAEncryption.hash_email(email)
+#     hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+#     mongo.db.users.update_one({"email_hash": email_hash}, {"$set": {"password": hashed_password}})
+#     return render_template("reset_password.html", message="Password reset successful! You can now log in.")
+
+# Enhanced password reset routes with security improvements
+import jwt
+import bcrypt
+import secrets
+import string
+from datetime import datetime, timedelta, timezone
+from flask import request, render_template, redirect, url_for, flash
+from functools import wraps
+import re
+
+# Enhanced password reset routes with security improvements
 @app.route("/forgot-password", methods=["GET", "POST"])
 def forgot_password():
     if request.method == "GET":
         return render_template("forgot_password.html")
-    email = request.form.get("email")
+    
+    email = request.form.get("email", "").strip().lower()
+    
+    # Input validation
     if not email:
-        return render_template("forgot_password.html", error="Please enter your email.")
+        return render_template("forgot_password.html", error="Please enter your email address.")
+    
+    # Email format validation
+    email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_pattern, email):
+        return render_template("forgot_password.html", error="Please enter a valid email address.")
+    
     try:
-        # Generate a reset token (e.g., JWT or random string)
-        token = generate_verification_token(email)
-        # Send reset email (reuse your email sending logic)
-        send_verification_email(email, token, "User", reset=True)
-        return render_template("forgot_password.html", message="Check your email for a password reset link.")
+        # Check if user exists (using timing-safe comparison to prevent enumeration)
+        email_hash = HIPAAEncryption.hash_email(email)
+        user = mongo.db.users.find_one({"email_hash": email_hash})
+        
+        # Always show success message to prevent email enumeration attacks
+        success_message = "If an account with that email exists, we've sent a password reset link."
+        
+        if user:
+            # Check for recent reset attempts (rate limiting)
+            recent_reset = mongo.db.password_resets.find_one({
+                "email_hash": email_hash,
+                "created_at": {"$gte": datetime.now(timezone.utc) - timedelta(minutes=15)},
+                "used": {"$ne": True}
+            })
+            
+            if recent_reset:
+                # Don't send another email, but still show success message
+                return render_template("forgot_password.html", message=success_message)
+            
+            # Generate secure reset token
+            reset_token = generate_password_reset_token(email)
+            
+            # Store reset request in database with expiration
+            reset_record = {
+                "email_hash": email_hash,
+                "token_hash": bcrypt.hashpw(reset_token.encode('utf-8'), bcrypt.gensalt()),
+                "created_at": datetime.now(timezone.utc),
+                "expires_at": datetime.now(timezone.utc) + timedelta(hours=1),  # 1 hour expiry
+                "used": False,
+                "ip_address": request.remote_addr,
+                "user_agent": request.headers.get('User-Agent', '')
+            }
+            
+            # Clean up old reset tokens for this user
+            mongo.db.password_resets.delete_many({
+                "email_hash": email_hash,
+                "expires_at": {"$lt": datetime.now(timezone.utc)}
+            })
+            
+            # Insert new reset record
+            mongo.db.password_resets.insert_one(reset_record)
+            
+            # Send reset email
+            send_password_reset_email(email, reset_token, user.get('name', 'User'))
+        
+        return render_template("forgot_password.html", message=success_message)
+        
     except Exception as e:
-        print("Forgot password error:", e)
-        return render_template("forgot_password.html", error="Something went wrong. Please try again later.")
+        app.logger.error(f"Forgot password error for {email}: {str(e)}")
+        return render_template("forgot_password.html", 
+                             error="Something went wrong. Please try again later.")
 
 @app.route("/reset-password/<token>", methods=["GET", "POST"])
 def reset_password(token):
+    # Validate token format
+    if not token or len(token) < 32:
+        return render_template("error.html", 
+                             message="Invalid reset link. Please request a new password reset."), 400
+    
     try:
+        # Decode JWT token to get email
         decoded = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
-        email = decoded['email']
-    except Exception:
-        return "Invalid or expired token", 400
-
+        email = decoded.get('email')
+        token_id = decoded.get('token_id')  # Additional security measure
+        
+        if not email or not token_id:
+            raise jwt.InvalidTokenError("Missing required token data")
+            
+    except jwt.ExpiredSignatureError:
+        return render_template("error.html", 
+                             message="Reset link has expired. Please request a new password reset."), 400
+    except jwt.InvalidTokenError:
+        return render_template("error.html", 
+                             message="Invalid reset link. Please request a new password reset."), 400
+    
+    # Verify token exists in database and hasn't been used
+    email_hash = HIPAAEncryption.hash_email(email)
+    reset_record = mongo.db.password_resets.find_one({
+        "email_hash": email_hash,
+        "expires_at": {"$gte": datetime.now(timezone.utc)},
+        "used": {"$ne": True}
+    })
+    
+    if not reset_record:
+        return render_template("error.html", 
+                             message="Reset link is invalid or has already been used."), 400
+    
+    # Verify token hash matches
+    if not bcrypt.checkpw(token.encode('utf-8'), reset_record['token_hash']):
+        return render_template("error.html", 
+                             message="Invalid reset link."), 400
+    
     if request.method == "GET":
         return render_template("reset_password.html", token=token)
-    new_password = request.form.get("password")
-    if not new_password:
-        return render_template("reset_password.html", token=token, error="Please enter a new password.")
-    # Hash and update password in DB
-    email_hash = HIPAAEncryption.hash_email(email)
-    hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
-    mongo.db.users.update_one({"email_hash": email_hash}, {"$set": {"password": hashed_password}})
-    return render_template("reset_password.html", message="Password reset successful! You can now log in.")
+    
+    # Handle password reset form submission
+    new_password = request.form.get("password", "").strip()
+    confirm_password = request.form.get("confirm_password", "").strip()
+    
+    # Password validation
+    validation_error = validate_password(new_password, confirm_password)
+    if validation_error:
+        return render_template("reset_password.html", token=token, error=validation_error)
+    
+    try:
+        # Check if user still exists
+        user = mongo.db.users.find_one({"email_hash": email_hash})
+        if not user:
+            return render_template("error.html", 
+                                 message="User account not found."), 400
+        
+        # Hash new password
+        hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt(rounds=12))
+        
+        # Update password in database
+        update_result = mongo.db.users.update_one(
+            {"email_hash": email_hash}, 
+            {
+                "$set": {
+                    "password": hashed_password,
+                    "password_changed_at": datetime.now(timezone.utc),
+                    "failed_login_attempts": 0  # Reset failed login attempts
+                }
+            }
+        )
+        
+        if update_result.modified_count == 0:
+            raise Exception("Failed to update password")
+        
+        # Mark reset token as used
+        mongo.db.password_resets.update_one(
+            {"_id": reset_record["_id"]},
+            {
+                "$set": {
+                    "used": True,
+                    "used_at": datetime.now(timezone.utc),
+                    "used_ip": request.remote_addr
+                }
+            }
+        )
+        
+        # Log successful password reset
+        app.logger.info(f"Password reset successful for user: {email_hash}")
+        
+        # Optional: Send confirmation email
+        send_password_reset_confirmation(email, user.get('name', 'User'))
+        
+        return render_template("reset_password.html", 
+                             message="Password reset successful! You can now log in with your new password.")
+        
+    except Exception as e:
+        app.logger.error(f"Password reset error for {email}: {str(e)}")
+        return render_template("reset_password.html", token=token,
+                             error="Something went wrong. Please try again.")
+
+# Helper functions
+def generate_password_reset_token(email):
+    """Generate a secure JWT token for password reset"""
+    token_id = secrets.token_urlsafe(32)  # Additional security measure
+    now = datetime.now(timezone.utc)
+    payload = {
+        'email': email,
+        'token_id': token_id,
+        'exp': now + timedelta(hours=1),  # 1 hour expiry
+        'iat': now,
+        'purpose': 'password_reset'
+    }
+    return jwt.encode(payload, app.config["SECRET_KEY"], algorithm="HS256")
+
+def validate_password(password, confirm_password=None):
+    """Validate password strength and confirmation"""
+    if not password:
+        return "Please enter a password."
+    
+    if len(password) < 8:
+        return "Password must be at least 8 characters long."
+    
+    if len(password) > 128:
+        return "Password must be less than 128 characters long."
+    
+    # Check for complexity requirements
+    if not re.search(r'[A-Z]', password):
+        return "Password must contain at least one uppercase letter."
+    
+    if not re.search(r'[a-z]', password):
+        return "Password must contain at least one lowercase letter."
+    
+    if not re.search(r'\d', password):
+        return "Password must contain at least one number."
+    
+    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+        return "Password must contain at least one special character."
+    
+    # Check for common passwords (you might want to use a more comprehensive list)
+    common_passwords = ['password', '123456789', 'qwerty', 'abc123', 'password123']
+    if password.lower() in common_passwords:
+        return "Please choose a more secure password."
+    
+    if confirm_password is not None and password != confirm_password:
+        return "Passwords do not match."
+    
+    return None
+
+def send_password_reset_email(email, token, name):
+    """Send password reset email"""
+    reset_url = url_for('reset_password', token=token, _external=True)
+    
+    subject = "Password Reset Request"
+    html_body = f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2>Password Reset Request</h2>
+        <p>Hello {name},</p>
+        <p>We received a request to reset your password. Click the button below to reset it:</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{reset_url}" 
+               style="background-color: #8244af; color: white; padding: 12px 24px; 
+                      text-decoration: none; border-radius: 8px; display: inline-block;">
+                Reset Password
+            </a>
+        </div>
+        <p>This link will expire in 1 hour for security reasons.</p>
+        <p>If you didn't request this password reset, please ignore this email or contact support if you have concerns.</p>
+        <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+        <p style="color: #666; font-size: 12px;">
+            This email was sent from {request.remote_addr} at {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC.
+        </p>
+    </body>
+    </html>
+    """
+    
+    # Use your existing email sending function
+    # send_email(email, subject, html_body)
+
+def send_password_reset_confirmation(email, name):
+    """Send confirmation email after successful password reset"""
+    subject = "Password Reset Successful"
+    html_body = f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2>Password Reset Successful</h2>
+        <p>Hello {name},</p>
+        <p>Your password has been successfully reset.</p>
+        <p>If you didn't make this change, please contact support immediately.</p>
+        <p>Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC</p>
+        <p>IP Address: {request.remote_addr}</p>
+    </body>
+    </html>
+    """
+    
+    # Use your existing email sending function
+    # send_email(email, subject, html_body)
+
+# Cleanup function to run periodically (e.g., via cron job)
+def cleanup_expired_reset_tokens():
+    """Remove expired password reset tokens"""
+    result = mongo.db.password_resets.delete_many({
+        "expires_at": {"$lt": datetime.now(timezone.utc)}
+    })
+    app.logger.info(f"Cleaned up {result.deleted_count} expired reset tokens")
+    return result.deleted_count
+
+# Alternative helper function for backwards compatibility
+def get_utc_now():
+    """Get current UTC time - compatible with all Python versions"""
+    try:
+        # Python 3.12+
+        return datetime.now(timezone.utc)
+    except AttributeError:
+        # Python < 3.12
+        return datetime.utcnow().replace(tzinfo=timezone.utc)
+
+# You can also create a utility function for consistent timezone handling
+def utc_timestamp():
+    """Get current UTC timestamp as datetime object"""
+    return datetime.now(timezone.utc)
+
+def utc_from_timestamp(timestamp):
+    """Convert timestamp to UTC datetime"""
+    return datetime.fromtimestamp(timestamp, tz=timezone.utc)
+
+def is_expired(expiry_time, current_time=None):
+    """Check if a datetime has expired"""
+    if current_time is None:
+        current_time = datetime.now(timezone.utc)
+    return current_time >= expiry_time
+
+# email_service.py - Enhanced email service for password reset
+import os
+import jwt
+import secrets
+from datetime import datetime, timedelta, timezone
+from flask import Flask, url_for, request
+from flask_mail import Mail, Message
+import logging
+
+# Initialize Flask-Mail
+mail = Mail()
+
+def init_mail(app):
+    """Initialize mail service with app"""
+    app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
+    app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
+    app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', 'true').lower() == 'true'
+    app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL', 'false').lower() == 'true'
+    app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+    app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
+    
+    mail.init_app(app)
+    return mail
+
+def send_email(to_email, subject, html_body, text_body=None):
+    """
+    Generic email sending function
+    
+    Args:
+        to_email (str): Recipient email address
+        subject (str): Email subject
+        html_body (str): HTML content of the email
+        text_body (str, optional): Plain text version of the email
+    
+    Returns:
+        bool: True if email sent successfully, False otherwise
+    """
+    try:
+        msg = Message(
+            subject=subject,
+            recipients=[to_email],
+            html=html_body,
+            body=text_body or strip_html_tags(html_body)
+        )
+        
+        mail.send(msg)
+        logging.info(f"Email sent successfully to {to_email}")
+        return True
+        
+    except Exception as e:
+        logging.error(f"Failed to send email to {to_email}: {str(e)}")
+        return False
+
+def strip_html_tags(html_text):
+    """Convert HTML to plain text (basic implementation)"""
+    import re
+    clean = re.compile('<.*?>')
+    return re.sub(clean, '', html_text)
+
+def send_password_reset_email(email, token, name):
+    """Send password reset email with professional styling"""
+    reset_url = url_for('reset_password', token=token, _external=True)
+    
+    subject = "Password Reset Request - Action Required"
+    
+    html_body = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Password Reset</title>
+    </head>
+    <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f4; padding: 20px;">
+            <tr>
+                <td align="center">
+                    <table width="600" cellpadding="0" cellspacing="0" style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <!-- Header -->
+                        <tr>
+                            <td style="background-color: #8244af; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+                                <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">Password Reset Request</h1>
+                            </td>
+                        </tr>
+                        
+                        <!-- Content -->
+                        <tr>
+                            <td style="padding: 40px 30px;">
+                                <h2 style="color: #333; margin: 0 0 20px 0; font-size: 20px;">Hello {name},</h2>
+                                
+                                <p style="color: #666; line-height: 1.6; margin: 0 0 20px 0; font-size: 16px;">
+                                    We received a request to reset the password for your account. If you made this request, 
+                                    click the button below to reset your password.
+                                </p>
+                                
+                                <div style="text-align: center; margin: 30px 0;">
+                                    <a href="{reset_url}" 
+                                       style="background-color: #8244af; color: white; padding: 15px 30px; 
+                                              text-decoration: none; border-radius: 6px; display: inline-block;
+                                              font-weight: 600; font-size: 16px; box-shadow: 0 2px 4px rgba(130,68,175,0.3);">
+                                        Reset My Password
+                                    </a>
+                                </div>
+                                
+                                <div style="background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 4px; margin: 20px 0;">
+                                    <p style="color: #856404; margin: 0; font-size: 14px;">
+                                        <strong>⚠️ Important:</strong> This link will expire in 1 hour for security reasons.
+                                    </p>
+                                </div>
+                                
+                                <p style="color: #666; line-height: 1.6; margin: 20px 0 0 0; font-size: 14px;">
+                                    If you didn't request this password reset, please ignore this email. Your password will remain unchanged.
+                                    If you're concerned about the security of your account, please contact our support team.
+                                </p>
+                                
+                                <p style="color: #666; font-size: 14px; margin: 10px 0 0 0;">
+                                    If the button above doesn't work, copy and paste this link into your browser:<br>
+                                    <a href="{reset_url}" style="color: #8244af; word-break: break-all;">{reset_url}</a>
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <!-- Footer -->
+                        <tr>
+                            <td style="background-color: #f8f9fa; padding: 20px 30px; border-radius: 0 0 8px 8px; border-top: 1px solid #e9ecef;">
+                                <p style="color: #6c757d; font-size: 12px; margin: 0; text-align: center;">
+                                    This email was sent from IP address {request.remote_addr} at {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC
+                                </p>
+                                <p style="color: #6c757d; font-size: 12px; margin: 5px 0 0 0; text-align: center;">
+                                    © 2025 Your Company Name. All rights reserved.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>
+    """
+    
+    # Plain text version for email clients that don't support HTML
+    text_body = f"""
+    Password Reset Request
+    
+    Hello {name},
+    
+    We received a request to reset the password for your account. If you made this request, 
+    use the following link to reset your password:
+    
+    {reset_url}
+    
+    This link will expire in 1 hour for security reasons.
+    
+    If you didn't request this password reset, please ignore this email.
+    
+    ---
+    This email was sent from {request.remote_addr} at {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC
+    """
+    
+    return send_email(email, subject, html_body, text_body)
+
+def send_password_reset_confirmation(email, name):
+    """Send confirmation email after successful password reset"""
+    subject = "Password Reset Successful"
+    
+    html_body = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Password Reset Confirmation</title>
+    </head>
+    <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f4; padding: 20px;">
+            <tr>
+                <td align="center">
+                    <table width="600" cellpadding="0" cellspacing="0" style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <!-- Header -->
+                        <tr>
+                            <td style="background-color: #28a745; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+                                <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">✓ Password Reset Successful</h1>
+                            </td>
+                        </tr>
+                        
+                        <!-- Content -->
+                        <tr>
+                            <td style="padding: 40px 30px;">
+                                <h2 style="color: #333; margin: 0 0 20px 0; font-size: 20px;">Hello {name},</h2>
+                                
+                                <p style="color: #666; line-height: 1.6; margin: 0 0 20px 0; font-size: 16px;">
+                                    Your password has been successfully reset. You can now log in to your account using your new password.
+                                </p>
+                                
+                                <div style="background-color: #d1ecf1; border: 1px solid #bee5eb; padding: 15px; border-radius: 4px; margin: 20px 0;">
+                                    <p style="color: #0c5460; margin: 0; font-size: 14px;">
+                                        <strong>🔒 Security Notice:</strong> If you didn't make this change, please contact our support team immediately.
+                                    </p>
+                                </div>
+                                
+                                <div style="background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin: 20px 0;">
+                                    <p style="color: #495057; margin: 0; font-size: 14px;">
+                                        <strong>Reset Details:</strong><br>
+                                        Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC<br>
+                                        IP Address: {request.remote_addr}
+                                    </p>
+                                </div>
+                                
+                                <p style="color: #666; line-height: 1.6; margin: 20px 0 0 0; font-size: 14px;">
+                                    For your security, we recommend using a strong, unique password and enabling two-factor authentication if available.
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <!-- Footer -->
+                        <tr>
+                            <td style="background-color: #f8f9fa; padding: 20px 30px; border-radius: 0 0 8px 8px; border-top: 1px solid #e9ecef;">
+                                <p style="color: #6c757d; font-size: 12px; margin: 0; text-align: center;">
+                                    © 2025 Your Company Name. All rights reserved.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>
+    """
+    
+    text_body = f"""
+    Password Reset Successful
+    
+    Hello {name},
+    
+    Your password has been successfully reset. You can now log in to your account using your new password.
+    
+    Reset Details:
+    Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC
+    IP Address: {request.remote_addr}
+    
+    If you didn't make this change, please contact our support team immediately.
+    
+    ---
+    © 2025 Your Company Name. All rights reserved.
+    """
+    
+    return send_email(email, subject, html_body, text_body)
+
+def send_verification_email(email, token, name):
+    """Send email verification for new account registrations"""
+    verification_url = url_for('verify_email', token=token, _external=True)
+    
+    subject = "Please Verify Your Email Address"
+    
+    html_body = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Email Verification</title>
+    </head>
+    <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f4; padding: 20px;">
+            <tr>
+                <td align="center">
+                    <table width="600" cellpadding="0" cellspacing="0" style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <!-- Header -->
+                        <tr>
+                            <td style="background-color: #17a2b8; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+                                <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">Welcome! Verify Your Email</h1>
+                            </td>
+                        </tr>
+                        
+                        <!-- Content -->
+                        <tr>
+                            <td style="padding: 40px 30px;">
+                                <h2 style="color: #333; margin: 0 0 20px 0; font-size: 20px;">Hello {name},</h2>
+                                
+                                <p style="color: #666; line-height: 1.6; margin: 0 0 20px 0; font-size: 16px;">
+                                    Thank you for creating an account! To complete your registration and start using our services, 
+                                    please verify your email address by clicking the button below.
+                                </p>
+                                
+                                <div style="text-align: center; margin: 30px 0;">
+                                    <a href="{verification_url}" 
+                                       style="background-color: #17a2b8; color: white; padding: 15px 30px; 
+                                              text-decoration: none; border-radius: 6px; display: inline-block;
+                                              font-weight: 600; font-size: 16px; box-shadow: 0 2px 4px rgba(23,162,184,0.3);">
+                                        Verify My Email
+                                    </a>
+                                </div>
+                                
+                                <div style="background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 4px; margin: 20px 0;">
+                                    <p style="color: #856404; margin: 0; font-size: 14px;">
+                                        <strong>⚠️ Important:</strong> This verification link will expire in 24 hours.
+                                    </p>
+                                </div>
+                                
+                                <p style="color: #666; line-height: 1.6; margin: 20px 0 0 0; font-size: 14px;">
+                                    If you didn't create this account, please ignore this email.
+                                </p>
+                                
+                                <p style="color: #666; font-size: 14px; margin: 10px 0 0 0;">
+                                    If the button above doesn't work, copy and paste this link into your browser:<br>
+                                    <a href="{verification_url}" style="color: #17a2b8; word-break: break-all;">{verification_url}</a>
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <!-- Footer -->
+                        <tr>
+                            <td style="background-color: #f8f9fa; padding: 20px 30px; border-radius: 0 0 8px 8px; border-top: 1px solid #e9ecef;">
+                                <p style="color: #6c757d; font-size: 12px; margin: 0; text-align: center;">
+                                    © 2025 Your Company Name. All rights reserved.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>
+    """
+    
+    return send_email(email, subject, html_body)
+
+def generate_verification_token(email, purpose='email_verification'):
+    """Generate a secure JWT token for email verification"""
+    token_id = secrets.token_urlsafe(32)
+    now = datetime.now(timezone.utc)
+    
+    payload = {
+        'email': email,
+        'token_id': token_id,
+        'exp': now + timedelta(hours=24),  # 24 hours for email verification
+        'iat': now,
+        'purpose': purpose
+    }
+    
+    # You'll need to import your app's SECRET_KEY
+    from flask import current_app
+    return jwt.encode(payload, current_app.config["SECRET_KEY"], algorithm="HS256")
+
+# Test email function for debugging
+def test_email_connection():
+    """Test email configuration and connection"""
+    try:
+        with mail.connect() as conn:
+            logging.info("Email connection successful")
+            return True
+    except Exception as e:
+        logging.error(f"Email connection failed: {str(e)}")
+        return False
+
+def send_test_email(to_email):
+    """Send a test email to verify configuration"""
+    subject = "Test Email - Configuration Check"
+    html_body = """
+    <html>
+    <body>
+        <h2>Email Configuration Test</h2>
+        <p>If you received this email, your email configuration is working correctly!</p>
+        <p>Timestamp: {}</p>
+    </body>
+    </html>
+    """.format(datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'))
+    
+    return send_email(to_email, subject, html_body)
 if __name__ == "__main__":
     initialize_default_prompts()
     app.run(debug=False, ssl_context='adhoc')  # Enable HTTPS
