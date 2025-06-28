@@ -3,7 +3,7 @@
 .env.local
 .env.*.local
 secret_key.txt
-
+hipaa_audit.log
 # Python
 __pycache__/
 *.py[cod]
@@ -22,4 +22,4 @@ ENV/
 
 # Operating System
 .DS_Store
-Thumbs.db
+Thumbs.dbss
