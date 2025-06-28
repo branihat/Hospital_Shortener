@@ -615,3 +615,33 @@ textarea#outputText {
     padding: 20px;
     color: #ff4444;
 }
+
+/* Profile Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    overflow: auto;
+    background: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background: var(--card-background);
+    margin: 8% auto;
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    color: var(--text-color);
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.close {
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    font-size: 2rem;
+    color: var(--primary-purple);
+    cursor: pointer;
+}

@@ -275,4 +275,33 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     }
 
+    // Profile modal logic
+    document.getElementById('profile-btn').addEventListener('click', function() {
+        // Fetch profile info from backend
+        fetch('/api/profile', {
+            headers: {
+                'Authorization': 'Bearer ' + (localStorage.getItem('authToken') || '')
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById('profile-details').innerHTML = `<p style="color:red;">${data.error}</p>`;
+            } else {
+                document.getElementById('profile-name').textContent = data.name || '';
+                document.getElementById('profile-email').textContent = data.email || '';
+                document.getElementById('profile-profession').textContent = data.profession || '';
+                document.getElementById('profile-institution').textContent = data.institution || '';
+            }
+            document.getElementById('profile-modal').style.display = 'block';
+        });
+    });
+    document.getElementById('close-profile-modal').onclick = function() {
+        document.getElementById('profile-modal').style.display = 'none';
+    };
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('profile-modal')) {
+            document.getElementById('profile-modal').style.display = 'none';
+        }
+    };
 });

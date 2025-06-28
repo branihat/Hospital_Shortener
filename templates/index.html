@@ -18,6 +18,7 @@
         </div>
         <div class="header-actions">
             <button id="theme-toggle"></button>
+            <button id="profile-btn">Profile</button>
             <button id="logout">Logout</button>
         </div>
     </div>
@@ -74,6 +75,21 @@
             <!-- Custom Tools Container -->
             <div id="custom-tools-container" class="tab-pane">
                 <!-- Custom tools will be loaded here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" id="close-profile-modal">&times;</span>
+            <h2>Your Profile</h2>
+            <div id="profile-details">
+                <!-- Profile info will be loaded here -->
+                <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+                <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+                <p><strong>Profession:</strong> <span id="profile-profession">Loading...</span></p>
+                <p><strong>Institution:</strong> <span id="profile-institution">Loading...</span></p>
             </div>
         </div>
     </div>
