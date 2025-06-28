@@ -318,7 +318,7 @@ def login():
             token = jwt.encode(
                 {
                     "email_hash": email_hash,
-                    "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
+                    "exp": datetime.utcnow() + timedelta(hours=1),
                     "user_id": user.get("user_id")
                 },
                 app.config["SECRET_KEY"],
