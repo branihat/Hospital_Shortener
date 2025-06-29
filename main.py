@@ -274,7 +274,7 @@ def register():
             "profession": profession,
             "institution": institution,
             "status": "pending_payment",
-            "created_at": datetime.datetime.utcnow()
+            "created_at": datetime.utcnow()
         }
 
         # Insert user
@@ -433,9 +433,9 @@ def update_prompt():
         "key": prompt_key,
         "text": prompt_text,
         "active": True,
-        "created_at": datetime.datetime.utcnow(),
+        "created_at": datetime.utcnow(),
         "created_by": admin_id,
-        "updated_at": datetime.datetime.utcnow(),
+        "updated_at": datetime.utcnow(),
         "updated_by": admin_id,
         "version": new_version
     })
@@ -512,9 +512,9 @@ def initialize_default_prompts():
                 "key": key,
                 "text": text,
                 "active": True,
-                "created_at": datetime.datetime.utcnow(),
+                "created_at": datetime.utcnow(),
                 "created_by": "system",
-                "updated_at": datetime.datetime.utcnow(),
+                "updated_at": datetime.utcnow(),
                 "updated_by": "system",
                 "version": 1
             })
@@ -557,9 +557,9 @@ def restore_prompt_version(prompt_id):
         "key": prompt_to_restore["key"],
         "text": prompt_to_restore["text"],
         "active": True,
-        "created_at": datetime.datetime.utcnow(),
+        "created_at": datetime.utcnow(),
         "created_by": admin_id,
-        "updated_at": datetime.datetime.utcnow(),
+        "updated_at": datetime.utcnow(),
         "updated_by": admin_id,
         "restored_from": prompt_to_restore["version"],
         "version": new_version
@@ -589,9 +589,9 @@ def create_prompt():
             "text": data['text'],
             "is_custom_tool": data.get('isCustomTool', False),
             "active": True,
-            "created_at": datetime.datetime.utcnow(),
+            "created_at": datetime.utcnow(),
             "created_by": session.get('admin_id', 'admin'),
-            "updated_at": datetime.datetime.utcnow(),
+            "updated_at": datetime.utcnow(),
             "updated_by": session.get('admin_id', 'admin'),
             "version": 1
         }
@@ -694,7 +694,7 @@ def verify_email(token):
             {
                 "$set": {
                     "is_verified": True,
-                    "verified_at": datetime.datetime.utcnow(),
+                    "verified_at": datetime.utcnow(),
                     "verification_token": None
                 }
             }
@@ -771,7 +771,7 @@ def stripe_webhook():
                         "stripe_customer_id": session.get('customer'),
                         "subscription_id": session.get('subscription'),
                         "payment_status": "completed",
-                        "payment_date": datetime.datetime.utcnow()
+                        "payment_date": datetime.utcnow()
                     }
                 }
             )
@@ -788,7 +788,7 @@ def stripe_webhook():
                     "amount_total": session.get('amount_total'),
                     "currency": session.get('currency'),
                     "payment_status": "completed",
-                    "created_at": datetime.datetime.utcnow()
+                    "created_at": datetime.utcnow()
                 }
                 mongo.db.payments.insert_one(payment_record)
                 logger.info(f"Payment record created for: {customer_email}")
@@ -1480,20 +1480,6 @@ def test_email_connection():
         logging.error(f"Email connection failed: {str(e)}")
         return False
 
-def send_test_email(to_email):
-    """Send a test email to verify configuration"""
-    subject = "Test Email - Configuration Check"
-    html_body = """
-    <html>
-    <body>
-        <h2>Email Configuration Test</h2>
-        <p>If you received this email, your email configuration is working correctly!</p>
-        <p>Timestamp: {}</p>
-    </body>
-    </html>
-    """.format(datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'))
-    
-    return send_email(to_email, subject, html_body)
 if __name__ == "__main__":
     initialize_default_prompts()
     app.run(debug=False, ssl_context='adhoc')  # Enable HTTPS
