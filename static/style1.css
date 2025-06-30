@@ -33,7 +33,9 @@ body {
     width: 100%;
     max-width: 300px;
 }
-
+.success-container{
+    color: var(--text-light)
+}
 .form-container {
     flex: 1;
     display: flex;
