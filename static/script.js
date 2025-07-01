@@ -46,32 +46,32 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 1500);
     });
 
-    // Download PDF functionality
-    const downloadPdfButton = document.getElementById("download-pdf");
+    // // Download PDF functionality
+    // const downloadPdfButton = document.getElementById("download-pdf");
     
-    downloadPdfButton.addEventListener("click", function() {
-        if (outputText.value.trim() === "") {
-            alert("No text to download.");
-            return;
-        }
+    // downloadPdfButton.addEventListener("click", function() {
+    //     if (outputText.value.trim() === "") {
+    //         alert("No text to download.");
+    //         return;
+    //     }
 
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+    //     const { jsPDF } = window.jspdf;
+    //     const doc = new jsPDF();
         
-        // Set font and size
-        doc.setFont('helvetica');
-        doc.setFontSize(12);
+    //     // Set font and size
+    //     doc.setFont('helvetica');
+    //     doc.setFontSize(12);
 
-        // Split text into lines that fit the page
-        const splitText = doc.splitTextToSize(outputText.value, 180);
+    //     // Split text into lines that fit the page
+    //     const splitText = doc.splitTextToSize(outputText.value, 180);
         
-        // Add text to PDF
-        doc.text(splitText, 15, 20);
+    //     // Add text to PDF
+    //     doc.text(splitText, 15, 20);
 
-        // Save PDF with current timestamp
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        doc.save(`ChartWitch_Output_${timestamp}.pdf`);
-    });
+    //     // Save PDF with current timestamp
+    //     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    //     doc.save(`ChartWitch_Output_${timestamp}.pdf`);
+    // });
 
     // New Tab Navigation Functionality
     const tabItems = document.querySelectorAll('.tab-item');
@@ -304,4 +304,10 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('profile-modal').style.display = 'none';
         }
     };
+
+    // Clear output functionality
+    const clearButton = document.getElementById("clear-output");
+    clearButton.addEventListener("click", function() {
+        document.getElementById("outputText").value = "";
+    });
 });
