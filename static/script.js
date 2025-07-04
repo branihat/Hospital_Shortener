@@ -147,6 +147,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Load all tools on page initialization
     loadAllTools();
 
+    // Load user greeting
+    loadUserGreeting();
+
 
 
     // Update the processText function to use showLoading and hideLoading
@@ -591,6 +594,44 @@ document.addEventListener("DOMContentLoaded", function() {
         messageDiv.textContent = message;
         messageDiv.className = `message ${type}`;
         messageDiv.style.display = 'block';
+    }
+
+    // Load user greeting function
+    function loadUserGreeting() {
+        const greetingElement = document.getElementById('user-greeting');
+        const authToken = localStorage.getItem('authToken');
+        
+        if (!authToken) {
+            greetingElement.textContent = 'Hello! 😀';
+            return;
+        }
+        
+        // Fetch user profile to get first name
+        fetch('/api/profile', {
+            headers: {
+                'Authorization': 'Bearer ' + authToken
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch profile');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                greetingElement.textContent = 'Hello! 😀';
+            } else {
+                // Extract first name from the full name
+                const fullName = data.name || '';
+                const firstName = fullName.split(' ')[0] || 'User';
+                greetingElement.textContent = `Hello ${firstName}! 😀`;
+            }
+        })
+        .catch(error => {
+            console.error('Error loading user greeting:', error);
+            greetingElement.textContent = 'Hello! 😀';
+        });
     }
 
     // Clear output functionality
