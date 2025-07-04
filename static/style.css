@@ -625,18 +625,22 @@ textarea#outputText {
     width: 100vw; height: 100vh;
     overflow: auto;
     background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(3px);
 }
+
 .modal-content {
     background: var(--card-background);
-    margin: 8% auto;
+    margin: 5% auto;
     padding: 2rem 2.5rem;
     border-radius: 16px;
     width: 90%;
-    max-width: 400px;
+    max-width: 500px;
     color: var(--text-color);
     position: relative;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border: 2px solid var(--primary-purple);
 }
+
 .close {
     position: absolute;
     top: 18px;
@@ -644,4 +648,271 @@ textarea#outputText {
     font-size: 2rem;
     color: var(--primary-purple);
     cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: var(--secondary-purple);
+}
+
+/* Profile Info Styles */
+.profile-info {
+    margin-bottom: 2rem;
+}
+
+.profile-info p {
+    margin-bottom: 0.8rem;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(156, 39, 176, 0.2);
+}
+
+.profile-info strong {
+    color: var(--primary-purple);
+    min-width: 120px;
+    display: inline-block;
+}
+
+/* Profile Actions */
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 1.5rem;
+}
+
+.profile-action-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.change-password-btn {
+    background-color: var(--primary-purple);
+    color: white;
+}
+
+.change-password-btn:hover {
+    background-color: var(--secondary-purple);
+    transform: translateY(-2px);
+}
+
+.cancel-subscription-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.cancel-subscription-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.reactivate-subscription-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.reactivate-subscription-btn:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--primary-purple);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--primary-purple);
+    border-radius: 6px;
+    background-color: var(--input-background);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--secondary-purple);
+    box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+}
+
+.password-requirements {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-purple);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-purple);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+/* Warning Message Styles */
+.warning-message {
+    background-color: rgba(255, 193, 7, 0.1);
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.warning-message p {
+    margin-bottom: 0.5rem;
+}
+
+.warning-message ul {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.warning-message li {
+    margin-bottom: 0.3rem;
+}
+
+/* Cancellation Reason */
+.cancellation-reason {
+    margin-bottom: 1.5rem;
+}
+
+.cancellation-reason label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--primary-purple);
+}
+
+/* Message Styles */
+.message {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+.message.success {
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 2px solid #28a745;
+    color: #155724;
+}
+
+.message.error {
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 2px solid #dc3545;
+    color: #721c24;
+}
+
+.message.info {
+    background-color: rgba(23, 162, 184, 0.1);
+    border: 2px solid #17a2b8;
+    color: #0c5460;
+}
+
+/* Profile Button */
+#profile-btn {
+    background-color: var(--primary-purple);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+}
+
+#profile-btn:hover {
+    background-color: var(--secondary-purple);
+}
+
+/* Responsive Design for Modals */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .profile-actions {
+        gap: 8px;
+    }
+    
+    .profile-action-btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
 }

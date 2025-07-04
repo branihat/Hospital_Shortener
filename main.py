@@ -30,7 +30,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_cors import CORS
 from config import get_secret_key
-from email_service import generate_verification_token, send_verification_email, mail
+from email_service import generate_verification_token, send_verification_email, send_password_reset_email, send_password_reset_confirmation, mail
 import stripe
 
 # Configure logging for audit trail
@@ -309,11 +309,28 @@ def get_profile():
         app.logger.error(f"Profile decryption error for {email_hash}: {str(e)}")
         return jsonify({"error": "Profile data corrupted or missing"}), 500
 
+    # Determine subscription status
+    subscription_status = user.get('status', 'Unknown')
+    if user.get('subscription_status') == 'cancelled':
+        if user.get('period_end_date'):
+            end_date = user.get('period_end_date')
+            if isinstance(end_date, str):
+                subscription_status = f"Cancelled (Active until {end_date})"
+            else:
+                subscription_status = f"Cancelled (Active until {end_date.strftime('%B %d, %Y')})"
+        else:
+            subscription_status = "Cancelled"
+    elif subscription_status == 'active':
+        subscription_status = "Active"
+    elif subscription_status == 'pending_payment':
+        subscription_status = "Pending Payment"
+
     return jsonify({
         "name": name,
         "email": email,
         "profession": user.get("profession", ""),
-        "institution": user.get("institution", "")
+        "institution": user.get("institution", ""),
+        "status": subscription_status
     })
 
 @app.route("/api/login", methods=["POST"])
@@ -1007,6 +1024,224 @@ def get_custom_tools():
         logger.error(f"Error retrieving custom tools: {str(e)}")
         return jsonify({"error": "Failed to retrieve custom tools"}), 500
 
+@app.route("/api/all-tools")
+def get_all_tools_for_tabs():
+    """Get all custom tools organized by tabs for the main interface"""
+    try:
+        # Find all active custom tools
+        tools = list(mongo.db.prompts.find(
+            {
+                "is_custom_tool": True,
+                "active": True
+            },
+            {
+                "_id": 0,
+                "key": 1,
+                "button_label": 1,
+                "button_tooltip": 1,
+                "text": 1,
+                "tab": 1
+            }
+        ))
+        
+        return jsonify({"tools": tools})
+    except Exception as e:
+        logger.error(f"Error retrieving all tools: {str(e)}")
+        return jsonify({"error": "Failed to retrieve tools"}), 500
+
+# Admin Tools Management API
+@app.route("/admin/tools")
+@admin_required
+def admin_tools():
+    """Admin tools management page"""
+    return render_template("admin_tools.html")
+
+@app.route("/admin/api/tools", methods=["GET"])
+@admin_required
+def get_all_tools():
+    """Get all tools for admin management"""
+    try:
+        # Get all active tools (both custom and regular)
+        tools = list(mongo.db.prompts.find(
+            {"active": True},
+            {
+                "key": 1,
+                "text": 1,
+                "button_label": 1,
+                "button_tooltip": 1,
+                "is_custom_tool": 1,
+                "tab": 1,
+                "created_at": 1,
+                "updated_at": 1
+            }
+        ).sort("created_at", -1))
+        
+        # Filter only custom tools or tools with tab assignment
+        custom_tools = [tool for tool in tools if tool.get('is_custom_tool') or tool.get('tab')]
+        
+        return jsonify({"tools": custom_tools})
+    except Exception as e:
+        logger.error(f"Error retrieving tools: {str(e)}")
+        return jsonify({"error": "Failed to retrieve tools"}), 500
+
+@app.route("/admin/api/tools/<tool_id>", methods=["GET"])
+@admin_required
+def get_tool(tool_id):
+    """Get a specific tool by ID"""
+    try:
+        from bson.objectid import ObjectId
+        tool = mongo.db.prompts.find_one({"_id": ObjectId(tool_id), "active": True})
+        
+        if not tool:
+            return jsonify({"error": "Tool not found"}), 404
+        
+        # Convert ObjectId to string for JSON serialization
+        tool['_id'] = str(tool['_id'])
+        
+        return jsonify({"tool": tool})
+    except Exception as e:
+        logger.error(f"Error retrieving tool {tool_id}: {str(e)}")
+        return jsonify({"error": "Failed to retrieve tool"}), 500
+
+@app.route("/admin/api/tools", methods=["POST"])
+@admin_required
+def create_tool():
+    """Create a new tool"""
+    try:
+        data = request.get_json()
+        
+        # Validate required fields
+        required_fields = ['key', 'buttonLabel', 'buttonTooltip', 'text', 'tab']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({"error": f"{field} is required"}), 400
+        
+        # Check if tool key already exists
+        existing = mongo.db.prompts.find_one({"key": data['key'], "active": True})
+        if existing:
+            return jsonify({"error": "Tool key already exists"}), 409
+        
+        # Create tool document
+        tool = {
+            "key": data['key'],
+            "text": data['text'],
+            "button_label": data['buttonLabel'],
+            "button_tooltip": data['buttonTooltip'],
+            "tab": data['tab'],
+            "is_custom_tool": True,
+            "active": True,
+            "created_at": datetime.utcnow(),
+            "created_by": session.get('admin_id', 'admin'),
+            "updated_at": datetime.utcnow(),
+            "updated_by": session.get('admin_id', 'admin'),
+            "version": 1
+        }
+        
+        # Insert into database
+        result = mongo.db.prompts.insert_one(tool)
+        
+        if result.inserted_id:
+            logger.info(f"New tool '{data['key']}' created by admin in tab '{data['tab']}'")
+            return jsonify({
+                "message": "Tool created successfully",
+                "id": str(result.inserted_id)
+            }), 201
+        else:
+            raise Exception("Failed to insert tool")
+            
+    except Exception as e:
+        logger.error(f"Error creating tool: {str(e)}")
+        return jsonify({"error": f"Failed to create tool: {str(e)}"}), 500
+
+@app.route("/admin/api/tools/<tool_id>", methods=["PUT"])
+@admin_required
+def update_tool(tool_id):
+    """Update an existing tool"""
+    try:
+        from bson.objectid import ObjectId
+        data = request.get_json()
+        
+        # Validate required fields
+        required_fields = ['key', 'buttonLabel', 'buttonTooltip', 'text', 'tab']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({"error": f"{field} is required"}), 400
+        
+        # Check if tool exists
+        tool = mongo.db.prompts.find_one({"_id": ObjectId(tool_id), "active": True})
+        if not tool:
+            return jsonify({"error": "Tool not found"}), 404
+        
+        # Check if new key conflicts with existing tool (if key changed)
+        if data['key'] != tool['key']:
+            existing = mongo.db.prompts.find_one({
+                "key": data['key'], 
+                "active": True,
+                "_id": {"$ne": ObjectId(tool_id)}
+            })
+            if existing:
+                return jsonify({"error": "Tool key already exists"}), 409
+        
+        # Update tool
+        update_data = {
+            "key": data['key'],
+            "text": data['text'],
+            "button_label": data['buttonLabel'],
+            "button_tooltip": data['buttonTooltip'],
+            "tab": data['tab'],
+            "updated_at": datetime.utcnow(),
+            "updated_by": session.get('admin_id', 'admin')
+        }
+        
+        result = mongo.db.prompts.update_one(
+            {"_id": ObjectId(tool_id)},
+            {"$set": update_data}
+        )
+        
+        if result.modified_count > 0:
+            logger.info(f"Tool '{data['key']}' updated by admin")
+            return jsonify({"message": "Tool updated successfully"}), 200
+        else:
+            return jsonify({"error": "No changes made"}), 400
+            
+    except Exception as e:
+        logger.error(f"Error updating tool {tool_id}: {str(e)}")
+        return jsonify({"error": f"Failed to update tool: {str(e)}"}), 500
+
+@app.route("/admin/api/tools/<tool_id>", methods=["DELETE"])
+@admin_required
+def delete_tool(tool_id):
+    """Delete a tool"""
+    try:
+        from bson.objectid import ObjectId
+        
+        # Check if tool exists
+        tool = mongo.db.prompts.find_one({"_id": ObjectId(tool_id), "active": True})
+        if not tool:
+            return jsonify({"error": "Tool not found"}), 404
+        
+        # Soft delete by setting active to False
+        result = mongo.db.prompts.update_one(
+            {"_id": ObjectId(tool_id)},
+            {
+                "$set": {
+                    "active": False,
+                    "deleted_at": datetime.utcnow(),
+                    "deleted_by": session.get('admin_id', 'admin')
+                }
+            }
+        )
+        
+        if result.modified_count > 0:
+            logger.info(f"Tool '{tool.get('key')}' deleted by admin")
+            return jsonify({"message": "Tool deleted successfully"}), 200
+        else:
+            return jsonify({"error": "Failed to delete tool"}), 500
+            
+    except Exception as e:
+        logger.error(f"Error deleting tool {tool_id}: {str(e)}")
+        return jsonify({"error": f"Failed to delete tool: {str(e)}"}), 500
+
 @app.route('/payment')
 def payment_page():
     user_id = request.args.get('user_id')
@@ -1054,6 +1289,207 @@ def get_user_status():
     except Exception as e:
         logger.error(f"Error fetching user status: {str(e)}")
         return jsonify({"error": "Failed to fetch user status"}), 500
+
+@app.route("/api/change-password", methods=["POST"])
+@token_required
+def change_password():
+    """Change user password"""
+    try:
+        data = request.json
+        current_password = data.get('currentPassword')
+        new_password = data.get('newPassword')
+        
+        if not current_password or not new_password:
+            return jsonify({"error": "Both current and new passwords are required"}), 400
+        
+        # Get current user from token
+        token = request.headers.get("Authorization").split(" ")[1]
+        decoded_token = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
+        email_hash = decoded_token.get("email_hash")
+        
+        user = mongo.db.users.find_one({"email_hash": email_hash})
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+        
+        # Verify current password
+        if not bcrypt.checkpw(current_password.encode('utf-8'), user['password']):
+            return jsonify({"error": "Current password is incorrect"}), 400
+        
+        # Validate new password
+        validation_error = validate_password(new_password)
+        if validation_error:
+            return jsonify({"error": validation_error}), 400
+        
+        # Hash new password
+        hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt(rounds=12))
+        
+        # Update password in database
+        result = mongo.db.users.update_one(
+            {"email_hash": email_hash},
+            {
+                "$set": {
+                    "password": hashed_password,
+                    "password_changed_at": datetime.utcnow(),
+                    "failed_login_attempts": 0
+                }
+            }
+        )
+        
+        if result.modified_count == 0:
+            return jsonify({"error": "Failed to update password"}), 500
+        
+        logger.info(f"Password changed successfully for user: {email_hash}")
+        return jsonify({"message": "Password changed successfully"}), 200
+        
+    except jwt.InvalidTokenError:
+        return jsonify({"error": "Invalid token"}), 401
+    except Exception as e:
+        logger.error(f"Change password error: {str(e)}")
+        return jsonify({"error": "Failed to change password"}), 500
+
+@app.route("/api/cancel-subscription", methods=["POST"])
+@token_required
+def cancel_subscription():
+    """Cancel user's Stripe subscription"""
+    try:
+        data = request.json
+        cancellation_reason = data.get('reason', '')
+        
+        # Get current user from token
+        token = request.headers.get("Authorization").split(" ")[1]
+        decoded_token = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
+        email_hash = decoded_token.get("email_hash")
+        
+        user = mongo.db.users.find_one({"email_hash": email_hash})
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+        
+        subscription_id = user.get('subscription_id')
+        if not subscription_id:
+            return jsonify({"error": "No active subscription found"}), 400
+        
+        # Cancel subscription in Stripe
+        try:
+            subscription = stripe.Subscription.modify(
+                subscription_id,
+                cancel_at_period_end=True,
+                metadata={
+                    'cancellation_reason': cancellation_reason,
+                    'cancelled_by': 'user',
+                    'cancelled_at': datetime.utcnow().isoformat()
+                }
+            )
+            
+            # Update user record
+            mongo.db.users.update_one(
+                {"email_hash": email_hash},
+                {
+                    "$set": {
+                        "subscription_status": "cancelled",
+                        "cancellation_reason": cancellation_reason,
+                        "cancelled_at": datetime.utcnow(),
+                        "cancel_at_period_end": True,
+                        "period_end_date": datetime.fromtimestamp(subscription.current_period_end)
+                    }
+                }
+            )
+            
+            # Log the cancellation
+            cancellation_record = {
+                "email_hash": email_hash,
+                "subscription_id": subscription_id,
+                "reason": cancellation_reason,
+                "cancelled_at": datetime.utcnow(),
+                "period_end_date": datetime.fromtimestamp(subscription.current_period_end),
+                "cancelled_by": "user"
+            }
+            mongo.db.cancellations.insert_one(cancellation_record)
+            
+            logger.info(f"Subscription cancelled for user: {email_hash}, reason: {cancellation_reason}")
+            
+            # Get formatted end date
+            end_date = datetime.fromtimestamp(subscription.current_period_end).strftime('%B %d, %Y')
+            
+            return jsonify({
+                "message": f"Subscription cancelled successfully. Access will continue until {end_date}.",
+                "period_end_date": end_date
+            }), 200
+            
+        except stripe.error.StripeError as e:
+            logger.error(f"Stripe error cancelling subscription: {str(e)}")
+            return jsonify({"error": "Failed to cancel subscription. Please contact support."}), 500
+        
+    except jwt.InvalidTokenError:
+        return jsonify({"error": "Invalid token"}), 401
+    except Exception as e:
+        logger.error(f"Cancel subscription error: {str(e)}")
+        return jsonify({"error": "Failed to cancel subscription"}), 500
+
+@app.route("/api/reactivate-subscription", methods=["POST"])
+@token_required
+def reactivate_subscription():
+    """Reactivate a cancelled Stripe subscription"""
+    try:
+        # Get current user from token
+        token = request.headers.get("Authorization").split(" ")[1]
+        decoded_token = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
+        email_hash = decoded_token.get("email_hash")
+        
+        user = mongo.db.users.find_one({"email_hash": email_hash})
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+        
+        subscription_id = user.get('subscription_id')
+        if not subscription_id:
+            return jsonify({"error": "No subscription found"}), 400
+        
+        # Check if subscription is cancelled but still active
+        if user.get('subscription_status') != 'cancelled':
+            return jsonify({"error": "Subscription is not cancelled"}), 400
+        
+        # Reactivate subscription in Stripe
+        try:
+            subscription = stripe.Subscription.modify(
+                subscription_id,
+                cancel_at_period_end=False,
+                metadata={
+                    'reactivated_by': 'user',
+                    'reactivated_at': datetime.utcnow().isoformat()
+                }
+            )
+            
+            # Update user record
+            mongo.db.users.update_one(
+                {"email_hash": email_hash},
+                {
+                    "$set": {
+                        "subscription_status": "active",
+                        "reactivated_at": datetime.utcnow(),
+                        "cancel_at_period_end": False
+                    },
+                    "$unset": {
+                        "cancellation_reason": "",
+                        "cancelled_at": "",
+                        "period_end_date": ""
+                    }
+                }
+            )
+            
+            logger.info(f"Subscription reactivated for user: {email_hash}")
+            
+            return jsonify({
+                "message": "Subscription reactivated successfully!"
+            }), 200
+            
+        except stripe.error.StripeError as e:
+            logger.error(f"Stripe error reactivating subscription: {str(e)}")
+            return jsonify({"error": "Failed to reactivate subscription. Please contact support."}), 500
+        
+    except jwt.InvalidTokenError:
+        return jsonify({"error": "Invalid token"}), 401
+    except Exception as e:
+        logger.error(f"Reactivate subscription error: {str(e)}")
+        return jsonify({"error": "Failed to reactivate subscription"}), 500
 
 # @app.route("/forgot-password", methods=["GET", "POST"])
 # def forgot_password():
@@ -1161,8 +1597,16 @@ def forgot_password():
             # Insert new reset record
             mongo.db.password_resets.insert_one(reset_record)
             
+            # Get user name for email
+            try:
+                first_name = HIPAAEncryption.decrypt_data(user.get('firstName', ''), app.config['SECRET_KEY'])
+                last_name = HIPAAEncryption.decrypt_data(user.get('lastName', ''), app.config['SECRET_KEY'])
+                name = f"{first_name} {last_name}".strip() or "User"
+            except:
+                name = "User"
+            
             # Send reset email
-            send_password_reset_email(email, reset_token, user.get('name', 'User'))
+            send_password_reset_email(email, reset_token, name)
         
         return render_template("forgot_password.html", message=success_message)
         
@@ -1263,8 +1707,16 @@ def reset_password(token):
         # Log successful password reset
         app.logger.info(f"Password reset successful for user: {email_hash}")
         
-        # Optional: Send confirmation email
-        send_password_reset_confirmation(email, user.get('name', 'User'))
+        # Get user name for confirmation email
+        try:
+            first_name = HIPAAEncryption.decrypt_data(user.get('firstName', ''), app.config['SECRET_KEY'])
+            last_name = HIPAAEncryption.decrypt_data(user.get('lastName', ''), app.config['SECRET_KEY'])
+            name = f"{first_name} {last_name}".strip() or "User"
+        except:
+            name = "User"
+        
+        # Send confirmation email
+        send_password_reset_confirmation(email, name)
         
         return render_template("reset_password.html", 
                              message="Password reset successful! You can now log in with your new password.")
@@ -1322,152 +1774,6 @@ def validate_password(password, confirm_password=None):
     
     return None
 
-def send_password_reset_email(email, token, name):
-    """Send password reset email"""
-    reset_url = url_for('reset_password', token=token, _external=True)
-    
-    subject = "Password Reset Request"
-    html_body = f"""
-    <html>
-    <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2>Password Reset Request</h2>
-        <p>Hello {name},</p>
-        <p>We received a request to reset your password. Click the button below to reset it:</p>
-        <div style="text-align: center; margin: 30px 0;">
-            <a href="{reset_url}" 
-               style="background-color: #8244af; color: white; padding: 12px 24px; 
-                      text-decoration: none; border-radius: 8px; display: inline-block;">
-                Reset Password
-            </a>
-        </div>
-        <p>This link will expire in 1 hour for security reasons.</p>
-        <p>If you didn't request this password reset, please ignore this email or contact support if you have concerns.</p>
-        <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
-        <p style="color: #666; font-size: 12px;">
-            This email was sent from {request.remote_addr} at {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC.
-        </p>
-    </body>
-    </html>
-    """
-    
-    # Use your existing email sending function
-    # send_email(email, subject, html_body)
-
-def send_password_reset_confirmation(email, name):
-    """Send confirmation email after successful password reset"""
-    subject = "Password Reset Successful"
-    html_body = f"""
-    <html>
-    <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2>Password Reset Successful</h2>
-        <p>Hello {name},</p>
-        <p>Your password has been successfully reset.</p>
-        <p>If you didn't make this change, please contact support immediately.</p>
-        <p>Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC</p>
-        <p>IP Address: {request.remote_addr}</p>
-    </body>
-    </html>
-    """
-    
-    # Use your existing email sending function
-    # send_email(email, subject, html_body)
-
-def send_verification_email(email, token, name):
-    """Send email verification for new account registrations"""
-    verification_url = url_for('verify_email', token=token, _external=True)
-    
-    subject = "Please Verify Your Email Address"
-    
-    html_body = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Verification</title>
-    </head>
-    <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f4; padding: 20px;">
-            <tr>
-                <td align="center">
-                    <table width="600" cellpadding="0" cellspacing="0" style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                        <!-- Header -->
-                        <tr>
-                            <td style="background-color: #17a2b8; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
-                                <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">Welcome! Verify Your Email</h1>
-                            </td>
-                        </tr>
-                        
-                        <!-- Content -->
-                        <tr>
-                            <td style="padding: 40px 30px;">
-                                <h2 style="color: #333; margin: 0 0 20px 0; font-size: 20px;">Hello {name},</h2>
-                                
-                                <p style="color: #666; line-height: 1.6; margin: 0 0 20px 0; font-size: 16px;">
-                                    Thank you for creating an account! To complete your registration and start using our services, 
-                                    please verify your email address by clicking the button below.
-                                </p>
-                                
-                                <div style="text-align: center; margin: 30px 0;">
-                                    <a href="{verification_url}" 
-                                       style="background-color: #17a2b8; color: white; padding: 15px 30px; 
-                                              text-decoration: none; border-radius: 6px; display: inline-block;
-                                              font-weight: 600; font-size: 16px; box-shadow: 0 2px 4px rgba(23,162,184,0.3);">
-                                        Verify My Email
-                                    </a>
-                                </div>
-                                
-                                <div style="background-color: #fff3cd; border: 1px solid #bee5eb; padding: 15px; border-radius: 4px; margin: 20px 0;">
-                                    <p style="color: #856404; margin: 0; font-size: 14px;">
-                                        <strong>⚠️ Important:</strong> This verification link will expire in 24 hours.
-                                    </p>
-                                </div>
-                                
-                                <p style="color: #666; line-height: 1.6; margin: 20px 0 0 0; font-size: 14px;">
-                                    If you didn't create this account, please ignore this email.
-                                </p>
-                                
-                                <p style="color: #666; font-size: 14px; margin: 10px 0 0 0;">
-                                    If the button above doesn't work, copy and paste this link into your browser:<br>
-                                    <a href="{verification_url}" style="color: #17a2b8; word-break: break-all;">{verification_url}</a>
-                                </p>
-                            </td>
-                        </tr>
-                        
-                        <!-- Footer -->
-                        <tr>
-                            <td style="background-color: #f8f9fa; padding: 20px 30px; border-radius: 0 0 8px 8px; border-top: 1px solid #e9ecef;">
-                                <p style="color: #6c757d; font-size: 12px; margin: 0; text-align: center;">
-                                    © 2025 Your Company Name. All rights reserved.
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </body>
-    </html>
-    """
-    
-    return send_email(email, subject, html_body)
-
-def generate_verification_token(email, purpose='email_verification'):
-    """Generate a secure JWT token for email verification"""
-    token_id = secrets.token_urlsafe(32)
-    now = datetime.now(timezone.utc)
-    
-    payload = {
-        'email': email,
-        'token_id': token_id,
-        'exp': now + timedelta(hours=24),  # 24 hours for email verification
-        'iat': now,
-        'purpose': purpose
-    }
-    
-    # You'll need to import your app's SECRET_KEY
-    from flask import current_app
-    return jwt.encode(payload, current_app.config["SECRET_KEY"], algorithm="HS256")
 
 # Test email function for debugging
 def test_email_connection():

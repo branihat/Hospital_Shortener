@@ -91,10 +91,8 @@ document.addEventListener("DOMContentLoaded", function() {
             selectedTab.classList.add('active');
             selectedPane.classList.add('active');
             
-            // Only load custom tools when that tab is activated
-            if (targetId === 'custom-tools-container') {
-                loadCustomTools();
-            }
+            // Load all tools when any tab is activated (in case new tools were added)
+            loadAllTools();
         }
     }
 
@@ -145,6 +143,9 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "/login";
         return;
     }
+
+    // Load all tools on page initialization
+    loadAllTools();
 
 
 
@@ -228,13 +229,72 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Load custom tools function with loading state management
+    // Load tools for all tabs dynamically
+    function loadAllTools() {
+        fetch('/api/all-tools')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.tools) {
+                    loadToolsIntoTabs(data.tools);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading tools:', error);
+            });
+    }
+
+    function loadToolsIntoTabs(tools) {
+        // Group tools by tab
+        const toolsByTab = {
+            'default': [],
+            'suggested': [],
+            'custom': []
+        };
+
+        tools.forEach(tool => {
+            const tab = tool.tab || 'custom';
+            if (toolsByTab[tab]) {
+                toolsByTab[tab].push(tool);
+            }
+        });
+
+        // Load tools into each tab
+        Object.keys(toolsByTab).forEach(tabName => {
+            const containerId = `${tabName}-tools-container`;
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Clear existing custom tools from this container
+            const existingCustomTools = container.querySelectorAll('.custom-tool');
+            existingCustomTools.forEach(tool => tool.remove());
+
+            // Add new tools
+            toolsByTab[tabName].forEach(tool => {
+                const button = document.createElement('button');
+                button.className = 'action-button custom-tool';
+                button.textContent = tool.button_label;
+                button.setAttribute('data-action', tool.key);
+                button.setAttribute('data-tooltip', tool.button_tooltip);
+                button.setAttribute('data-text', tool.text);
+                
+                button.addEventListener('click', () => {
+                    processText(tool.key, tool.text);
+                });
+                
+                container.appendChild(button);
+            });
+        });
+    }
+
+    // Load custom tools function (for backward compatibility)
     function loadCustomTools() {
         const container = document.getElementById('custom-tools-container');
         if (!container) return;
-
-        // showLoading(); // Use existing loading overlay
-        // container.innerHTML = '<div class="loading">Loading custom tools...</div>';
 
         fetch('/api/custom-tools')
             .then(response => {
@@ -292,18 +352,246 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById('profile-email').textContent = data.email || '';
                 document.getElementById('profile-profession').textContent = data.profession || '';
                 document.getElementById('profile-institution').textContent = data.institution || '';
+                document.getElementById('profile-status').textContent = data.status || 'Active';
+                
+                // Show/hide buttons based on subscription status
+                const cancelBtn = document.getElementById('cancel-subscription-btn');
+                const reactivateBtn = document.getElementById('reactivate-subscription-btn');
+                
+                if (data.status && data.status.includes('Cancelled')) {
+                    cancelBtn.style.display = 'none';
+                    reactivateBtn.style.display = 'flex';
+                } else {
+                    cancelBtn.style.display = 'flex';
+                    reactivateBtn.style.display = 'none';
+                }
             }
+            document.getElementById('profile-modal').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error fetching profile:', error);
+            document.getElementById('profile-details').innerHTML = `<p style="color:red;">Error loading profile</p>`;
             document.getElementById('profile-modal').style.display = 'block';
         });
     });
+
+    // Profile modal close handlers
     document.getElementById('close-profile-modal').onclick = function() {
         document.getElementById('profile-modal').style.display = 'none';
     };
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('profile-modal')) {
-            document.getElementById('profile-modal').style.display = 'none';
-        }
+
+    // Change Password Modal handlers
+    document.getElementById('change-password-btn').addEventListener('click', function() {
+        document.getElementById('profile-modal').style.display = 'none';
+        document.getElementById('change-password-modal').style.display = 'block';
+        // Clear form
+        document.getElementById('change-password-form').reset();
+        document.getElementById('password-change-message').style.display = 'none';
+    });
+
+    document.getElementById('close-change-password-modal').onclick = function() {
+        document.getElementById('change-password-modal').style.display = 'none';
     };
+
+    document.getElementById('cancel-password-change').onclick = function() {
+        document.getElementById('change-password-modal').style.display = 'none';
+    };
+
+    // Cancel Subscription Modal handlers
+    document.getElementById('cancel-subscription-btn').addEventListener('click', function() {
+        document.getElementById('profile-modal').style.display = 'none';
+        document.getElementById('cancel-subscription-modal').style.display = 'block';
+        document.getElementById('cancellation-message').style.display = 'none';
+    });
+
+    document.getElementById('close-cancel-subscription-modal').onclick = function() {
+        document.getElementById('cancel-subscription-modal').style.display = 'none';
+    };
+
+    document.getElementById('keep-subscription').onclick = function() {
+        document.getElementById('cancel-subscription-modal').style.display = 'none';
+    };
+
+    // Reactivate Subscription handler
+    document.getElementById('reactivate-subscription-btn').addEventListener('click', function() {
+        if (confirm('Are you sure you want to reactivate your subscription? You will be charged according to your current plan.')) {
+            const reactivateBtn = this;
+            const originalText = reactivateBtn.textContent;
+            
+            // Show loading state
+            reactivateBtn.textContent = 'Reactivating...';
+            reactivateBtn.disabled = true;
+            
+            // Send request to backend
+            fetch('/api/reactivate-subscription', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert(data.message);
+                    // Refresh profile to update status
+                    document.getElementById('profile-modal').style.display = 'none';
+                    setTimeout(() => {
+                        document.getElementById('profile-btn').click();
+                    }, 500);
+                }
+            })
+            .catch(error => {
+                console.error('Error reactivating subscription:', error);
+                alert('An error occurred. Please try again.');
+            })
+            .finally(() => {
+                reactivateBtn.textContent = originalText;
+                reactivateBtn.disabled = false;
+            });
+        }
+    });
+
+    // Universal modal close on outside click
+    window.onclick = function(event) {
+        const modals = ['profile-modal', 'change-password-modal', 'cancel-subscription-modal'];
+        modals.forEach(modalId => {
+            const modal = document.getElementById(modalId);
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    };
+
+    // Change Password Form Handler
+    document.getElementById('change-password-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const currentPassword = document.getElementById('current-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const messageDiv = document.getElementById('password-change-message');
+        
+        // Client-side validation
+        if (newPassword !== confirmPassword) {
+            showPasswordMessage('Passwords do not match.', 'error');
+            return;
+        }
+        
+        if (!validatePassword(newPassword)) {
+            showPasswordMessage('Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.', 'error');
+            return;
+        }
+        
+        // Show loading state
+        const submitBtn = document.getElementById('submit-password-change');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Changing...';
+        submitBtn.disabled = true;
+        
+        // Send request to backend
+        fetch('/api/change-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+            },
+            body: JSON.stringify({
+                currentPassword: currentPassword,
+                newPassword: newPassword
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                showPasswordMessage(data.error, 'error');
+            } else {
+                showPasswordMessage('Password changed successfully!', 'success');
+                document.getElementById('change-password-form').reset();
+                setTimeout(() => {
+                    document.getElementById('change-password-modal').style.display = 'none';
+                }, 2000);
+            }
+        })
+        .catch(error => {
+            console.error('Error changing password:', error);
+            showPasswordMessage('An error occurred. Please try again.', 'error');
+        })
+        .finally(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
+    });
+
+    // Cancel Subscription Handler
+    document.getElementById('confirm-cancellation').addEventListener('click', function() {
+        const reason = document.getElementById('cancellation-reason').value;
+        const messageDiv = document.getElementById('cancellation-message');
+        const confirmBtn = this;
+        
+        // Show loading state
+        const originalText = confirmBtn.textContent;
+        confirmBtn.textContent = 'Cancelling...';
+        confirmBtn.disabled = true;
+        
+        // Send request to backend
+        fetch('/api/cancel-subscription', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+            },
+            body: JSON.stringify({
+                reason: reason
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                showCancellationMessage(data.error, 'error');
+            } else {
+                showCancellationMessage('Subscription cancelled successfully. You will retain access until the end of your billing period.', 'success');
+                setTimeout(() => {
+                    document.getElementById('cancel-subscription-modal').style.display = 'none';
+                }, 3000);
+            }
+        })
+        .catch(error => {
+            console.error('Error cancelling subscription:', error);
+            showCancellationMessage('An error occurred. Please try again.', 'error');
+        })
+        .finally(() => {
+            confirmBtn.textContent = originalText;
+            confirmBtn.disabled = false;
+        });
+    });
+
+    // Helper Functions
+    function validatePassword(password) {
+        const minLength = password.length >= 8;
+        const hasUpper = /[A-Z]/.test(password);
+        const hasLower = /[a-z]/.test(password);
+        const hasNumber = /\d/.test(password);
+        const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        
+        return minLength && hasUpper && hasLower && hasNumber && hasSpecial;
+    }
+    
+    function showPasswordMessage(message, type) {
+        const messageDiv = document.getElementById('password-change-message');
+        messageDiv.textContent = message;
+        messageDiv.className = `message ${type}`;
+        messageDiv.style.display = 'block';
+    }
+    
+    function showCancellationMessage(message, type) {
+        const messageDiv = document.getElementById('cancellation-message');
+        messageDiv.textContent = message;
+        messageDiv.className = `message ${type}`;
+        messageDiv.style.display = 'block';
+    }
 
     // Clear output functionality
     const clearButton = document.getElementById("clear-output");

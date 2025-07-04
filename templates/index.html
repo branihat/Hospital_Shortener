@@ -85,11 +85,94 @@
             <h2>Your Profile</h2>
             <div id="profile-details">
                 <!-- Profile info will be loaded here -->
-                <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
-                <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
-                <p><strong>Profession:</strong> <span id="profile-profession">Loading...</span></p>
-                <p><strong>Institution:</strong> <span id="profile-institution">Loading...</span></p>
+                <div class="profile-info">
+                    <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+                    <p><strong>Profession:</strong> <span id="profile-profession">Loading...</span></p>
+                    <p><strong>Institution:</strong> <span id="profile-institution">Loading...</span></p>
+                    <p><strong>Subscription Status:</strong> <span id="profile-status">Loading...</span></p>
+                </div>
+                
+                <!-- Profile Actions -->
+                <div class="profile-actions">
+                    <button id="change-password-btn" class="profile-action-btn change-password-btn">
+                        🔐 Change Password
+                    </button>
+                    <button id="cancel-subscription-btn" class="profile-action-btn cancel-subscription-btn">
+                        ❌ Cancel Subscription
+                    </button>
+                    <button id="reactivate-subscription-btn" class="profile-action-btn reactivate-subscription-btn" style="display: none;">
+                        ✅ Reactivate Subscription
+                    </button>
+                </div>
             </div>
+        </div>
+    </div>
+    
+    <!-- Change Password Modal -->
+    <div id="change-password-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" id="close-change-password-modal">&times;</span>
+            <h2>Change Password</h2>
+            <form id="change-password-form">
+                <div class="form-group">
+                    <label for="current-password">Current Password:</label>
+                    <input type="password" id="current-password" name="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password:</label>
+                    <input type="password" id="new-password" name="new-password" required>
+                    <small class="password-requirements">
+                        Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm New Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancel-password-change" class="btn-secondary">Cancel</button>
+                    <button type="submit" id="submit-password-change" class="btn-primary">Change Password</button>
+                </div>
+            </form>
+            <div id="password-change-message" class="message" style="display:none;"></div>
+        </div>
+    </div>
+    
+    <!-- Cancel Subscription Modal -->
+    <div id="cancel-subscription-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" id="close-cancel-subscription-modal">&times;</span>
+            <h2>Cancel Subscription</h2>
+            <div class="cancel-subscription-content">
+                <div class="warning-message">
+                    <p><strong>⚠️ Are you sure you want to cancel your subscription?</strong></p>
+                    <p>After cancellation:</p>
+                    <ul>
+                        <li>You will lose access to all premium features</li>
+                        <li>Your account will remain active until the end of your current billing period</li>
+                        <li>You can reactivate your subscription at any time</li>
+                    </ul>
+                </div>
+                
+                <div class="cancellation-reason">
+                    <label for="cancellation-reason">Why are you cancelling? (Optional)</label>
+                    <select id="cancellation-reason" name="cancellation-reason">
+                        <option value="">Please select a reason</option>
+                        <option value="too-expensive">Too expensive</option>
+                        <option value="not-using-enough">Not using it enough</option>
+                        <option value="found-alternative">Found an alternative</option>
+                        <option value="technical-issues">Technical issues</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="keep-subscription" class="btn-primary">Keep Subscription</button>
+                    <button type="button" id="confirm-cancellation" class="btn-danger">Cancel Subscription</button>
+                </div>
+            </div>
+            <div id="cancellation-message" class="message" style="display:none;"></div>
         </div>
     </div>
     
