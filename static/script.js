@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Check if user is logged in
-    const authToken = localStorage.getItem("authToken");
+    const authToken = localStorage.getItem("authToken") || localStorage.getItem("token");
     if (!authToken && !window.location.pathname.includes("login")) {
         // Redirect to login if not logged in
         window.location.href = "/login";
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Update the processText function to use showLoading and hideLoading
     async function processText(action, customPrompt) {
-        const authToken = localStorage.getItem('authToken');
+        const authToken = localStorage.getItem('authToken') || localStorage.getItem('token');
         if (!authToken) {
             window.location.href = '/login';
             return;
@@ -186,6 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (response.status === 401) {
                 localStorage.removeItem('authToken');
+                localStorage.removeItem('token');
                 window.location.href = '/login';
                 return;
             }
@@ -211,17 +212,25 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Add event listeners to action buttons
-    const actionButtons = document.querySelectorAll("#default-tools-container .action-button, #suggested-tools-container .action-button, #custom-tools-container .action-button");
-    if (actionButtons.length > 0) {
+    // Add event listeners to action buttons (including static ones)
+    function attachButtonListeners() {
+        const actionButtons = document.querySelectorAll(".action-button");
         actionButtons.forEach(button => {
-            button.addEventListener("click", function() {
-                const action = this.getAttribute("data-action");
-                const customPrompt = this.getAttribute("data-text");
-                processText(action, customPrompt);
-            });
+            // Remove existing listeners to prevent duplicates
+            button.removeEventListener("click", buttonClickHandler);
+            button.addEventListener("click", buttonClickHandler);
         });
     }
+    
+    function buttonClickHandler(event) {
+        const action = this.getAttribute("data-action");
+        const customPrompt = this.getAttribute("data-text");
+        console.log('Button clicked:', action); // Debug log
+        processText(action, customPrompt);
+    }
+    
+    // Initial attachment
+    attachButtonListeners();
 
     // Tab switching functionality (using the existing switchTab function)
     tabItems.forEach(tab => {
@@ -286,12 +295,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 button.setAttribute('data-text', tool.text);
                 
                 button.addEventListener('click', () => {
+                    console.log('Dynamic button clicked:', tool.key); // Debug log
                     processText(tool.key, tool.text);
                 });
                 
                 container.appendChild(button);
             });
         });
+        
+        // Reattach listeners to all buttons after loading tools
+        setTimeout(() => {
+            attachButtonListeners();
+        }, 100);
     }
 
     // Load custom tools function (for backward compatibility)
@@ -599,7 +614,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Load user greeting function
     function loadUserGreeting() {
         const greetingElement = document.getElementById('user-greeting');
-        const authToken = localStorage.getItem('authToken');
+        const authToken = localStorage.getItem('authToken') || localStorage.getItem('token');
         
         if (!authToken) {
             greetingElement.textContent = 'Hello! 😀';
