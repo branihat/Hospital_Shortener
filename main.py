@@ -4,6 +4,7 @@ import re
 import bcrypt
 import jwt
 import datetime
+from datetime import datetime as dt, timedelta, timezone
 from functools import wraps
 from config import (
     PROMPTS, 
@@ -51,7 +52,7 @@ app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=1)
 limiter = Limiter(
     app=app,
     key_func=get_remote_address,
-    default_limits=["100 per day", "30 per hour"]
+    default_limits=["1000 per day", "200 per hour"]
 )
 
 # Load MongoDB URI first
@@ -231,6 +232,27 @@ def show_login_page():
 def dashboard():
     return render_template("index.html")
 
+@app.route("/debug")
+def debug():
+    """Debug endpoint to test basic functionality"""
+    try:
+        # Test MongoDB connection
+        users_count = mongo.db.users.count_documents({})
+        prompts_count = mongo.db.prompts.count_documents({"active": True})
+        
+        return jsonify({
+            "status": "ok",
+            "database": "connected",
+            "users_count": users_count,
+            "active_prompts": prompts_count,
+            "gemini_api_configured": bool(GEMINI_API_KEY)
+        })
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "error": str(e)
+        }), 500
+
 # Initialize Flask-Mail
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
 app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT'))
@@ -274,7 +296,7 @@ def register():
             "profession": profession,
             "institution": institution,
             "status": "pending_payment",
-            "created_at": datetime.utcnow()
+            "created_at": dt.utcnow()
         }
 
         # Insert user
@@ -334,7 +356,7 @@ def get_profile():
     })
 
 @app.route("/api/login", methods=["POST"])
-@limiter.limit("5 per minute")
+@limiter.limit("50 per minute")
 def login():
     email = request.json.get("email")
     password = request.json.get("password")
@@ -359,7 +381,7 @@ def login():
             token = jwt.encode(
                 {
                     "email_hash": email_hash,
-                    "exp": datetime.utcnow() + timedelta(hours=1),
+                    "exp": dt.utcnow() + timedelta(hours=1),
                     "user_id": user.get("user_id")
                 },
                 app.config["SECRET_KEY"],
@@ -378,7 +400,7 @@ def login():
 # API routes that need tokens can still use token_required
 @app.route("/process", methods=["POST"])
 @token_required
-@limiter.limit("20 per hour")
+@limiter.limit("100 per hour")
 def process_text():
     """Handle AI processing requests (protected by JWT authentication)."""
     data = request.json
@@ -450,9 +472,9 @@ def update_prompt():
         "key": prompt_key,
         "text": prompt_text,
         "active": True,
-        "created_at": datetime.utcnow(),
+        "created_at": dt.utcnow(),
         "created_by": admin_id,
-        "updated_at": datetime.utcnow(),
+        "updated_at": dt.utcnow(),
         "updated_by": admin_id,
         "version": new_version
     })
