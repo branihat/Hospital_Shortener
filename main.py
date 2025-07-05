@@ -47,12 +47,12 @@ app.config["SECRET_KEY"] = get_secret_key()
 # Set session timeout to 1 hour
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=1)
 
-# Configure Rate Limiting
-limiter = Limiter(
-    app=app,
-    key_func=get_remote_address,
-    default_limits=["100 per day", "30 per hour"]
-)
+# # Configure Rate Limiting
+# limiter = Limiter(
+#     app=app,
+#     key_func=get_remote_address,
+#     default_limits=["100 per day", "30 per hour"]
+# )
 
 # Load MongoDB URI first
 MONGO_URI = load_mongo_uri()
@@ -334,7 +334,7 @@ def get_profile():
     })
 
 @app.route("/api/login", methods=["POST"])
-@limiter.limit("5 per minute")
+# @limiter.limit("5 per minute")
 def login():
     email = request.json.get("email")
     password = request.json.get("password")
