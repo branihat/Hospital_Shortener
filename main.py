@@ -356,7 +356,7 @@ def get_profile():
     })
 
 @app.route("/api/login", methods=["POST"])
-@limiter.limit("50 per minute")
+@limiter.limit("5 per minute")
 def login():
     email = request.json.get("email")
     password = request.json.get("password")
@@ -400,7 +400,7 @@ def login():
 # API routes that need tokens can still use token_required
 @app.route("/process", methods=["POST"])
 @token_required
-@limiter.limit("100 per hour")
+@limiter.limit("20 per hour")
 def process_text():
     """Handle AI processing requests (protected by JWT authentication)."""
     data = request.json
