@@ -47,12 +47,12 @@ app.config["SECRET_KEY"] = get_secret_key()
 # Set session timeout to 1 hour
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=1)
 
-# # Configure Rate Limiting
-# limiter = Limiter(
-#     app=app,
-#     key_func=get_remote_address,
-#     default_limits=["100 per day", "30 per hour"]
-# )
+# Configure Rate Limiting
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=["100 per day", "30 per hour"]
+)
 
 # Load MongoDB URI first
 MONGO_URI = load_mongo_uri()
@@ -378,7 +378,7 @@ def login():
 # API routes that need tokens can still use token_required
 @app.route("/process", methods=["POST"])
 @token_required
-@limiter.limit("20 per hour")
+@limiter.limit("200 per hour")
 def process_text():
     """Handle AI processing requests (protected by JWT authentication)."""
     data = request.json
