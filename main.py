@@ -27,8 +27,6 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 from flask_cors import CORS
 from config import get_secret_key
 from email_service import generate_verification_token, send_verification_email, send_password_reset_email, send_password_reset_confirmation, mail
@@ -48,21 +46,6 @@ app.config["SECRET_KEY"] = get_secret_key()
 # Set session timeout to 1 hour
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=1)
 
-# Configure Rate Limiting (disabled for debugging)
-# limiter = Limiter(
-#     app=app,
-#     key_func=get_remote_address,
-#     default_limits=["1000 per day", "200 per hour"]
-# )
-
-# Create a dummy limiter object to avoid errors
-class DummyLimiter:
-    def limit(self, limit_string):
-        def decorator(f):
-            return f
-        return decorator
-
-limiter = DummyLimiter()
 
 # Load MongoDB URI first
 MONGO_URI = load_mongo_uri()
@@ -391,7 +374,6 @@ def get_profile():
     })
 
 @app.route("/api/login", methods=["POST"])
-@limiter.limit("5 per minute")
 def login():
     email = request.json.get("email")
     password = request.json.get("password")
@@ -435,7 +417,6 @@ def login():
 # API routes that need tokens can still use token_required
 @app.route("/process", methods=["POST"])
 @token_required
-@limiter.limit("20 per hour")
 def process_text():
     """Handle AI processing requests (protected by JWT authentication)."""
     data = request.json
