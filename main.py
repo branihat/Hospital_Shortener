@@ -48,12 +48,21 @@ app.config["SECRET_KEY"] = get_secret_key()
 # Set session timeout to 1 hour
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=1)
 
-# Configure Rate Limiting
-limiter = Limiter(
-    app=app,
-    key_func=get_remote_address,
-    default_limits=["1000 per day", "200 per hour"]
-)
+# Configure Rate Limiting (disabled for debugging)
+# limiter = Limiter(
+#     app=app,
+#     key_func=get_remote_address,
+#     default_limits=["1000 per day", "200 per hour"]
+# )
+
+# Create a dummy limiter object to avoid errors
+class DummyLimiter:
+    def limit(self, limit_string):
+        def decorator(f):
+            return f
+        return decorator
+
+limiter = DummyLimiter()
 
 # Load MongoDB URI first
 MONGO_URI = load_mongo_uri()
@@ -251,6 +260,32 @@ def debug():
         return jsonify({
             "status": "error",
             "error": str(e)
+        }), 500
+
+@app.route("/test-button", methods=["POST"])
+def test_button():
+    """Simple test endpoint for button functionality - no authentication required"""
+    try:
+        data = request.json
+        action = data.get("action")
+        text = data.get("text")
+        
+        if not action or not text:
+            return jsonify({"error": "Missing action or text"}), 400
+        
+        # Simple response without AI processing
+        result = f"Button test successful!\n\nAction: {action}\nInput length: {len(text)} characters\nTimestamp: {dt.utcnow()}\n\nFirst 100 chars: {text[:100]}..."
+        
+        return jsonify({
+            "result": result,
+            "action": action,
+            "status": "success"
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "error": str(e),
+            "status": "error"
         }), 500
 
 # Initialize Flask-Mail

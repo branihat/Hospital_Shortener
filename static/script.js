@@ -152,12 +152,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+    // Add test mode for debugging
+    const TEST_MODE = localStorage.getItem('test_mode') === 'true';
+    
     // Update the processText function to use showLoading and hideLoading
     async function processText(action, customPrompt) {
-        const authToken = localStorage.getItem('authToken') || localStorage.getItem('token');
-        if (!authToken) {
-            window.location.href = '/login';
-            return;
+        // In test mode, skip authentication
+        if (!TEST_MODE) {
+            const authToken = localStorage.getItem('authToken') || localStorage.getItem('token');
+            if (!authToken) {
+                window.location.href = '/login';
+                return;
+            }
         }
 
         const inputText = document.getElementById('inputText').value;
@@ -170,13 +176,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
         try {
             showLoading(); // Show the loading overlay instead of "Processing..."
+            
+            // Use test endpoint in test mode
+            const endpoint = TEST_MODE ? '/test-button' : '/process';
+            const authToken = TEST_MODE ? null : (localStorage.getItem('authToken') || localStorage.getItem('token'));
+            
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            
+            if (!TEST_MODE && authToken) {
+                headers['Authorization'] = `Bearer ${authToken}`;
+            }
 
-            const response = await fetch('/process', {
+            const response = await fetch(endpoint, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}`
-                },
+                headers: headers,
                 body: JSON.stringify({
                     text: inputText,
                     action: action,
@@ -263,13 +278,14 @@ document.addEventListener("DOMContentLoaded", function() {
     function loadToolsIntoTabs(tools) {
         // Group tools by tab
         const toolsByTab = {
-            'default': [],
-            'suggested': [],
-            'custom': []
+            'documentation': [],
+            'diagnostics': [],
+            'analytics': [],
+            'misc': []
         };
 
         tools.forEach(tool => {
-            const tab = tool.tab || 'custom';
+            const tab = tool.tab || 'misc';
             if (toolsByTab[tab]) {
                 toolsByTab[tab].push(tool);
             }
@@ -311,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Load custom tools function (for backward compatibility)
     function loadCustomTools() {
-        const container = document.getElementById('custom-tools-container');
+        const container = document.getElementById('misc-tools-container');
         if (!container) return;
 
         fetch('/api/custom-tools')
@@ -325,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 container.innerHTML = ''; // Clear loading message
                 
                 if (!data.tools || !data.tools.length) {
-                    container.innerHTML = '<p class="no-tools">No custom tools available</p>';
+                    container.innerHTML = '<p class="no-tools">No miscellaneous tools available</p>';
                     return;
                 }
 
@@ -346,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => {
                 console.error('Error loading custom tools:', error);
-                container.innerHTML = '<p class="error">Failed to load custom tools</p>';
+                container.innerHTML = '<p class="error">Failed to load miscellaneous tools</p>';
             })
             .finally(() => {
                 hideLoading(); // Hide loading overlay when done

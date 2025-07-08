@@ -65,18 +65,18 @@ async function loadDynamicButtons() {
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
-    // Make custom tools tab visible by default
-    const customToolsTab = document.querySelector('[data-target="custom-tools-container"]');
-    const customToolsContainer = document.getElementById('custom-tools-container');
+    // Make misc tools tab visible by default
+    const miscToolsTab = document.querySelector('[data-target="misc-tools-container"]');
+    const miscToolsContainer = document.getElementById('misc-tools-container');
     
     try {
         const response = await fetch('/api/buttons');
         const buttons = await response.json();
         console.log('Loaded buttons:', buttons); // Debug log
         
-        const container = document.getElementById('custom-tools');
+        const container = document.getElementById('misc-tools-container');
         if (!container) {
-            console.error('Custom tools container not found');
+            console.error('Misc tools container not found');
             return;
         }
         
@@ -104,16 +104,16 @@ document.addEventListener('DOMContentLoaded', async function() {
                 container.appendChild(buttonElement);
             });
             
-            // Show custom tools tab if we have buttons
-            if (customToolsContainer) {
-                customToolsContainer.style.display = 'block';
+            // Show misc tools tab if we have buttons
+            if (miscToolsContainer) {
+                miscToolsContainer.style.display = 'block';
             }
         } else {
-            container.innerHTML = '<p class="no-tools-message">No custom tools available yet</p>';
+            container.innerHTML = '<p class="no-tools-message">No miscellaneous tools available yet</p>';
         }
         
     } catch (error) {
         console.error('Error loading dynamic buttons:', error);
-        container.innerHTML = '<p class="no-tools-message">Failed to load custom tools</p>';
+        container.innerHTML = '<p class="no-tools-message">Failed to load miscellaneous tools</p>';
     }
 });

@@ -49,34 +49,44 @@
     <!-- New Tab Interface -->
     <div class="tab-container">
         <ul class="tab-list">
-            <li class="tab-item active" data-target="default-tools-container"><a href="#default-tools">Default Tools</a></li>
-            <li class="tab-item" data-target="suggested-tools-container"><a href="#suggested-tools">Suggested Tools</a></li>
-            <li class="tab-item" data-target="custom-tools-container"><a href="#custom-tools">Custom Tools</a></li>
+            <li class="tab-item active" data-target="documentation-tools-container"><a href="#documentation-tools">Documentation</a></li>
+            <li class="tab-item" data-target="diagnostics-tools-container"><a href="#diagnostics-tools">Diagnostics</a></li>
+            <li class="tab-item" data-target="analytics-tools-container"><a href="#analytics-tools">Analytics</a></li>
+            <li class="tab-item" data-target="misc-tools-container"><a href="#misc-tools">Misc.</a></li>
         </ul>
 
         <div class="tab-content">
-            <!-- Default Tools Container -->
-            <div id="default-tools-container" class="tab-pane active">
-                <button class="action-button" data-action="short_signout" data-tooltip="Creates a concise signout note from your medical text">Create Signout</button>
-                <button class="action-button" data-action="hospital_summary" data-tooltip="Generates a comprehensive hospital summary from your notes">Hospital Summary</button>
-                <button class="action-button" data-action="cleanup" data-tooltip="Cleans and organizes your medical notes for better readability">Clean Up Note</button>
+            <!-- Documentation Tools Container -->
+            <div id="documentation-tools-container" class="tab-pane active">
+                <button class="action-button" data-action="short_signout" data-tooltip="Creates a concise signout note from your medical text">Signout</button>
+                <button class="action-button" data-action="hospital_summary" data-tooltip="Generates a comprehensive hospital summary from your notes">Hospital Course</button>
+                <button class="action-button" data-action="cleanup" data-tooltip="Cleans and organizes your medical notes for better readability">Note Clean-Up</button>
+                <button class="action-button" data-action="impression_ap" data-tooltip="Creates impression and assessment/plan sections from your notes">Assessment/Plan</button>
                 <button class="action-button" data-action="discharge_summary" data-tooltip="Creates a structured discharge summary from patient information">Discharge Summary</button>
-                <button class="action-button" data-action="diagnoses" data-tooltip="Identifies and lists all diagnoses from your medical notes">Extract Diagnoses</button>
-                <button class="action-button" data-action="emergencies" data-tooltip="Analyzes notes to predict potential emergencies or complications">Predict Emergencies</button>
+                <button class="action-button" data-action="diagnoses" data-tooltip="Identifies and lists all diagnoses from your medical notes">Billable Diagnoses</button>
+                <button class="action-button" data-action="history_physical" data-tooltip="You are an experienced doctor. Create a concise history and physical document from the patient information provided to the best of your ability. If relevant information it missing , can insert can the most likely clinical scenario">History & Physical</button>
             </div>
             
-            <!-- Suggested Tools Container -->
-            <div id="suggested-tools-container" class="tab-pane">
-                <button class="action-button" data-action="insurance_denial" data-tooltip="Generates an insurance denial letter based on clinical information">Insurance Denial Letter</button>
-                <button class="action-button" data-action="impression_ap" data-tooltip="Creates impression and assessment/plan sections from your notes">Impression & A/P</button>
-                <button class="action-button" data-action="improve_los" data-tooltip="Suggests ways to improve Length of Stay based on patient data">Improve LOS</button>
-                <button class="action-button" data-action="cut_readmission" data-tooltip="Identifies factors to reduce readmission risk">Cut Readmission Risk</button>
-                <button class="action-button" data-action="improve_care" data-tooltip="Recommends improvements to clinical care based on your notes">Improve Clinical Care</button>
+            <!-- Diagnostics Tools Container -->
+            <div id="diagnostics-tools-container" class="tab-pane">
+                <button class="action-button" data-action="differentials" data-tooltip="You are an experienced doctor. create a short list of diagnostic possibilities in the context of provided patient information">Differentials</button>
+                <button class="action-button" data-action="dizziness" data-tooltip="You are an experienced doctor. create a short list of medical causes for dizziness in the context of provided patient information">Dizziness</button>
+                <button class="action-button" data-action="hyponatremia" data-tooltip="You are an experienced doctor. create a short list of medical causes for hyponatremia in the context of provided patient information">Hyponatremia</button>
+                <button class="action-button" data-action="sinus_tachy" data-tooltip="You are an experienced doctor. create a short list of medical causes for sinus tachycardia in the context of provided patient information">Sinus Tachy</button>
             </div>
 
-            <!-- Custom Tools Container -->
-            <div id="custom-tools-container" class="tab-pane">
-                <!-- Custom tools will be loaded here dynamically -->
+            <!-- Analytics Tools Container -->
+            <div id="analytics-tools-container" class="tab-pane">
+                <button class="action-button" data-action="cut_readmission" data-tooltip="Identifies factors to reduce readmission risk">Cut Hospitalization Risk</button>
+                <button class="action-button" data-action="emergencies" data-tooltip="Analyzes notes to predict potential emergencies or complications">Predict Emergencies</button>
+                <button class="action-button" data-action="malpractice_risk" data-tooltip="You are an experienced doctor. create a short list of top 5 possibitilities of malpractice risks for the medical provider in the context of provided patient information">Malpractice Risk</button>
+                <button class="action-button" data-action="improve_care" data-tooltip="You are an experienced doctor. Please create a short list of suggestions to improve the quality of my clinical care based on latest clinical guideliness">Improve My Care</button>
+                <button class="action-button" data-action="prognosis" data-tooltip="You are an experienced doctor. Please provide prognostic information in short in the context of provided information. output should be less than 250 words">Prognosis</button>
+            </div>
+
+            <!-- Miscellaneous Tools Container -->
+            <div id="misc-tools-container" class="tab-pane">
+                <!-- Custom/miscellaneous tools will be loaded here dynamically -->
             </div>
         </div>
     </div>
