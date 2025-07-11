@@ -282,6 +282,10 @@ app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
 mail.init_app(app)
 
 # Update the register route
+@app.route("/faq")
+def faq():
+    return render_template("faq.html")
+
 @app.route("/register", methods=["POST"])
 def register():
     try:

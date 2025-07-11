@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - ChartWitch</title>
+    
+    <!-- Preconnect to third-party domains -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    
+    <style>
+        /* FAQ-specific styles */
+        .faq-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+            min-height: 100vh;
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+        }
+        
+        .faq-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            font-family: "Roboto Slab", serif;
+        }
+        
+        .faq-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .faq-item {
+            background: var(--background);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(203, 109, 234, 0.1);
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+        
+        .faq-question i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: var(--background);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 1000px;
+        }
+        
+        .faq-answer p {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .faq-answer ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .faq-answer li {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .back-to-home {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Navigation from landing page */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: var(--background);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            color: var(--text-color);
+        }
+        
+        .logo {
+            margin: 8px;
+            height: 68px;
+            width: auto;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .nav-button {
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .signup-btn {
+            background: var(--gradient);
+            color: white !important;
+        }
+        
+        .signup-btn:hover {
+            background: linear-gradient(109.6deg, #e96c6c 11.2%, #b15fcc 91.1%);
+            transform: translateY(-2px);
+        }
+        
+        /* Dark mode toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: none;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .faq-header h1 {
+                font-size: 2rem;
+            }
+            
+            .faq-container {
+                padding: 1rem;
+            }
+            
+            .faq-question {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 1rem;
+            }
+            
+            .category-btn {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo" class="logo dark-mode-logo">
+            <img src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo" class="logo light-mode-logo">
+        </div>
+        <div class="nav-buttons">
+            <a href="/" class="nav-button">Home</a>
+            <a href="/login" class="nav-button">Login</a>
+            <a href="/signup" class="nav-button signup-btn">Sign Up</a>
+        </div>
+    </nav>
+    
+    <div class="faq-container">
+        <div class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Everything you need to know about ChartWitch - Your AI-powered medical documentation assistant</p>
+        </div>
+        
+        <div class="faq-categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="general">General</button>
+            <button class="category-btn" data-category="pricing">Pricing</button>
+            <button class="category-btn" data-category="security">Security</button>
+            <button class="category-btn" data-category="technical">Technical</button>
+        </div>
+        
+        <div class="faq-grid">
+            <div class="faq-item" data-category="general">
+                <div class="faq-question">
+                    <span>What is ChartWitch?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>ChartWitch is an AI-powered medical documentation platform that helps healthcare professionals automate and streamline their note-taking process. It transforms raw medical notes into professional, organized documentation while maintaining HIPAA compliance.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="general">
+                <div class="faq-question">
+                    <span>How does ChartWitch work?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>ChartWitch uses advanced AI to process your medical notes through these steps:</p>
+                    <ul>
+                        <li>You paste your raw medical notes into the platform</li>
+                        <li>Our AI automatically anonymizes patient information for HIPAA compliance</li>
+                        <li>The AI processes and restructures your notes using medical best practices</li>
+                        <li>You receive professionally formatted documentation ready for use</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="security">
+                <div class="faq-question">
+                    <span>Is ChartWitch HIPAA compliant?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, ChartWitch is designed with HIPAA compliance at its core. We implement:</p>
+                    <ul>
+                        <li>Automatic anonymization of patient identifiers</li>
+                        <li>End-to-end encryption for all data</li>
+                        <li>Secure data storage and transmission</li>
+                        <li>Regular security audits and compliance monitoring</li>
+                        <li>Business Associate Agreements (BAA) available</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="pricing">
+                <div class="faq-question">
+                    <span>What are the pricing plans?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>ChartWitch offers a Premium plan at $299/month that includes:</p>
+                    <ul>
+                        <li>Unlimited API access</li>
+                        <li>All core features</li>
+                        <li>24/7 customer support</li>
+                        <li>HIPAA compliance</li>
+                        <li>Custom integrations</li>
+                        <li>Priority processing</li>
+                    </ul>
+                    <p>We also offer custom enterprise solutions for larger healthcare organizations.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question">
+                    <span>What types of medical notes can ChartWitch process?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>ChartWitch can process various types of medical documentation including:</p>
+                    <ul>
+                        <li>SOAP notes</li>
+                        <li>Progress notes</li>
+                        <li>Discharge summaries</li>
+                        <li>History and physical examinations</li>
+                        <li>Consultation notes</li>
+                        <li>Emergency department notes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="general">
+                <div class="faq-question">
+                    <span>How much time can ChartWitch save me?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Healthcare professionals using ChartWitch typically save 2-3 hours per day on documentation tasks. The exact time saved depends on your current workflow and the volume of notes you process.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question">
+                    <span>Can I integrate ChartWitch with my existing EMR system?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, ChartWitch offers API integration capabilities that can be customized to work with most major EMR systems. Our technical team can help you set up seamless integration with your existing workflow.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="security">
+                <div class="faq-question">
+                    <span>What happens to my data after processing?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>ChartWitch follows strict data retention policies:</p>
+                    <ul>
+                        <li>All data is anonymized before processing</li>
+                        <li>Processed data is temporarily stored for session continuity</li>
+                        <li>All data is permanently deleted after processing is complete</li>
+                        <li>We maintain detailed audit logs for compliance purposes</li>
+                        <li>No patient data is stored long-term on our servers</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="general">
+                <div class="faq-question">
+                    <span>Is there a free trial available?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer a free demo so you can experience ChartWitch's capabilities before subscribing. You can also watch our demo video to see the platform in action.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question">
+                    <span>What if I need help or have technical issues?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>ChartWitch provides comprehensive support:</p>
+                    <ul>
+                        <li>24/7 customer support for Premium subscribers</li>
+                        <li>Technical documentation and guides</li>
+                        <li>Video tutorials and training materials</li>
+                        <li>Direct email support</li>
+                        <li>Phone support for urgent issues</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+        </div>
+    </div>
+    
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <script>
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.closest('.faq-item');
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+        
+        // Category filtering
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+                
+                // Update active button
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.querySelector('.theme-toggle');
+            const body = document.body;
+            const icon = themeToggle.querySelector('i');
+            
+            // Check saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+            
+            // Theme toggle handler
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
