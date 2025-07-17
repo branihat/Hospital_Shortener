@@ -26,7 +26,17 @@
         </div>
     </div>
     <div class="textarea-container">
-        <textarea id="inputText" placeholder="Enter your medical notes here..."></textarea>
+        <div class="input-container">
+            <textarea id="inputText" placeholder="Enter your medical notes here..."></textarea>
+            <div class="input-actions">
+                <button id="clear-input" class="input-action-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    Clear
+                </button>
+            </div>
+        </div>
         <div class="output-container">
             <textarea id="outputText" placeholder="Processed notes will appear here..." readonly></textarea>
             <div class="output-actions">
@@ -35,6 +45,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                     Copy
+                </button>
+                <button id="shrink-output" class="output-action-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                    </svg>
+                    Shrink
                 </button>
                 <button id="clear-output" class="output-action-button">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

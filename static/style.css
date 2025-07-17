@@ -183,8 +183,13 @@ body {
     margin: 50px 72px;
 }
 
-textarea {
+.input-container {
+    position: relative;
     width: 50%;
+}
+
+textarea {
+    width: 100%;
     height: 100%;
     padding: 15px;
     font-size: 16px;
@@ -194,6 +199,38 @@ textarea {
     border-radius: 8px;
     resize: vertical;  /* Updated to allow vertical resizing */
     overflow-y: auto;
+}
+
+.input-actions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.input-action-button {
+    background-color: var(--primary-purple);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.input-action-button:hover {
+    background-color: var(--secondary-purple);
+}
+
+.input-action-button svg {
+    width: 14px;
+    height: 14px;
 }
 
 .output-container {
@@ -360,9 +397,13 @@ textarea#outputText {
         height: auto;
     }
 
-    textarea, .output-container {
+    .input-container, .output-container {
         width: 100%;
         height: 300px;
+    }
+
+    textarea {
+        height: 100%;
     }
 
     .header {

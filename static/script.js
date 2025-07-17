@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Copy output functionality
     const copyButton = document.getElementById("copy-output");
     const outputText = document.getElementById("outputText");
-    
+    const inputText = document.getElementById("inputText");
+
     copyButton.addEventListener("click", function() {
         if (outputText.value.trim() === "") {
             alert("No text to copy.");
@@ -37,13 +38,31 @@ document.addEventListener("DOMContentLoaded", function() {
         // Temporary visual feedback
         copyButton.textContent = "Copied!";
         setTimeout(() => {
-            copyButton.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                Copy
-            `;
+        copyButton.innerHTML = `
+            <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\">
+                <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z\" />
+            </svg>
+            Copy
+        `; 
         }, 1500);
+    });
+
+    // Clear the input text area
+    const clearInputButton = document.getElementById("clear-input");
+    clearInputButton.addEventListener("click", function() {
+        inputText.value = "";
+    });
+
+    // Shrink functionality
+    const shrinkButton = document.getElementById("shrink-output");
+    shrinkButton.addEventListener("click", function() {
+        if (outputText.value.trim() === "") {
+            alert("No text to shrink.");
+            return;
+        }
+        
+        const shortenedText = shortify(outputText.value);
+        outputText.value = shortenedText;
     });
 
     // // Download PDF functionality
