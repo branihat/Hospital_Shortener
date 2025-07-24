@@ -53,6 +53,62 @@ document.addEventListener("DOMContentLoaded", function() {
         inputText.value = "";
     });
 
+    // Sample 1 button functionality
+    const sample1Button = document.getElementById("sample-1");
+    sample1Button.addEventListener("click", function() {
+        const sampleText = `Christina is a 24 year old lady with history of diabetes mellitus type 1, depression and GERD who admitted with DKA and Pneumonia. She first presented to ER on 3/24/25 with nausea, emesis, weakness, dyspnea and progressive epigastric pain last 2-3 days after a week of flu like illness. She quit taking her insulin shots 2 days prior since she was hardly eating anything due to nausea. Vitals in ED with BP 100/80, heart rate 114, temperature 101.3F, respiratory rate of 24, oxygen sats 86% in room air and needed 3L O2 via NC to maintain sats above 90%. Chest xray showed a right lower lobe infiltrate, UA was benign. Labs showed WBC 24K, Hemoglobin 16 (baseline 12), creatinine 3.2 (baseline 1.2), bicarb of 8, sodium 124, potassium 3.6, glucose 468, calcium 9.5, liver panel normal. COVID/RSV/Influenza testing was negative. She was given a bolus of NS IV, started on insulin drip and IV Ceftriaxone and azithromycin after drawing blood cultures and was admitted to hospitalist service.
+
+Subjective: Patient seen @ bedside, since admission yesterday she is better a lot better, abdominal pain has resolved, nausea improved, still feels very weak. Does not feel feverish or short of breath anymore, needing just 1 liter oxygen at rest.
+
+Labs today : Sodium 129, potassium 3.2, Glucose 226, phosphorous 1.9, creatinine 1.6 WBC improved to 14K.
+
+Exam:
+
+General: Alert, oriented, weak appearing but comfortable, no acute distress
+HEENT: PERRLA, oral cavity moist, some thrush seen on the hard palate
+Lungs: CTA, Equal air entry, no rales/ronchi
+CVS: S1, S2 heard, regular, no murmurs, no edema
+GI: Abd soft, non-tender, no distention, bowel sounds +ve
+Neuro: No gross focal neuro changes or movements
+Skin: No new rash/cellulits/jaundice/cyanosis or ecchymosis
+
+Assessment/plan
+
+# Sepsis
+# Right lung Pneumonia
+# Acute hypoxic resp failure
+- Sputum cultures +ve for H. Influenzae, will transition to oral antibiotics once antibiotic sensitivies are reported
+- Viral panel +ve for enterovirus
+- Blood cultures negative, continue IV Rocephin/Azithromycin. WBC trending down
+- O2 needs improving, down to needing 1L O2 via NC,  Encourage incentive spirometer use
+
+# DKA
+# Type 1 DM
+# Dehydration
+- DKA resolved by 3/25/25, Anion gap closed
+- Off INsulin drip, Endocrinology consulted to help transition to subcut insulin
+- Tolerating oral diet ok, glucose running in 200s today, monitor today to optimize insulin doses, likley discharge tomorrow. Stop IV fluids
+
+# AKI
+- Likely prerenal from sepsis and dehydration
+- Creatinine Improving with IV fluids, down to 1.3 today
+
+# Hyponatremia
+- LIkely hypovolemic from dehydration and some pseuodohypernatremia
+- Improved to 129 today, expect to improve as diet improves
+
+# Hypokalemia : given KCL 40 meq today PO
+
+# Hypophosphatemia: Give 3 doses of 500 mg Kphos today, recheck tomorrow
+
+# generalized weakness :  secondary to above , improving. encourage ambulation
+
+#DVT ppx: Heparin SC BID | FULL CODE | Diabetic Diet
+#Disposition: Appropriate for inpatient, likley discharge home tomorrow`;
+        
+        inputText.value = sampleText;
+    });
+
     // Shrink functionality
     const shrinkButton = document.getElementById("shrink-output");
     shrinkButton.addEventListener("click", function() {
