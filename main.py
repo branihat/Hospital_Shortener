@@ -700,7 +700,7 @@ def pricing():
                 'Cancel Anytime'
             ],
             'api_requests': 'Unlimited',
-            'payment_link': 'https://buy.stripe.com/test_00wfZgdhte8pf6gbXO4wM02'
+            'signup_url': '/signup'
         }
     }
     return render_template('pricing.html', 
