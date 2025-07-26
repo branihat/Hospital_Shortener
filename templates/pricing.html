@@ -3,443 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing - ChartWitch</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='logo-dark.svg') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://js.stripe.com/v3/"></script>
-    <style>
-        .pricing-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: var(--background);
-            min-height: 100vh;
-        }
-        
-        .pricing-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .pricing-header h1 {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .pricing-header p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .pricing-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .pricing-card {
-            background: var(--card-background);
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .pricing-card.featured {
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-        
-        .pricing-card.featured::before {
-            content: "Most Popular";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 0.5rem 2rem;
-            border-radius: 0 0 12px 12px;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .pricing-card h3 {
-            font-size: 1.8rem;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-        
-        .pricing-card .price {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--primary);
-            text-align: center;
-            margin: 1rem 0;
-        }
-        
-        .pricing-card .price span {
-            font-size: 1rem;
-            color: var(--gray);
-            font-weight: normal;
-        }
-        
-        .pricing-card .description {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-        
-        .features-list {
-            list-style: none;
-            padding: 0;
-            margin: 2rem 0;
-        }
-        
-        .features-list li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--border);
-            color: var(--text);
-            position: relative;
-            padding-left: 2rem;
-        }
-        
-        .features-list li:last-child {
-            border-bottom: none;
-        }
-        
-        .features-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .pricing-button {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-        
-        .pricing-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-        
-        .api-info {
-            text-align: center;
-            margin: 1rem 0;
-            padding: 1rem;
-            background: var(--background);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-        
-        .api-info strong {
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        
-        .faq-section {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-        }
-        
-        .faq-section h2 {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-        }
-        
-        .faq-item {
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .faq-question {
-            padding: 1.5rem;
-            background: var(--card-background);
-            cursor: pointer;
-            font-weight: bold;
-            color: var(--text);
-            border: none;
-            width: 100%;
-            text-align: left;
-            font-size: 1.1rem;
-            transition: background 0.3s ease;
-        }
-        
-        .faq-question:hover {
-            background: var(--background);
-        }
-        
-        .faq-answer {
-            padding: 1.5rem;
-            background: var(--background);
-            color: var(--gray);
-            display: none;
-            line-height: 1.6;
-        }
-        
-        .faq-answer.active {
-            display: block;
-        }
-        
-        .navigation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--card-background);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-        
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-            text-decoration: none;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        
-        .pricing-container {
-            margin-top: 100px;
-        }
-        
-        @media (max-width: 768px) {
-            .pricing-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-header h1 {
-                font-size: 2rem;
-            }
-            
-            .navigation {
-                padding: 1rem;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-            }
-        }
-    </style>
+    <title>Complete Payment - ChartWitch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
 </head>
 <body>
-    <nav class="navigation">
-        <div class="nav-content">
-            <a href="/" class="nav-logo">
-                <img src="{{ url_for('static', filename='logo-dark.svg') }}" alt="ChartWitch Logo" class="logo dark-mode-logo" width="150" height="35">
-                <img src="{{ url_for('static', filename='logo-light.svg') }}" alt="ChartWitch Logo" class="logo light-mode-logo" width="150" height="35">
-            </a>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/#features">Features</a>
-                <a href="/faq">FAQ</a>
-                <a href="/login">Login</a>
-                <a href="/signup">Sign Up</a>
-            </div>
-        </div>
-    </nav>
+        <style>
+        /* Critical CSS inlined to prevent render blocking */
+        :root {
+            /* Light mode colors */
+            --primary-color: #8244af;
+            --primary-light: #9f5cc8;
+            --background-light: #ffffff;
+            --card-bg-light: #ffffff;
+            --text-dark: #2d2d2d;
+            --text-gray: #555555;
+            --border-light: #eaeaea;
 
-    <div class="pricing-container">
-        <div class="pricing-header">
-            <h1>Simple, Transparent Pricing</h1>
-            <p>Choose the plan that best fits your medical documentation needs. All plans include HIPAA compliance and secure processing.</p>
-        </div>
+            /* Light Mode Colors */
+            --primary: #cb6dea;
+            --primary-dark: #a94ec1;
+            --secondary: #87CEEB;
+            --accent: #ff7b7b;
+            --dark: #222;
+            --light: #f5f5f5;
+            --gray: #888;
+            --background: white;
+            --text-color: #222;
+            --gradient: linear-gradient(109.6deg, #ff7b7b 11.2%, #cb6dea 91.1%);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        
+        
+        /* Dark Mode Colors */
+        
+            --primary: #cb6dea;
+            --primary-dark: #a94ec1;
+            --dark: #f5f5f5;
+            --light: #222;
+            --gray: #aaa;
+            --background: #1a1a1a;
+            --text-color: #f5f5f5;
+            --gradient: linear-gradient(109.6deg, #ff7b7b 11.2%, #cb6dea 91.1%);
+            --shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 
-        <div class="pricing-cards">
-            {% for plan_key, plan in plans.items() %}
-            <div class="pricing-card {% if plan_key == 'premium' %}featured{% endif %}">
-                <h3>{{ plan.name }}</h3>
-                <div class="price">
-                    ${{ plan.price }}
-                    <span>/month</span>
-                </div>
-                <div class="description">{{ plan.description }}</div>
-                
-                <div class="api-info">
-                    <strong>{{ plan.api_requests }}</strong> API Requests
-                </div>
-                
-                <ul class="features-list">
-                    {% for feature in plan.features %}
-                    <li>{{ feature }}</li>
-                    {% endfor %}
+            /* Dark mode colors */
+            --background-dark: #1a1a1a;
+            --card-bg-dark: #2d2d2d;
+            --border-dark: #3d3d3d;
+            --text-light: #f0f0f0;
+            --text-gray-dark: #b0b0b0;
+        }
+    </style>
+    <div class="container">
+        <div class="payment-container">
+            <h1>Complete Your Registration</h1>
+            
+            <div class="plan-details">
+                <h2>Monthly Subscription</h2>
+                <div class="price">$6.99/month</div>
+                <ul class="features">
+                    <li>Secure Transaction</li>
+                    <li>Basic & Advance features</li>
+                    <li>Future Updates</li>
+                    <li>HIPAA Compliance</li>
+                    <li>Cancel Anytime</li>
+                    <li>Priority Processing</li>
                 </ul>
-                
-                <a href="{{ plan.signup_url }}" class="pricing-button">
-                    Register Now
-                </a>
             </div>
-            {% endfor %}
-        </div>
-
-        <div class="faq-section">
-            <h2>Frequently Asked Questions</h2>
-            
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    What's included in the Premium plan?
-                    <i class="fas fa-chevron-down" style="float: right;"></i>
-                </button>
-                <div class="faq-answer">
-                    The Premium plan includes unlimited access to all ChartWitch features including signout notes, hospital summaries, note cleanup, discharge summaries, diagnosis extraction, and emergency predictions. You also get 24/7 support, HIPAA compliance, custom integration options, and priority processing.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    Is my data secure and HIPAA compliant?
-                    <i class="fas fa-chevron-down" style="float: right;"></i>
-                </button>
-                <div class="faq-answer">
-                    Yes, absolutely. ChartWitch is fully HIPAA compliant. All patient identifiers are automatically removed during processing, and all data is encrypted both in transit and at rest. We follow strict security protocols to ensure your medical data remains confidential.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    Can I cancel my subscription anytime?
-                    <i class="fas fa-chevron-down" style="float: right;"></i>
-                </button>
-                <div class="faq-answer">
-                    Yes, you can cancel your subscription at any time. There are no long-term contracts or cancellation fees. Your subscription will remain active until the end of your current billing period.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    Do you offer custom integrations?
-                    <i class="fas fa-chevron-down" style="float: right;"></i>
-                </button>
-                <div class="faq-answer">
-                    Yes, the Premium plan includes custom integration support. We can work with you to integrate ChartWitch with your existing Electronic Health Record (EHR) system or other healthcare software. Contact our support team to discuss your specific integration needs.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    What types of medical notes can ChartWitch process?
-                    <i class="fas fa-chevron-down" style="float: right;"></i>
-                </button>
-                <div class="faq-answer">
-                    ChartWitch can process various types of medical documentation including progress notes, admission notes, discharge summaries, consultation notes, and more. Our AI is trained on diverse medical documentation and can handle different specialties and note formats.
-                </div>
-            </div>
+                <form action="/signup" method="POST" style="
+                        display: flex;
+                        flex-direction: column;">
+                <button id="checkout-and-portal-button" type="submit-" class="submit-button">Register Now</button>
+            </form>
         </div>
     </div>
-
-    <button class="theme-toggle" aria-label="Toggle dark mode">
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <script>
-        function toggleFAQ(button) {
-            const answer = button.nextElementSibling;
-            const icon = button.querySelector('i');
-            
-            // Close all other FAQ items
-            document.querySelectorAll('.faq-answer').forEach(faq => {
-                if (faq !== answer) {
-                    faq.classList.remove('active');
-                    faq.previousElementSibling.querySelector('i').classList.remove('fa-chevron-up');
-                    faq.previousElementSibling.querySelector('i').classList.add('fa-chevron-down');
-                }
-            });
-            
-            // Toggle current FAQ item
-            answer.classList.toggle('active');
-            icon.classList.toggle('fa-chevron-down');
-            icon.classList.toggle('fa-chevron-up');
-        }
-
-        // Theme toggle functionality
-        const themeToggle = document.querySelector('.theme-toggle');
-        const body = document.body;
-
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        body.classList.add(currentTheme + '-mode');
-
-        themeToggle.addEventListener('click', () => {
-            if (body.classList.contains('light-mode')) {
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                body.classList.remove('dark-mode');
-                body.classList.add('light-mode');
-                localStorage.setItem('theme', 'light');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        });
-
-        // Set initial theme toggle icon
-        if (currentTheme === 'dark') {
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        }
-    </script>
 </body>
 </html>
