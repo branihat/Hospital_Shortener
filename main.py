@@ -690,15 +690,14 @@ def pricing():
     plans = {
         'premium': {
             'name': 'Premium',
-            'price': '299',
+            'price': '6.99',
             'description': 'Complete Medical Documentation Solution',
             'features': [
-                'All Core Features',
-                'Unlimited API Access',
-                '24/7 Support',
-                'HIPAA Compliance',
-                'Custom Integration',
-                'Priority Processing'
+                'Secure Transaction',
+                'Includes Basic & Advanced Features',
+                'Includes future Updates',
+                'HIPAA Compliant',
+                'Cancel Anytime'
             ],
             'api_requests': 'Unlimited',
             'payment_link': 'https://buy.stripe.com/test_00wfZgdhte8pf6gbXO4wM02'
