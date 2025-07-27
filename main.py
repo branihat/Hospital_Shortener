@@ -1827,13 +1827,7 @@ def test_email_connection():
         logging.error(f"Email connection failed: {str(e)}")
         return False
 
-# Initialize application components when module is imported
-try:
-    initialize_default_prompts()
-    initialize_payment_collection()
-except Exception as e:
-    logger.error(f"Failed to initialize application: {str(e)}")
-
 if __name__ == "__main__":
-    # Development server only
-    app.run(debug=False, host='0.0.0.0', port=5000)
+    initialize_default_prompts()
+    app.run(debug=False, ssl_context='adhoc')  # Enable HTTPS
+    initialize_payment_collection()
