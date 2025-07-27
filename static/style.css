@@ -372,8 +372,7 @@ textarea#outputText {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 15px;
-    min-height: 100px;
+
 }
 #misc-tools-container:not(.active) {
     display: none;
@@ -561,9 +560,7 @@ textarea#outputText {
     gap: 10px;
 }
 
-#misc-tools-container {
-    min-height: 100px;
-}
+
 
 /* Ensure custom tools only appear in their container */
 .custom-tool {
