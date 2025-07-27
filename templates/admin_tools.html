@@ -126,9 +126,10 @@
             font-weight: 600;
         }
 
-        .tool-tab.default { background-color: #17a2b8; }
-        .tool-tab.suggested { background-color: #28a745; }
-        .tool-tab.custom { background-color: #ff9800; }
+        .tool-tab.documentation { background-color: #17a2b8; }
+        .tool-tab.diagnostics { background-color: #28a745; }
+        .tool-tab.analytics { background-color: #ff9800; }
+        .tool-tab.misc { background-color: #6c757d; }
 
         .tool-button-preview {
             background-color: #8244af;
@@ -408,9 +409,10 @@
                 <div class="form-group">
                     <label for="tool-tab">Tab Assignment:</label>
                     <select id="tool-tab" name="tab" required>
-                        <option value="default">Default Tools</option>
-                        <option value="suggested">Suggested Tools</option>
-                        <option value="custom">Custom Tools</option>
+                        <option value="documentation">Documentation Tools</option>
+                        <option value="diagnostics">Diagnostics Tools</option>
+                        <option value="analytics">Analytics Tools</option>
+                        <option value="misc">Miscellaneous Tools</option>
                     </select>
                     <div class="helper-text">Which tab should this tool appear in?</div>
                 </div>
@@ -508,11 +510,12 @@
 
         function getTabDisplayName(tab) {
             const tabNames = {
-                'default': 'Default Tools',
-                'suggested': 'Suggested Tools',
-                'custom': 'Custom Tools'
+                'documentation': 'Documentation Tools',
+                'diagnostics': 'Diagnostics Tools',
+                'analytics': 'Analytics Tools',
+                'misc': 'Miscellaneous Tools'
             };
-            return tabNames[tab] || 'Custom Tools';
+            return tabNames[tab] || 'Miscellaneous Tools';
         }
 
         function openCreateModal() {
@@ -543,7 +546,7 @@
                     document.getElementById('tool-key').value = tool.key;
                     document.getElementById('tool-label').value = tool.button_label;
                     document.getElementById('tool-tooltip').value = tool.button_tooltip;
-                    document.getElementById('tool-tab').value = tool.tab || 'custom';
+                    document.getElementById('tool-tab').value = tool.tab || 'misc';
                     document.getElementById('tool-prompt').value = tool.text;
                     
                     document.getElementById('toolModal').style.display = 'block';
