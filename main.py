@@ -1300,19 +1300,47 @@ def payment_page():
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:
+        logger.info("Creating checkout session...")
+        
+        # Check if required environment variables are set
+        stripe_price_id = os.getenv('STRIPE_PRICE_ID')
+        stripe_secret_key = os.getenv('STRIPE_SECRET_KEY')
+        
+        if not stripe_price_id:
+            logger.error("STRIPE_PRICE_ID not found in environment variables")
+            return jsonify({"error": "Payment configuration error"}), 500
+        
+        if not stripe_secret_key:
+            logger.error("STRIPE_SECRET_KEY not found in environment variables")
+            return jsonify({"error": "Payment configuration error"}), 500
+        
+        logger.info(f"Using Stripe Price ID: {stripe_price_id}")
+        
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
-                'price': os.getenv('STRIPE_PRICE_ID'),
+                'price': stripe_price_id,
                 'quantity': 1,
             }],
             mode='subscription',
             success_url=request.host_url + 'payment/success?session_id={CHECKOUT_SESSION_ID}',
             cancel_url=request.host_url + 'payment/cancel',
         )
+        
+        logger.info(f"Checkout session created successfully: {checkout_session.id}")
         return redirect(checkout_session.url, code=303)
+        
+    except stripe.error.StripeError as e:
+        logger.error(f"Stripe error: {str(e)}")
+        return jsonify({"error": f"Payment processing error: {str(e)}"}), 500
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        logger.error(f"Unexpected error in create_checkout_session: {str(e)}")
+        return jsonify({"error": f"Internal server error: {str(e)}"}), 500
+
+@app.route('/payment/cancel')
+def payment_cancel():
+    """Handle payment cancellation"""
+    return render_template('payment_cancel.html')
 
 @app.route("/api/user-status", methods=["GET"])
 def get_user_status():
