@@ -69,14 +69,42 @@
                     <li>Priority Processing</li>
                 </ul>
             </div>
+                {% if user_id and email %}
                 <form action="/create-checkout-session" method="POST" style="
                         display: flex;
                         flex-direction: column;">
                 <input type="hidden" name="lookup_key" value="">
-                <input type="hidden" name="user_id" value="2edfe4dd-e377-46d4-bccb-d087adb2873e">
-                <input type="hidden" name="email" value="">
+                <input type="hidden" name="user_id" value="{{ user_id }}">
+                <input type="hidden" name="email" value="{{ email }}">
                 <button id="checkout-and-portal-button" type="submit" class="submit-button">Checkout</button>
             </form>
+                {% else %}
+                <div class="error-message" style="
+                    background-color: #ffebee;
+                    border: 1px solid #ffcdd2;
+                    color: #c62828;
+                    padding: 15px;
+                    border-radius: 5px;
+                    margin: 20px 0;
+                    text-align: center;">
+                    <h3>Error: Missing Information</h3>
+                    <p>Required user information is missing. Please ensure you are properly logged in and try again.</p>
+                    {% if not user_id %}
+                    <p>• User ID is required</p>
+                    {% endif %}
+                    {% if not email %}
+                    <p>• Email address is required</p>
+                    {% endif %}
+                    <a href="/login" style="
+                        display: inline-block;
+                        margin-top: 10px;
+                        padding: 10px 20px;
+                        background-color: #cb6dea;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 5px;">Go to Login</a>
+                </div>
+                {% endif %}
         </div>
     </div>
 </body>

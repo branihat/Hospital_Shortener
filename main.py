@@ -87,18 +87,28 @@ class HIPAAEncryption:
     @staticmethod
     def decrypt_data(encrypted_text, password):
         """Decrypt sensitive data with a password."""
-        decoded = base64.b64decode(encrypted_text.encode())
-        salt = decoded[:16]
-        iv = decoded[16:32]
-        tag = decoded[32:48]
-        encrypted_data = decoded[48:]
-        
-        key = HIPAAEncryption.generate_key(password, salt)
-        
-        cipher = Cipher(algorithms.AES(key), modes.GCM(iv, tag), backend=default_backend())
-        decryptor = cipher.decryptor()
-        
-        return (decryptor.update(encrypted_data) + decryptor.finalize()).decode()
+        try:
+            if not encrypted_text or not password:
+                raise ValueError("Both encrypted_text and password are required")
+            
+            decoded = base64.b64decode(encrypted_text.encode())
+            if len(decoded) < 48:
+                raise ValueError("Invalid encrypted data format")
+            
+            salt = decoded[:16]
+            iv = decoded[16:32]
+            tag = decoded[32:48]
+            encrypted_data = decoded[48:]
+            
+            key = HIPAAEncryption.generate_key(password, salt)
+            
+            cipher = Cipher(algorithms.AES(key), modes.GCM(iv, tag), backend=default_backend())
+            decryptor = cipher.decryptor()
+            
+            return (decryptor.update(encrypted_data) + decryptor.finalize()).decode()
+        except Exception as e:
+            logger.error(f"Decryption failed: {str(e)}")
+            raise ValueError(f"Failed to decrypt data: {str(e)}")
     
     @staticmethod
     def hash_email(email):
@@ -291,6 +301,11 @@ def register():
     try:
         data = request.json
         email = data.get('email')
+
+        # Store email in session for payment flow
+        session.permanent = True  # Ensure session uses permanent session lifetime
+        session['user_email'] = email
+        logger.info("Email stored in session during registration")
         password = data.get('password')
         first_name = data.get('firstName')
         last_name = data.get('lastName')
@@ -907,35 +922,58 @@ def show_signup_page():
 def payment_success():
     session_id = request.args.get('session_id')
     if not session_id:
+        logger.error("Payment success page accessed without session_id")
         return redirect(url_for('pricing'))
 
+    logger.info(f"Processing payment success for session_id: {session_id}")
+    
     try:
         # Retrieve the session
         session = stripe.checkout.Session.retrieve(session_id)
+        logger.info(f"Retrieved Stripe session: {session_id}, status: {session.payment_status}")
         
         # Verify payment status
         if session.payment_status == 'paid':
-            customer_email = session.customer_details.email
+            customer_email = session.customer_details.email if session.customer_details else None
+            
+            if not customer_email:
+                logger.error(f"No customer email found in session {session_id}")
+                return redirect(url_for('pricing'))
+            
+            logger.info(f"Processing payment success for email: {customer_email}")
             
             # Check if user status is updated
-            email_hash = HIPAAEncryption.hash_email(customer_email)
-            user = mongo.db.users.find_one({"email_hash": email_hash})
-            
-            if user and user.get('status') == 'active':
-                return render_template('success.html', 
-                                    email=customer_email,
-                                    message="Your payment was successful! You can now log in.")
-            else:
-                # If status not yet updated, show waiting message
-                return render_template('success.html',
-                                    email=customer_email,
-                                    message="Payment received, account activation in progress...")
+            try:
+                email_hash = HIPAAEncryption.hash_email(customer_email)
+                user = mongo.db.users.find_one({"email_hash": email_hash})
+                
+                if not user:
+                    logger.error(f"User not found for email in payment success: {customer_email}")
+                    return redirect(url_for('pricing'))
+                
+                if user.get('status') == 'active':
+                    logger.info(f"Payment success confirmed for user: {customer_email}")
+                    return render_template('success.html', 
+                                        email=customer_email,
+                                        message="Your payment was successful! You can now log in.")
+                else:
+                    # If status not yet updated, show waiting message
+                    logger.info(f"Payment received, user status still pending for: {customer_email}")
+                    return render_template('success.html',
+                                        email=customer_email,
+                                        message="Payment received, account activation in progress...")
+            except Exception as e:
+                logger.error(f"Error processing user data for payment success: {str(e)}")
+                return redirect(url_for('pricing'))
         else:
-            logger.error(f"Invalid payment status for session {session_id}")
+            logger.error(f"Invalid payment status '{session.payment_status}' for session {session_id}")
             return redirect(url_for('pricing'))
 
+    except stripe.error.StripeError as e:
+        logger.error(f"Stripe error in payment success: {str(e)}")
+        return redirect(url_for('pricing'))
     except Exception as e:
-        logger.error(f"Error verifying payment success: {str(e)}")
+        logger.error(f"Unexpected error verifying payment success: {str(e)}")
         return redirect(url_for('pricing'))
 
 @app.route("/resend-verification", methods=["POST"])
@@ -1287,20 +1325,43 @@ def delete_tool(tool_id):
 def payment_page():
     user_id = request.args.get('user_id')
     if not user_id:
+        logger.error("user_id is missing")
         return redirect(url_for('signup'))
     
     user = mongo.db.users.find_one({"user_id": user_id})
-    if not user or user.get('status') != 'pending_payment':
+    if not user:
+        logger.error(f"User not found for user_id: {user_id}")
+        return redirect(url_for('signup'))
+    if user.get('status') != 'pending_payment':
+        logger.error(f"User status not pending_payment for user_id: {user_id}")
         return redirect(url_for('signup'))
 
-    return render_template('payment.html', 
-                         user_id=user_id,
-                         stripe_public_key=os.getenv('STRIPE_PUBLIC_KEY'))
+    # Decrypt the email from the user document using HIPAAEncryption
+    try:
+        email = HIPAAEncryption.decrypt_data(user.get('email', ''), app.config['SECRET_KEY'])
+    except Exception as e:
+        logger.error(f"Error decrypting email for user_id {user_id}: {str(e)}")
+        return redirect(url_for('signup'))
+    
+    return render_template('payment.html', user_id=user_id, email=email, stripe_public_key=os.getenv('STRIPE_PUBLIC_KEY'))
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:
         logger.info("Creating checkout session...")
+        
+        # Extract user_id and email from request.form
+        user_id = request.form.get('user_id')
+        email = request.form.get('email')
+        
+        # Validate that both values exist
+        if not user_id:
+            logger.error("user_id is missing in form data")
+            return jsonify({"error": "user_id is required"}), 400
+        
+        if not email:
+            logger.error("email is missing in form data")
+            return jsonify({"error": "email is required"}), 400
         
         # Check if required environment variables are set
         stripe_price_id = os.getenv('STRIPE_PRICE_ID')
@@ -1317,6 +1378,10 @@ def create_checkout_session():
         logger.info(f"Using Stripe Price ID: {stripe_price_id}")
         
         checkout_session = stripe.checkout.Session.create(
+            customer_email=email,
+            metadata={
+                'user_id': user_id
+            },
             payment_method_types=['card'],
             line_items=[{
                 'price': stripe_price_id,
