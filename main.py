@@ -1377,7 +1377,7 @@ def create_checkout_session():
         
         logger.info(f"Using Stripe Price ID: {stripe_price_id}")
         
-        checkout_session = stripe.checkout.session.create(
+        checkout_session = stripe.checkout.Session.create(
             customer_email=email,
             metadata={
                 'user_id': user_id
