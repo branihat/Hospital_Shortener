@@ -1316,15 +1316,13 @@ def create_checkout_session():
         
         logger.info(f"Using Stripe Price ID: {stripe_price_id}")
         
-<<<<<<< HEAD
+
         checkout_session = stripe.checkout.session.create(
             customer_email=email,
             metadata={
                 'user_id': user_id
             },
-=======
-        checkout_session = stripe.checkout.Session.create(
->>>>>>> parent of 07586cb (payment update)
+
             payment_method_types=['card'],
             line_items=[{
                 'price': stripe_price_id,
