@@ -394,7 +394,17 @@ def login():
 
         # Check if the user has a pending payment status
         if user.get("status") == "pending_payment":
-            return jsonify({"error": "Please complete your payment before logging in"}), 403
+            # Verify password before redirecting to payment
+            if bcrypt.checkpw(password.encode("utf-8"), user["password"]):
+                logger.info(f"Redirecting user {user.get('user_id')} to payment page")
+                return jsonify({
+                    "error": "Please complete your payment to access your account",
+                    "redirect": "payment",
+                    "user_id": user.get('user_id')
+                }), 402  # 402 Payment Required
+            else:
+                logger.warning(f"Failed login attempt for pending payment user: {email_hash}")
+                return jsonify({"error": "Invalid credentials"}), 401
 
         # Check password
         if bcrypt.checkpw(password.encode("utf-8"), user["password"]):
@@ -1292,15 +1302,48 @@ def payment_page():
     user = mongo.db.users.find_one({"user_id": user_id})
     if not user or user.get('status') != 'pending_payment':
         return redirect(url_for('signup'))
+    
+    # Decrypt the email for display (but not store in template for security)
+    try:
+        email = HIPAAEncryption.decrypt_data(user.get('email'), app.config["SECRET_KEY"])
+    except Exception as e:
+        logger.error(f"Error decrypting email for user_id {user_id}: {str(e)}")
+        email = ""
 
     return render_template('payment.html', 
                          user_id=user_id,
+                         user_email=email,
                          stripe_public_key=os.getenv('STRIPE_PUBLIC_KEY'))
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:
         logger.info("Creating checkout session...")
+        
+        # Extract form data
+        user_id = request.form.get('user_id')
+        email = request.form.get('email')
+        
+        logger.info(f"Checkout request for user_id: {user_id}, email: {email}")
+        
+        # If email is not provided in form, try to get it from user record
+        if not email and user_id:
+            user = mongo.db.users.find_one({"user_id": user_id})
+            if user:
+                # Decrypt the email from the user record
+                try:
+                    email = HIPAAEncryption.decrypt_data(user.get('email'), app.config["SECRET_KEY"])
+                    logger.info(f"Retrieved email from user record for user_id: {user_id}")
+                except Exception as e:
+                    logger.error(f"Error decrypting email for user_id {user_id}: {str(e)}")
+        
+        if not user_id:
+            logger.error("No user_id provided")
+            return jsonify({"error": "User ID is required"}), 400
+            
+        if not email:
+            logger.error("No email found for user")
+            return jsonify({"error": "Email is required for checkout"}), 400
         
         # Check if required environment variables are set
         stripe_price_id = os.getenv('STRIPE_PRICE_ID')
@@ -1316,13 +1359,11 @@ def create_checkout_session():
         
         logger.info(f"Using Stripe Price ID: {stripe_price_id}")
         
-
         checkout_session = stripe.checkout.Session.create(
             customer_email=email,
             metadata={
                 'user_id': user_id
             },
-
             payment_method_types=['card'],
             line_items=[{
                 'price': stripe_price_id,

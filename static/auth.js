@@ -103,16 +103,26 @@ document.addEventListener('DOMContentLoaded', function() {
                     password: password
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.token) {
-                    // Store token in local storage
-                    localStorage.setItem("authToken", data.token);
-                    // Redirect to main app page
-                    window.location.href = "/dashboard";
+            .then(response => {
+                // Check if it's a payment required response (402)
+                if (response.status === 402) {
+                    return response.json().then(data => {
+                        // Show message and redirect to payment page
+                        alert(data.error || "Please complete your payment to access your account");
+                        window.location.href = `/payment?user_id=${data.user_id}`;
+                    });
                 } else {
-                    // Display error message
-                    alert("Login failed: " + (data.error || "Unknown error"));
+                    return response.json().then(data => {
+                        if (data.token) {
+                            // Store token in local storage
+                            localStorage.setItem("authToken", data.token);
+                            // Redirect to main app page
+                            window.location.href = "/dashboard";
+                        } else {
+                            // Display error message
+                            alert("Login failed: " + (data.error || "Unknown error"));
+                        }
+                    });
                 }
             })
             .catch(error => {
