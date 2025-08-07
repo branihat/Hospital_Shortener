@@ -31,6 +31,7 @@ from flask_cors import CORS
 from config import get_secret_key
 from email_service import generate_verification_token, send_verification_email, send_password_reset_email, send_password_reset_confirmation, mail
 import stripe
+from stripe.checkout import Session as StripeSession
 
 # Configure logging for audit trail
 logging.basicConfig(
@@ -920,8 +921,8 @@ def payment_success():
         return redirect(url_for('pricing'))
 
     try:
-        # Retrieve the session
-        session = stripe.checkout.Session.retrieve(session_id)
+        # Retrieve the session using direct stripe method
+        session = StripeSession.retrieve(session_id)
         
         # Verify payment status
         if session.payment_status == 'paid':
@@ -1359,7 +1360,7 @@ def create_checkout_session():
         
         logger.info(f"Using Stripe Price ID: {stripe_price_id}")
         
-        checkout_session = stripe.checkout.Session.create(
+        checkout_session = StripeSession.create(
             customer_email=email,
             metadata={
                 'user_id': user_id
