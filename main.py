@@ -291,11 +291,6 @@ def register():
     try:
         data = request.json
         email = data.get('email')
-        # Store email in session for payment flow
-        session.permanent = True 
-        # Ensure session uses permanent session lifetime
-        session['user_email'] = email
-        logger.info("Email stored in session during registration")
         password = data.get('password')
         first_name = data.get('firstName')
         last_name = data.get('lastName')
