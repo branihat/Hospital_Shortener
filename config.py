@@ -51,8 +51,12 @@ def generate_secret_key():
     return secret_key
 
 def get_secret_key():
-    """Get the secret key from environment variable."""
-    return SECRET_KEY
+    """Get the secret key from environment variable or generate one if missing."""
+    if SECRET_KEY:
+        return SECRET_KEY
+    else:
+        # If no SECRET_KEY in env, generate one
+        return generate_secret_key()
 
 # AI prompt settings with detailed instructions
 PROMPTS = {

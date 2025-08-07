@@ -796,7 +796,12 @@ def initialize_payment_collection():
     except Exception as e:
         logger.error(f"Error initializing payment collection: {str(e)}")
         
-stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+# Set Stripe API key with validation
+stripe_secret_key = os.getenv('STRIPE_SECRET_KEY')
+if stripe_secret_key:
+    stripe.api_key = stripe_secret_key
+else:
+    logger.warning("STRIPE_SECRET_KEY not found in environment variables")
 
 @app.route('/webhook', methods=['POST'])
 def stripe_webhook():
@@ -921,6 +926,11 @@ def payment_success():
         return redirect(url_for('pricing'))
 
     try:
+        # Check if Stripe is configured
+        if not stripe.api_key:
+            logger.error("Stripe not configured for session retrieval")
+            return redirect(url_for('pricing'))
+        
         # Retrieve the session using direct stripe method
         session = StripeSession.retrieve(session_id)
         
@@ -1346,16 +1356,16 @@ def create_checkout_session():
             logger.error("No email found for user")
             return jsonify({"error": "Email is required for checkout"}), 400
         
+        # Check if Stripe is properly configured
+        if not stripe.api_key:
+            logger.error("Stripe API key not configured")
+            return jsonify({"error": "Payment system not configured"}), 500
+        
         # Check if required environment variables are set
         stripe_price_id = os.getenv('STRIPE_PRICE_ID')
-        stripe_secret_key = os.getenv('STRIPE_SECRET_KEY')
         
         if not stripe_price_id:
             logger.error("STRIPE_PRICE_ID not found in environment variables")
-            return jsonify({"error": "Payment configuration error"}), 500
-        
-        if not stripe_secret_key:
-            logger.error("STRIPE_SECRET_KEY not found in environment variables")
             return jsonify({"error": "Payment configuration error"}), 500
         
         logger.info(f"Using Stripe Price ID: {stripe_price_id}")
