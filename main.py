@@ -1,5 +1,9 @@
 from flask import Flask, request, jsonify, render_template, redirect, session, url_for, send_file
 import google.generativeai as genai
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 import re
 import bcrypt
 import jwt
@@ -1374,7 +1378,7 @@ def create_checkout_session():
         
         logger.info(f"Using Stripe Price ID: {stripe_price_id}")
         
-        # Use direct stripe API call instead of imported Session
+        # Use stripe.checkout.Session.create() with the updated Stripe library
         checkout_session = stripe.checkout.Session.create(
             customer_email=email,
             metadata={

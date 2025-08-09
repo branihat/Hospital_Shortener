@@ -2,6 +2,10 @@
 
 import os
 import sys
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def debug_stripe_issue():
     print("=== Stripe Debug Script ===")
